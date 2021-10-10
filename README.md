@@ -7,3 +7,5 @@ TP UML - JEE
  - Serveur Tomcat 9
  - Junit 4
  - ```src/main/webapp/Welcome.jsp``` correspond à la page d'accueil
+ 
+## Ignore config.properties
