@@ -9,3 +9,5 @@ TP UML - JEE
  - ```src/main/webapp/Welcome.jsp``` correspond à la page d'accueil
  
 ## Ignore config.properties
+
+Depuis la racine :  ```git update-index --assume-unchanged src/main/java/config.properties```
