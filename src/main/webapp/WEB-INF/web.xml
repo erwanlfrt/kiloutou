@@ -38,7 +38,7 @@
 
   <servlet>
 	<display-name>AddEquipment</display-name>
-	<servlet-name>AddEquiment</servlet-name>
+	<servlet-name>AddEquipment</servlet-name>
 	<servlet-class>controller.equipment.AddEquipmentController</servlet-class>
   </servlet>
   
