@@ -1,6 +1,12 @@
-package controller;
+package controller.equipment;
+
+import model.dao.UserDAO;
+import model.object.user.User;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,23 +14,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.dao.UserDAO;
-import model.object.user.User;
 
-
-public class Welcome extends HttpServlet {
-	private UserDAO userDAO;
-	
-	public Welcome() {
-		super();
-		this.userDAO = new UserDAO();
-	}
-
+public class AddEquipmentController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/welcome.jsp");
-		
+		String pageName="/view/equipment/add-equipment.jsp";
+	
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 		try {
-			rd.forward(request,response);
+			rd.forward(request, response);
 		} catch (ServletException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -39,17 +36,18 @@ public class Welcome extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String mail = req.getParameter("mailAddress");
-		String password = req.getParameter("pwd");
-		User user = this.userDAO.get(mail);
-		req.setAttribute("user", user);
+		this.doProcess(req, resp);
 		
-		if(user != null) {
-			if(user.getPassword().equals(password)) {
-				this.doProcess(req, resp);
-			}
-		} else {
-			System.out.println("user doesn't exist");
-		}
+		String name = req.getParameter("name");
+		boolean available = req.getParameter("available").equals("available");
+		
+		
+		User user = new User(name, firstname, address, phoneNumber, email, login, password);
+		
+		UserDAO userDAO = new UserDAO();
+		userDAO.add(user);
+		
+		System.out.println("User added");
+		
 	}
 }

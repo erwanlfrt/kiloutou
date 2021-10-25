@@ -24,6 +24,28 @@
 		<servlet-name>Welcome</servlet-name>
 		<url-pattern>/welcome</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+	<display-name>AddUser</display-name>
+	<servlet-name>AddUser</servlet-name>
+	<servlet-class>controller.user.AddUserController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+		<servlet-name>AddUser</servlet-name>
+		<url-pattern>/user/add</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+	<display-name>AddEquipment</display-name>
+	<servlet-name>AddEquiment</servlet-name>
+	<servlet-class>controller.equipment.AddEquipmentController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+		<servlet-name>AddEquipment</servlet-name>
+		<url-pattern>/equipment/add</url-pattern>
+  </servlet-mapping>
 	
   <welcome-file-list>
 	<welcome-file>login.jsp</welcome-file>
