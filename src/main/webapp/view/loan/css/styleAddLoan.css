@@ -1,0 +1,12 @@
+body, main {
+	margin: 0;
+}
+
+section, section div {
+	display: flex;
+	flex-direction: column;
+}
+
+section select {
+	margin: 10px
+}
