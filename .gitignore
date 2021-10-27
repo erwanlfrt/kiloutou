@@ -62,3 +62,4 @@ local.properties
 /build/
 
 .DS_Store
+src/main/java/config.properties
