@@ -29,7 +29,8 @@ public class UserDAO implements Dao<User> {
     String login = object.getLogin();
     String password = object.getPassword();
 
-    String query = "INSERT INTO " + this.table + " (name, firstname, address, phoneNumber, mail, login, password) VALUES (\'"+ name +"\', \'" + firstname +"\', \'" + address +"\', \'" + phoneNumber +"\', \'" + mail +"\', \'" + login +"\', \'" + password + "\');";
+    String query = "INSERT INTO " + this.table + " (name, firstname, address, phoneNumber, mail, login, password) VALUES (\'"+ name +"\', \'" + firstname +"\', \'" + address +"\', \'" + phoneNumber +"\', \'" + mail +"\', \'" + login +"\', SHA1(\'" + password + "\'));";
+    System.out.println("query = " + query);
     try {
       Statement statement = this.connection.createStatement();
       statement.executeUpdate(query);
@@ -71,7 +72,6 @@ public class UserDAO implements Dao<User> {
           e.printStackTrace();
         }
     }
-    
     return result;
   }
 	
@@ -104,7 +104,13 @@ public class UserDAO implements Dao<User> {
       String change = "";
       
       if (value instanceof String) {
-        change = column + " = \'" + (String) value + "\'" + (cpt != numberOfChanges ? ", " : " "); 
+        if (column.equals("password")) {
+          change = column + " = SHA1(\'" + (String) value + "\')" + (cpt != numberOfChanges ? ", " : " "); 
+        }
+        else {
+          change = column + " = \'" + (String) value + "\'" + (cpt != numberOfChanges ? ", " : " "); 
+        }
+        
       }
       else if (value instanceof Boolean || value instanceof Integer) {
         change = column + " = " + value.toString() + (cpt != numberOfChanges ? ", " : " ");

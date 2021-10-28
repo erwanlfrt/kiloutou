@@ -1,4 +1,4 @@
-INSERT INTO User (mail, name, firstname, login, password, address, phoneNumber) VALUES ("root@gmail.com", "Bob", "Billy", "root", "toor", "1 root de Bretagne", "0102030405"); 
+INSERT INTO User (mail, name, firstname, login, password, address, phoneNumber) VALUES ("root@gmail.com", "Bob", "Billy", "root", SHA1("toor"), "1 root de Bretagne", "0102030405"); 
 
 INSERT INTO Employee (mail, employeeFunction, employeeService, deskNumber, profil) VALUES ("root@gmail.com", "ceo", "administration", 1, "ADMIN");
 

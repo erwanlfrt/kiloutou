@@ -19,7 +19,7 @@ CREATE TABLE User (
   name VARCHAR(30) NOT NULL,
   firstname VARCHAR(30) NOT NULL,
   login VARCHAR(30) NOT NULL,
-  password VARCHAR(30) NOT NULL, -- add SHA function
+  password VARCHAR(200) NOT NULL, -- add SHA function
   address VARCHAR(200),
   phoneNumber VARCHAR(20)
 );
@@ -87,13 +87,13 @@ CREATE TABLE Vehicle (
 CREATE TABLE Car (
   id INT PRIMARY KEY,
   numberOfSeats INT,
-  FOREIGN KEY (id) REFERENCES Equipment(id)
+  FOREIGN KEY (id) REFERENCES Vehicle(id)
 );
 
 CREATE TABLE Bike (
   id INT PRIMARY KEY,
   numberOfCylinders INT,
-  FOREIGN KEY (id) REFERENCES Equipment(id)
+  FOREIGN KEY (id) REFERENCES Vehicle(id)
 );
 
 CREATE TABLE SuitableVehicle (

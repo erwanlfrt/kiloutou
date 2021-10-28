@@ -1,7 +1,10 @@
 package controller.user;
 
 import model.dao.UserDAO;
+import model.dao.EmployeeDAO;
 import model.object.user.User;
+import model.object.user.Employee;
+import model.object.user.Profil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +35,9 @@ public class AddUserController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		this.doProcess(req, resp);
+    User user = new User("", "", "", "", "", "", "");
+    req.setAttribute("user", user);
+    this.doProcess(req, resp);
 	}
 	
 	@Override
@@ -46,14 +51,32 @@ public class AddUserController extends HttpServlet {
 		String email = req.getParameter("email");
 		String address = req.getParameter("address");
 		String phoneNumber = req.getParameter("phoneNumber");
+
+    User user = new User(name, firstname, address, phoneNumber, email, login, password);
+    
+
+  
+    UserDAO userDAO = new UserDAO();
+    userDAO.add(user);
+    
+    System.out.println("User added");
+
+    if(req.getParameter("isEmployee").equals("true")) {
+      String employeeService = req.getParameter("employeeService");
+      String employeeFunction = req.getParameter("employeeFunction");
+      String profile = req.getParameter("profile");
+      int deskNumber = Integer.parseInt(req.getParameter("deskNumber"));
+
+      Employee employee = new Employee(name, firstname, address, phoneNumber, email, login, password, employeeFunction, employeeService, deskNumber, Profil.valueOf(profile));
+
+      EmployeeDAO employeeDAO = new EmployeeDAO();
+
+      employeeDAO.add(employee);
+
+    }
 		
 		
-		User user = new User(name, firstname, address, phoneNumber, email, login, password);
 		
-		UserDAO userDAO = new UserDAO();
-		userDAO.add(user);
-		
-		System.out.println("User added");
 		
 	}
 }

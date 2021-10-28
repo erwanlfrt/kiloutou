@@ -41,11 +41,10 @@ public class AddEquipmentController extends HttpServlet {
 		String name = req.getParameter("name");
 		boolean available = req.getParameter("available").equals("available");
 		
-		
-		User user = new User(name, firstname, address, phoneNumber, email, login, password);
+		// User user = new User(name, firstname, address, phoneNumber, email, login, password);
 		
 		UserDAO userDAO = new UserDAO();
-		userDAO.add(user);
+		//userDAO.add(user);
 		
 		System.out.println("User added");
 		
