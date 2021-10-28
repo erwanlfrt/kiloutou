@@ -22,5 +22,6 @@ else {
 <html>
 <head>
 <p> Welcome <%=login %> !</p>
+<a href="loan/add">New Loan</a>
 
 </html>

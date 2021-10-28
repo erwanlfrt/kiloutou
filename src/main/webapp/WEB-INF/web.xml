@@ -105,6 +105,22 @@
   
   
 	
+  <servlet>
+	<display-name>AddLoan</display-name>
+	<servlet-name>AddLoan</servlet-name>
+	<servlet-class>controller.loan.AddLoanController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+		<servlet-name>AddLoan</servlet-name>
+		<url-pattern>/loan/add</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.css</url-pattern>
+  </servlet-mapping>
+
   <welcome-file-list>
 	<welcome-file>login.jsp</welcome-file>
     <welcome-file>index.html</welcome-file>
