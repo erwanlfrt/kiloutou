@@ -23,6 +23,5 @@ else {
 <head>
 <p> Welcome <%=login %> !</p>
 <a href="loan/add">New Loan</a>
-<p>Test modif</p>
 
 </html>
