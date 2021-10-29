@@ -4,10 +4,11 @@
   Employee employee = (Employee)request.getAttribute("employee");
 %>
 <%
-User user = (User) request.getSession().getAttribute("user");
+User user = (User) request.getAttribute("user");
+User logged = (User) request.getSession().getAttribute("user");
 String login = "";
 
-if(user == null) {
+if(logged == null) {
 	RequestDispatcher rd = getServletContext().getRequestDispatcher("/error");
 	try {
 		rd.forward(request,response);
@@ -18,7 +19,7 @@ if(user == null) {
 	}
 }
 else {
-	 login = user.getLogin();
+	 login = logged.getLogin();
 }
 
 %>
