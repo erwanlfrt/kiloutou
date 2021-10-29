@@ -1,4 +1,4 @@
-<%@ page language="java"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@page import="model.object.user.* , java.io.IOException"%>
 <%
   Employee employee = (Employee)request.getAttribute("employee");

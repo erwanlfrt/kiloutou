@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <html>
   <head>
     <title>Nouvel emprunt</title>
@@ -11,11 +12,11 @@
 				<div>
 					<h3>Nouvel emprunt</h3>
 					<select name="liste1" id="liste1">
-						<option value="" selected disabled hidden>Liste déroulante 1</option>
+						<option value="" selected disabled hidden>Liste dï¿½roulante 1</option>
 						<option value="Choix A">Choix A</option>
 					</select>
 					<select name="liste2" id="liste2">
-						<option value="" selected disabled hidden>Liste déroulante 2</option>
+						<option value="" selected disabled hidden>Liste dï¿½roulante 2</option>
 						<option value="Choix A">Choix A</option>
 					</select>
 				</div>

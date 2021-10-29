@@ -1,5 +1,4 @@
-<%@ page language="java"%>
-
+<%@ page language="java" pageEncoding="UTF-8"%>
 <html>
 <head>
 <form action="welcome" method="post">

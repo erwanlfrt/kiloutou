@@ -1,4 +1,4 @@
-<%@ page language="java"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@page import="model.object.user.* , java.util.ArrayList , java.io.IOException "%>
 <%
   ArrayList<User> users = (ArrayList<User>)request.getAttribute("users");

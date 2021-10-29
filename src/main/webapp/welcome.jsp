@@ -1,4 +1,4 @@
-<%@ page language="java"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@page import="model.object.user.User , javax.servlet.* , java.io.IOException"%>
 <%
 User user = (User) request.getSession().getAttribute("user");
