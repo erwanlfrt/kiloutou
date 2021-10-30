@@ -95,6 +95,22 @@ public class ComputerDAO implements Dao<Computer> {
     return result;
   }
 	
+  public int autoIncrementId() {
+    int res = -1;
+    String query = "SELECT MAX(id) AS maxId FROM " + this.table + ";";
+    try {
+      Statement statement = this.connection.createStatement();
+      ResultSet rs = statement.executeQuery(query);
+      if (rs.next()) {
+        res= rs.getInt("maxId") + 1;
+      }
+    }
+    catch(SQLException e) {
+        e.printStackTrace();
+    }
+    return res;
+  }
+
 	public ArrayList<Computer> listAll() {
 		ArrayList<Computer> result = new ArrayList<Computer>();
 		try {

@@ -4,14 +4,12 @@ public class GraphicCard {
   private int id;
   private String name;
   private String brand;
-  private String gpu;
   private float frequency;
   
-  public GraphicCard(int id, String name, String brand, String gpu, float frequency) {
+  public GraphicCard(int id, String name, String brand, float frequency) {
     this.id = id;
     this.name = name;
     this.brand = brand;
-    this.gpu = gpu;
     this.frequency = frequency;
   }
 
@@ -29,14 +27,6 @@ public class GraphicCard {
 
   public void setBrand(String brand) {
     this.brand = brand;
-  }
-
-  public String getGpu() {
-    return gpu;
-  }
-
-  public void setGpu(String gpu) {
-    this.gpu = gpu;
   }
 
   public float getFrequency() {

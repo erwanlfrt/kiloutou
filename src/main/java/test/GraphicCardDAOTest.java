@@ -28,7 +28,6 @@ public class GraphicCardDAOTest {
 		assertEquals(graphicCard.getId(), id);
 		assertEquals(graphicCard.getName(), name);
 		assertEquals(graphicCard.getBrand(), brand);
-		assertEquals(graphicCard.getGpu(), gpu);
 		assertEquals(graphicCard.getFrequency(), frequency, 0.1);
 		
 	}
@@ -40,14 +39,13 @@ public class GraphicCardDAOTest {
 		int id = 2;
 		String name = "XX";
 		String brand = "AMD";
-		String gpu = "gpu";
 		float frequency = 3.7f;
 		
 		if(graphicCardDAO.get(id) != null ) {
 			graphicCardDAO.deleteById(id);
 		}
 		
-		GraphicCard graphicCard = new GraphicCard(id, name, brand, gpu, frequency);
+		GraphicCard graphicCard = new GraphicCard(id, name, brand, frequency);
 		
 		graphicCardDAO.add(graphicCard);
 		
@@ -57,7 +55,6 @@ public class GraphicCardDAOTest {
 		assertEquals(check.getId(), id);
 		assertEquals(check.getName(), name);
 		assertEquals(check.getBrand(), brand);
-		assertEquals(check.getGpu(), gpu);
 		assertEquals(check.getFrequency(), frequency, 0.1);
 		
 		graphicCardDAO.delete(check);
@@ -71,10 +68,9 @@ public class GraphicCardDAOTest {
 		int id = 2;
 		String name = "XX";
 		String brand = "AMD";
-		String gpu = "gpu";
 		float frequency = 3.7f;
 		
-		GraphicCard graphicCard = new GraphicCard(id, name, brand, gpu, frequency);
+		GraphicCard graphicCard = new GraphicCard(id, name, brand, frequency);
 		
 		if(graphicCardDAO.get(id) == null ) {
 			graphicCardDAO.add(graphicCard);
@@ -92,10 +88,9 @@ public class GraphicCardDAOTest {
 		int id = 2;
 		String name = "XX";
 		String brand = "AMD";
-		String gpu = "gpu";
 		float frequency = 3.7f;
 		
-		GraphicCard graphicCard = new GraphicCard(id, name, brand, gpu, frequency);
+		GraphicCard graphicCard = new GraphicCard(id, name, brand, frequency);
 		
 		if(graphicCardDAO.get(id) == null ) {
 			graphicCardDAO.add(graphicCard);
@@ -123,10 +118,9 @@ public class GraphicCardDAOTest {
 		int id = 2;
 		String name = "XX";
 		String brand = "AMD";
-		String gpu = "gpu";
 		float frequency = 3.7f;
 		
-		GraphicCard graphicCard = new GraphicCard(id, name, brand, gpu, frequency);
+		GraphicCard graphicCard = new GraphicCard(id, name, brand, frequency);
 		
 		if(graphicCardDAO.get(id) == null ) {
 			graphicCardDAO.add(graphicCard);
@@ -134,12 +128,10 @@ public class GraphicCardDAOTest {
 		
 		String newName = "XY";
 		String newBrand = "AZDKAZD";
-		String newGpu = "ugp";
 		float newFrequency = 2f;
 		
 		params.put("name", newName);
 		params.put("brand", newBrand);
-		params.put("gpu", newGpu);
 		params.put("frequency", newFrequency);
 		
 		graphicCardDAO.update(graphicCard, params);
@@ -151,7 +143,6 @@ public class GraphicCardDAOTest {
 		assertEquals(check.getId(), id);
 		assertEquals(check.getName(), newName);
 		assertEquals(check.getBrand(), newBrand);
-		assertEquals(check.getGpu(), newGpu);
 		assertEquals(check.getFrequency(), newFrequency, 0.1);
 		
 		graphicCardDAO.delete(check);

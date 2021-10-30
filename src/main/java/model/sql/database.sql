@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS Equipment;
 
 -- #region User
 CREATE TABLE User (
-  mail VARCHAR(100) PRIMARY KEY,
+  mail VARCHAR(100) PRIMARY KEY ,
   name VARCHAR(30) NOT NULL,
   firstname VARCHAR(30) NOT NULL,
   login VARCHAR(30) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE Employee (
 -- #region Equipment
 
 CREATE TABLE Equipment (
-  id INT PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(30) NOT NULL,
   available BOOLEAN DEFAULT 1,
   imageURL VARCHAR(30)
@@ -56,7 +56,6 @@ CREATE TABLE GraphicCard (
   id INT PRIMARY KEY,
   name VARCHAR(30) NOT NULL,
   brand VARCHAR(30) NOT NULL ,
-  gpu VARCHAR(30),
   frequency FLOAT
 );
 

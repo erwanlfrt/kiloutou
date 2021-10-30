@@ -88,7 +88,6 @@ else {
       list.innerHTML = saveInitialResults;
 
       let categories = document.getElementsByClassName("category");
-      console.log("categories.length = ", categories.length);
       for(let i = 0 ; i < categories.length ; i++) {
         if(categories[i].id !== ("category_" + categoryfilter) && categoryfilter !== "all") {
           categories[i].hidden = true;
@@ -96,7 +95,6 @@ else {
         let ul = categories[i].childNodes[3];
         for(let j = 0 ; j < ul.childNodes.length ; j++) {
           if(ul.childNodes[j].tagName === "LI" ) {
-            console.log("child = ", ul.childNodes[j].childNodes[0]);
             if(ul.childNodes[j].childNodes[0].innerHTML.toLowerCase().startsWith(value.toLowerCase())) {
               match.push(ul.childNodes[j].childNodes[0].innerhTML);
             }

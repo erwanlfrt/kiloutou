@@ -17,10 +17,11 @@ INSERT INTO Equipment (id, name, available, imageUrl) VALUES (12, "Remorque", 1,
 INSERT INTO Equipment (id, name, available, imageUrl) VALUES (13, "Porte bagage", 1, "http://randomURL.com");
 INSERT INTO Equipment (id, name, available, imageUrl) VALUES (14, "Barres de toit", 1, "http://randomURL.com");
 INSERT INTO Equipment (id, name, available, imageUrl) VALUES (15, "Tractopelle", 1, "http://randomURL.com");
+INSERT INTO Equipment (name, available, imageUrl) VALUES ("Projecteur", 1, "http://randomURL.com");
 
 INSERT INTO Processor (id, name, brand, numberOfCores, frequency) VALUES (1, "I5", "Intel", 8, 3.2);
 
-INSERT INTO GraphicCard (id, name, brand, gpu, frequency) VALUES (1, "RTX1080", "Nvidia", "Intel I9", 3.5);
+INSERT INTO GraphicCard (id, name, brand, frequency) VALUES (1, "RTX1080", "Nvidia", 3.5);
 
 INSERT INTO ComputerAccessory (id) VALUES (9);
 INSERT INTO ComputerAccessory (id) VALUES (10);

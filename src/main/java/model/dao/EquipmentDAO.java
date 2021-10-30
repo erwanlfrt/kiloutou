@@ -26,7 +26,7 @@ public class EquipmentDAO implements Dao<Equipment> {
     boolean available = object.isAvailable();
     String imageUrl = object.getImageUrl();
 
-    String query = "INSERT INTO " + this.table + " (id, name, available, imageUrl) VALUES ("+ id +", \'" + name +"\', " + available +", \'" + imageUrl +"\');";
+    String query = "INSERT INTO " + this.table + " (id, name, available, imageUrl) VALUES (" + id + ", \'" + name +"\', " + available +", \'" + imageUrl +"\');";
     try {
       Statement statement = this.connection.createStatement();
       statement.executeUpdate(query);
@@ -69,6 +69,22 @@ public class EquipmentDAO implements Dao<Equipment> {
       }
     }
     return result;
+  }
+
+  public int autoIncrementId() {
+    int res = -1;
+    String query = "SELECT MAX(id) AS maxId FROM " + this.table + ";";
+    try {
+      Statement statement = this.connection.createStatement();
+      ResultSet rs = statement.executeQuery(query);
+      if (rs.next()) {
+        res= rs.getInt("maxId") + 1;
+      }
+    }
+    catch(SQLException e) {
+        e.printStackTrace();
+    }
+    return res;
   }
 	
 	public ArrayList<Equipment> listAll() {

@@ -24,10 +24,9 @@ public class GraphicCardDAO implements Dao<GraphicCard> {
     int id = object.getId();
     String name = object.getName();
     String brand = object.getBrand();
-    String gpu = object.getGpu();
     float frequency = object.getFrequency();
 
-    String query = "INSERT INTO " + this.table + " (id, name, gpu, frequency, brand) VALUES ("+ id +", \'" + name +"\', \'" + gpu +"\', " + frequency +", \'" + brand +"\');";
+    String query = "INSERT INTO " + this.table + " (id, name, frequency, brand) VALUES ("+ id +", \'" + name +"\', " + frequency +", \'" + brand +"\');";
     try {
       Statement statement = this.connection.createStatement();
       statement.executeUpdate(query);
@@ -63,13 +62,29 @@ public class GraphicCardDAO implements Dao<GraphicCard> {
         Statement statement = this.connection.createStatement();
         ResultSet rs = statement.executeQuery(query);
         while(rs.next()) {
-          result = new GraphicCard(rs.getInt("id"), rs.getString("name"),rs.getString("brand"), rs.getString("gpu"), rs.getFloat("frequency"));
+          result = new GraphicCard(rs.getInt("id"), rs.getString("name"),rs.getString("brand"), rs.getFloat("frequency"));
         }
       } catch(SQLException e) {
         e.printStackTrace();
       }
     }
     return result;
+  }
+
+  public int autoIncrementId() {
+    int res = -1;
+    String query = "SELECT MAX(id) AS maxId FROM " + this.table + ";";
+    try {
+      Statement statement = this.connection.createStatement();
+      ResultSet rs = statement.executeQuery(query);
+      if (rs.next()) {
+        res= rs.getInt("maxId") + 1;
+      }
+    }
+    catch(SQLException e) {
+        e.printStackTrace();
+    }
+    return res;
   }
 	
 	public ArrayList<GraphicCard> listAll() {
@@ -78,7 +93,7 @@ public class GraphicCardDAO implements Dao<GraphicCard> {
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT * FROM "+this.table + ";");
 			while (rs.next()) {
-				result.add( new GraphicCard(rs.getInt("id"), rs.getString("name"),rs.getString("brand"), rs.getString("gpu"), rs.getFloat("frequency")));
+				result.add( new GraphicCard(rs.getInt("id"), rs.getString("name"),rs.getString("brand"), rs.getFloat("frequency")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
