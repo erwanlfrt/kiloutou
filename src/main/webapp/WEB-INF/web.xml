@@ -81,14 +81,25 @@
   </servlet-mapping>
 
   <servlet>
-	<display-name>AddEquipment</display-name>
-	<servlet-name>AddEquipment</servlet-name>
-	<servlet-class>controller.equipment.AddEquipmentController</servlet-class>
+    <display-name>AddEquipment</display-name>
+    <servlet-name>AddEquipment</servlet-name>
+    <servlet-class>controller.equipment.AddEquipmentController</servlet-class>
   </servlet>
   
   <servlet-mapping>
 		<servlet-name>AddEquipment</servlet-name>
 		<url-pattern>/equipment/add</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <display-name>ModifyEquipment</display-name>
+    <servlet-name>ModifyEquipment</servlet-name>
+    <servlet-class>controller.equipment.ModifyEquipmentController</servlet-class>
+  </servlet>
+    
+  <servlet-mapping>
+    <servlet-name>ModifyEquipment</servlet-name>
+    <url-pattern>/equipment/modify</url-pattern>
   </servlet-mapping>
 
   <servlet>
