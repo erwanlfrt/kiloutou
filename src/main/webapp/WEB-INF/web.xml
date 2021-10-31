@@ -113,6 +113,17 @@
     <url-pattern>/equipment/search</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <display-name>InfoEquipment</display-name>
+    <servlet-name>InfoEquipment</servlet-name>
+    <servlet-class>controller.equipment.InfoEquipmentController</servlet-class>
+  </servlet>
+    
+  <servlet-mapping>
+    <servlet-name>InfoEquipment</servlet-name>
+    <url-pattern>/equipment/info</url-pattern>
+  </servlet-mapping>
+
 
   <servlet>
     <display-name>Error</display-name>
