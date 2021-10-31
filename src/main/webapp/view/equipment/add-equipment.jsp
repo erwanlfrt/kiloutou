@@ -58,7 +58,6 @@
     }
 
     checkElement('additionalForm').then((element) => {
-        console.log("element loaded");
         if(isVehicle) {
           initVehicleForm();
         }
@@ -112,7 +111,6 @@
         let numberOfCylindersInput = document.createElement("input");
         numberOfCylindersInput.type = "number";
         numberOfCylindersInput.name = "numberOfCylinders";
-        console.log("isBike = ", isBike);
         if(isBike) {
           numberOfCylindersInput.value = '<%= bike != null ? bike.getNumberOfCylinders() : "" %>';
         }
