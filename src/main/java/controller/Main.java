@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Main extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
-		String pageName="/login.jsp";
+		String pageName="/view/auth/login.jsp";
 	
 		UserDAO userDAO = new UserDAO();
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);

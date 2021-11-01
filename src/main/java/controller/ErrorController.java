@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ErrorController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
-		String pageName="/error.jsp";
+		String pageName="/view/auth/error.jsp";
 	
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 		try {
