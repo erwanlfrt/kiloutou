@@ -134,15 +134,20 @@
   </servlet>
   
   <servlet-mapping>
-		<servlet-name>AddLoan</servlet-name>
-		<url-pattern>/loan/add</url-pattern>
+	 <servlet-name>AddLoan</servlet-name>
+	 <url-pattern>/loan/add</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>
-		<servlet-name>default</servlet-name>
-		<url-pattern>*.css</url-pattern>
+	 <servlet-name>default</servlet-name>
+	 <url-pattern>*.css</url-pattern>
   </servlet-mapping>
-
+  
+  <servlet-mapping>
+	 <servlet-name>default</servlet-name>
+	 <url-pattern>*.js</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
 	<welcome-file>login.jsp</welcome-file>
     <welcome-file>index.html</welcome-file>

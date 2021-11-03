@@ -2,11 +2,34 @@ body, main {
 	margin: 0;
 }
 
-section, section div {
+section, .panel {
 	display: flex;
-	flex-direction: column;
 }
 
-section select {
-	margin: 10px
+section {
+	justify-content: space-between;
+}
+
+.panel {
+	flex-direction: column;
+	width: 49%;
+}
+
+.panel * {
+	width: inherit;
+}
+
+.panel select {
+	margin: 10px;
+}
+
+.section-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.section-button * {
+	margin: 0 50px;
+	padding: 10px 30px;
 }
