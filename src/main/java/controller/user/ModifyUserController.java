@@ -97,7 +97,7 @@ public class ModifyUserController extends HttpServlet {
       employeeDAO.update(employee, employeeParameters);
     }
 
-    String pageName="/login.jsp";
+    String pageName="/view/auth/login.jsp";
 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 

@@ -9,7 +9,6 @@
   VehicleAccessory vehicleAccessory = (VehicleAccessory) request.getAttribute("vehicleAccessory");
   Computer computer = (Computer) request.getAttribute("computer");
   boolean isAvailable = (equipment == null) || equipment.isAvailable();
-
 %>
 <html>
   <head>

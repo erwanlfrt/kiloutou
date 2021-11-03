@@ -1,0 +1,50 @@
+:root {
+  --main-bg-color: rgb(149, 189, 213);
+}
+
+body {
+  background-color: var(--main-bg-color)
+}
+
+#logDiv {
+  background-color: white;
+  border-radius: 5px;
+  display : flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  height: 70%;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.element {
+  width: 70%;
+  height: 10%;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.inputForm {
+  margin-bottom: 10%;
+  text-align: left;
+}
+
+#submitButton {
+  background-color: var(--main-bg-color);
+  color: white;
+}
+
+#error {
+  color : red;
+}
+

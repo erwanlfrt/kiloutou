@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.dao.EmployeeDAO;
 import model.dao.UserDAO;
+import model.object.user.Employee;
 import model.object.user.User;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -17,15 +19,24 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 public class Welcome extends HttpServlet {
 	private UserDAO userDAO;
+  private EmployeeDAO employeeDAO;
 	
 	public Welcome() {
 		super();
 		this.userDAO = new UserDAO();
+    this.employeeDAO = new EmployeeDAO();
 	}
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/welcome.jsp");
-		
+    RequestDispatcher rd;
+    if(request.getAttribute("error") == null) {
+       rd = getServletContext().getRequestDispatcher("/view/auth/welcome.jsp");
+    }
+    else {
+      System.out.println("redirect vers login");
+      rd = getServletContext().getRequestDispatcher("/login");
+    }
+	
 		try {
 			rd.forward(request,response);
 		} catch (ServletException e) {
@@ -45,18 +56,22 @@ public class Welcome extends HttpServlet {
 		String mail = req.getParameter("mailAddress");
 		String password = req.getParameter("pwd");
 		User user = this.userDAO.get(mail);
-		// req.setAttribute("user", user);
+    Employee employee = this.employeeDAO.get(mail);
 		
 		HttpSession session = req.getSession();
 		
-		session.setAttribute("user", user);
-		
-		if(user != null) {
+		if(user != null && employee != null) {
 			if(DigestUtils.sha1Hex(password).equals(user.getPassword())) {
-				this.doProcess(req, resp);
+        session.setAttribute("user", user);
+        session.setAttribute("employee", employee);
 			}
-		} else {
-			System.out.println("user doesn't exist");
+      else {
+        req.setAttribute("error", "Adresse mail ou mot de passe incorrect");
+      }
 		}
+    else {
+      req.setAttribute("error", "Adresse mail ou mot de passe incorrect");
+		}
+    this.doProcess(req, resp);
 	}
 }
