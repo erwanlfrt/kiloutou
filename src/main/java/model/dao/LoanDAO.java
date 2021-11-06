@@ -29,13 +29,14 @@ public class LoanDAO implements Dao<Loan> {
 	}
 
   public void add(Loan object) {
+    int id = this.autoIncrementId();
     int equipmentId = object.getEquipment().getId();
     String userMail = object.getUser().getMail();
     LocalDate beginningDate = object.getBeginningDate();
     LocalDate endDate = object.getEndDate();
     boolean isBorrowed = object.isBorrowed();
 
-    String query = "INSERT INTO " + this.table + " (equipmentId, userMail, beginningDate, endDate, isBorrowed ) VALUES ("+ equipmentId  + ", \'" + userMail +"\', \'" + this.javaDateToMysqlDate(beginningDate) +"\', \'" + this.javaDateToMysqlDate(endDate) +"\', " + isBorrowed+ ");";
+    String query = "INSERT INTO " + this.table + " (id, equipmentId, userMail, beginningDate, endDate, isBorrowed ) VALUES ("+ id +", "+ equipmentId  + ", \'" + userMail +"\', \'" + this.javaDateToMysqlDate(beginningDate) +"\', \'" + this.javaDateToMysqlDate(endDate) +"\', " + isBorrowed+ ");";
     try {
       Statement statement = this.connection.createStatement();
       statement.executeUpdate(query);
@@ -45,10 +46,8 @@ public class LoanDAO implements Dao<Loan> {
   }
 
   public void delete(Loan object) {
-    int equipmentId = object.getEquipment().getId();
-    String userMail = object.getUser().getMail();
-    LocalDate beginningDate = object.getBeginningDate();
-    String query = "DELETE FROM " + this.table + " WHERE equipmentId = " + equipmentId + " AND userMail = \'"+ userMail +"\' AND beginningDate = \'"+this.javaDateToMysqlDate(beginningDate)+"\';";
+    int id = object.getId();
+    String query = "DELETE FROM " + this.table + " WHERE id = " + id;
 
     try {
       Statement statement = this.connection.createStatement();
@@ -65,31 +64,36 @@ public class LoanDAO implements Dao<Loan> {
 	  }
   }
 
+  public int autoIncrementId() {
+    int res = -1;
+    String query = "SELECT MAX(id) AS maxId FROM " + this.table + ";";
+    try {
+      Statement statement = this.connection.createStatement();
+      ResultSet rs = statement.executeQuery(query);
+      if (rs.next()) {
+        res= rs.getInt("maxId") + 1;
+      }
+    }
+    catch(SQLException e) {
+        e.printStackTrace();
+    }
+    return res;
+  }
+
   public Loan get(Object id) {
     Loan result = null;
-    if(id instanceof Object[]) {
-    	Object equipmentIdObj = ((Object[])(id))[0];
-    	int equipmentId = (Integer) equipmentIdObj;
-    	
-    	Object userMailObj = ((Object[])(id))[1];
-    	String userMail = (String) userMailObj;
-    	
-    	Object beginningDateObj = ((Object[])(id))[2];
-    	LocalDate beginningDate = (LocalDate) beginningDateObj;
-    	DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-  	  	String formattedDate = beginningDate.format(myFormatObj);
-    	
-    	String query = "SELECT * from " + this.table + " WHERE equipmentId = " + equipmentId + " AND userMail = \'"+ userMail +"\' AND beginningDate = \'"+ formattedDate +"\';";
+    if(id instanceof Object) {
+    	String query = "SELECT * from " + this.table + " WHERE id = " + (int)id;
       try {
         Statement statement = this.connection.createStatement();
         ResultSet rs = statement.executeQuery(query);
         while(rs.next()) {
           EquipmentDAO equipmentDAO = new EquipmentDAO();
-          Equipment equipment = equipmentDAO.get(equipmentId);
+          Equipment equipment = equipmentDAO.get(rs.getString("equipmentId"));
           UserDAO userDAO = new UserDAO();
-          User user = userDAO.get(userMail);
+          User user = userDAO.get(rs.getString("userMail"));
 
-          result = new Loan(equipment, user, this.mysqlDateToJavaDate(rs.getString("beginningDate")), this.mysqlDateToJavaDate(rs.getString("endDate")), rs.getBoolean("isBorrowed"));
+          result = new Loan((int)id, equipment, user, this.mysqlDateToJavaDate(rs.getString("beginningDate")), this.mysqlDateToJavaDate(rs.getString("endDate")), rs.getBoolean("isBorrowed"));
         }
       } catch(SQLException e) {
         e.printStackTrace();
@@ -104,12 +108,13 @@ public class LoanDAO implements Dao<Loan> {
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT * FROM "+this.table + ";");
 			while (rs.next()) {
+            int id = rs.getInt("id");
 		        EquipmentDAO equipmentDAO = new EquipmentDAO();
 		        Equipment equipment = equipmentDAO.get(rs.getInt("equipmentId"));
 		        UserDAO userDAO = new UserDAO();
 		        User user = userDAO.get(rs.getString("userMail"));
 
-				result.add(new Loan(equipment, user, this.mysqlDateToJavaDate(rs.getString("beginningDate")), this.mysqlDateToJavaDate(rs.getString("endDate")), rs.getBoolean("isBorrowed")));
+				result.add(new Loan(id, equipment, user, this.mysqlDateToJavaDate(rs.getString("beginningDate")), this.mysqlDateToJavaDate(rs.getString("endDate")), rs.getBoolean("isBorrowed")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -118,10 +123,6 @@ public class LoanDAO implements Dao<Loan> {
 	}
 
   public void update(Loan object, HashMap<String, Object> parameters) {
-    int equipmentId = object.getEquipment().getId();
-    String userMail = object.getUser().getMail();
-    String beginningDate = this.javaDateToMysqlDate(object.getBeginningDate());
-
     String changes = "";
 
     int numberOfChanges = parameters.values().size();
@@ -143,7 +144,7 @@ public class LoanDAO implements Dao<Loan> {
       cpt++;
     }
     if(!changes.equals("")) {
-      String query = "UPDATE " + this.table + " SET " + changes +" WHERE equipmentId = " +  equipmentId + " AND userMail = \'"+ userMail + "\' AND beginningDate = \'"+ beginningDate +"\';";
+      String query = "UPDATE " + this.table + " SET " + changes +" WHERE id = " + object.getId();
       Statement statement;
       try {
         statement = this.connection.createStatement();

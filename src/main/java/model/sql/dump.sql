@@ -52,4 +52,7 @@ INSERT INTO Computer (id, brand, model, serialNumber, memorySize, isLaptop, scre
 INSERT INTO Computer (id, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDate, renewalDate, processorId, graphicCardId) VALUES (8, "HP", "EliteBook H5", "ax8000xa", 500, true, 13, '2021-05-15', '2025-05-15', 1, 1);
 
 
-INSERT INTO Loan (equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (1, "root@gmail.com", "2021-11-12", "2021-11-30", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (0, 1, "root@gmail.com", "2021-11-01", "2021-11-30", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (1, 2, "root@gmail.com", "2021-10-12", "2021-11-02", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (2, 3, "root@gmail.com", "2021-10-12", "2021-11-02", true);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (3, 4, "root@gmail.com", "2021-11-30", "2021-12-15", false);

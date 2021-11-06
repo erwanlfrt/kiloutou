@@ -44,6 +44,7 @@ public class LoanDAOTest {
  	
 	@Test
 	public void addTest() {
+		int id = 0;
 		int equipmentId = 1;
 		String userMail = "root@gmail.com";
 		LocalDate beginningDate = LocalDate.of(2022,11,12);
@@ -53,8 +54,6 @@ public class LoanDAOTest {
 		boolean isBorrowed = false;
 		
 		LoanDAO loanDAO = new LoanDAO();
-		
-		Object[] id = {equipmentId, userMail, beginningDate};
 		
 		if(loanDAO.get(id) != null ) {
 			loanDAO.deleteById(id);
@@ -66,7 +65,7 @@ public class LoanDAOTest {
 		UserDAO userDAO = new UserDAO();
 		User user = userDAO.get(userMail);
 		
-		Loan loan = new Loan(equipment, user, beginningDate, endDate, isBorrowed);
+		Loan loan = new Loan(id, equipment, user, beginningDate, endDate, isBorrowed);
 		
 		loanDAO.add(loan);
 		
@@ -84,6 +83,7 @@ public class LoanDAOTest {
 	
 	@Test
 	public void deleteTest() {
+		int id = 0;
 		int equipmentId = 1;
 		String userMail = "root@gmail.com";
 		LocalDate beginningDate = LocalDate.of(2022,11,12);
@@ -94,15 +94,13 @@ public class LoanDAOTest {
 		
 		LoanDAO loanDAO = new LoanDAO();
 		
-		Object[] id = {equipmentId, userMail, beginningDate};
-		
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		Equipment equipment = equipmentDAO.get(equipmentId);
 		
 		UserDAO userDAO = new UserDAO();
 		User user = userDAO.get(userMail);
 		
-		Loan loan = new Loan(equipment, user, beginningDate, endDate, isBorrowed);
+		Loan loan = new Loan(id, equipment, user, beginningDate, endDate, isBorrowed);
 		
 		if(loanDAO.get(id) == null ) {
 			
@@ -118,6 +116,7 @@ public class LoanDAOTest {
 	
 	@Test
 	public void deleteByIdTest() {
+		int id = 0;
 		int equipmentId = 1;
 		String userMail = "root@gmail.com";
 		LocalDate beginningDate = LocalDate.of(2022,11,12);
@@ -128,15 +127,13 @@ public class LoanDAOTest {
 		
 		LoanDAO loanDAO = new LoanDAO();
 		
-		Object[] id = {equipmentId, userMail, beginningDate};
-		
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		Equipment equipment = equipmentDAO.get(equipmentId);
 		
 		UserDAO userDAO = new UserDAO();
 		User user = userDAO.get(userMail);
 		
-		Loan loan = new Loan(equipment, user, beginningDate, endDate, isBorrowed);
+		Loan loan = new Loan(id, equipment, user, beginningDate, endDate, isBorrowed);
 		
 		if(loanDAO.get(id) == null ) {
 			
@@ -165,6 +162,7 @@ public class LoanDAOTest {
 		params.put("endDate", newEndDateString);
 		params.put("isBorrowed", newIsBorrowed);
 		
+		int id = 0;
 		int equipmentId = 1;
 		String userMail = "root@gmail.com";
 		LocalDate beginningDate = LocalDate.of(2022,11,12);
@@ -174,8 +172,6 @@ public class LoanDAOTest {
 		boolean isBorrowed = false;
 		
 		LoanDAO loanDAO = new LoanDAO();
-		
-		Object[] id = {equipmentId, userMail, beginningDate};
 		
 		if(loanDAO.get(id) != null ) {
 			loanDAO.deleteById(id);
@@ -187,7 +183,7 @@ public class LoanDAOTest {
 		UserDAO userDAO = new UserDAO();
 		User user = userDAO.get(userMail);
 		
-		Loan loan = new Loan(equipment, user, beginningDate, endDate, isBorrowed);
+		Loan loan = new Loan(id, equipment, user, beginningDate, endDate, isBorrowed);
 		
 		loanDAO.add(loan);
 		

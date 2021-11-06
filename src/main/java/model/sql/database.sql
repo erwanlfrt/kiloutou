@@ -126,12 +126,12 @@ CREATE TABLE Computer (
 -- #region Loan
 
 CREATE TABLE Loan (
+  id INT PRIMARY KEY,
   equipmentId INT NOT NULL,
   userMail VARCHAR(100) NOT NULL,
   beginningDate DATE NOT NULL,
-  endDate DATE,
-  isBorrowed BOOLEAN,
-  PRIMARY KEY (equipmentId, userMail, beginningDate),
+  endDate DATE NOT NULL,
+  isBorrowed BOOLEAN NOT NULL,
   FOREIGN KEY (equipmentId) REFERENCES Equipment(id),
   FOREIGN KEY (userMail) REFERENCES User(mail) 
 );

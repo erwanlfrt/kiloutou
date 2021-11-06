@@ -8,18 +8,24 @@ import model.object.equipment.Equipment;
 import model.object.user.User;
 
 public class Loan {
+  private int id;
   private Equipment equipment;
   private User user;
   private LocalDate beginningDate;
   private LocalDate endDate;
   private boolean isBorrowed;
   
-  public Loan(Equipment equipment, User user, LocalDate beginningDate, LocalDate endDate, boolean isBorrowed) {
+  public Loan(int id, Equipment equipment, User user, LocalDate beginningDate, LocalDate endDate, boolean isBorrowed) {
+    this.id = id;
     this.equipment = equipment;
     this.user = user;
     this.beginningDate = beginningDate;
     this.endDate = endDate;
     this.isBorrowed = isBorrowed;
+  }
+
+  public int getId() {
+    return this.id;
   }
 
   public Equipment getEquipment() {

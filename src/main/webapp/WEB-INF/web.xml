@@ -139,15 +139,27 @@
   
 	
   <servlet>
-	<display-name>AddLoan</display-name>
-	<servlet-name>AddLoan</servlet-name>
-	<servlet-class>controller.loan.AddLoanController</servlet-class>
+    <display-name>AddLoan</display-name>
+    <servlet-name>AddLoan</servlet-name>
+    <servlet-class>controller.loan.AddLoanController</servlet-class>
   </servlet>
   
   <servlet-mapping>
 		<servlet-name>AddLoan</servlet-name>
 		<url-pattern>/loan/add</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <display-name>SearchLoan</display-name>
+    <servlet-name>SearchLoan</servlet-name>
+    <servlet-class>controller.loan.SearchLoanController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+		<servlet-name>SearchLoan</servlet-name>
+		<url-pattern>/loan/search</url-pattern>
+  </servlet-mapping>
+
   
   <servlet-mapping>
 		<servlet-name>default</servlet-name>
