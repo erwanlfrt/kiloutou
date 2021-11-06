@@ -160,6 +160,17 @@
 		<url-pattern>/loan/search</url-pattern>
   </servlet-mapping>
 
+
+  <servlet>
+    <display-name>InfoLoan</display-name>
+    <servlet-name>InfoLoan</servlet-name>
+    <servlet-class>controller.loan.InfoLoanController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+		<servlet-name>InfoLoan</servlet-name>
+		<url-pattern>/loan/info</url-pattern>
+  </servlet-mapping>
   
   <servlet-mapping>
 		<servlet-name>default</servlet-name>

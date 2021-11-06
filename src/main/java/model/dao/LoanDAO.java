@@ -89,7 +89,7 @@ public class LoanDAO implements Dao<Loan> {
         ResultSet rs = statement.executeQuery(query);
         while(rs.next()) {
           EquipmentDAO equipmentDAO = new EquipmentDAO();
-          Equipment equipment = equipmentDAO.get(rs.getString("equipmentId"));
+          Equipment equipment = equipmentDAO.get(rs.getInt("equipmentId"));
           UserDAO userDAO = new UserDAO();
           User user = userDAO.get(rs.getString("userMail"));
 

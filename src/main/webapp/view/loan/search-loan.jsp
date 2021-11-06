@@ -30,7 +30,7 @@
             <tr>
               <td><%= loan.getUser().getMail()%></td>
               <td><%= loan.getEquipment().getName()%></td>
-              <td><a href="/loan/info?id=<%=loan.getId()%>">Modifier</a></td>
+              <td><a href="/Kiloutou/loan/info?id=<%=loan.getId()%>">Modifier</a></td>
             </tr>
             <%
             }
@@ -56,7 +56,7 @@
             <tr>
               <td><%= loan.getUser().getMail()%></td>
               <td><%= loan.getEquipment().getName()%></td>
-              <td><a href="/loan/info?id=<%=loan.getId()%>">Modifier</a></td>
+              <td><a href="/Kiloutou/loan/info?id=<%=loan.getId()%>">Modifier</a></td>
             </tr>
             <%
             }
@@ -82,7 +82,7 @@
             <tr>
               <td><%= loan.getUser().getMail()%></td>
               <td><%= loan.getEquipment().getName()%></td>
-              <td><a href="/loan/info?id=<%=loan.getId()%>">Modifier</a></td>
+              <td><a href="/Kiloutou/loan/info?id=<%=loan.getId()%>">Modifier</a></td>
             </tr>
             <%
             }
@@ -108,7 +108,7 @@
             <tr>
               <td><%= loan.getUser().getMail()%></td>
               <td><%= loan.getEquipment().getName()%></td>
-              <td><a href="/loan/info?id=<%=loan.getId()%>">Modifier</a></td>
+              <td><a href="/Kiloutou/loan/info?id=<%=loan.getId()%>">Modifier</a></td>
             </tr>
             <%
             }
