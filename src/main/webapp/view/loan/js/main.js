@@ -3,6 +3,7 @@
  */
 
 function main() {
+  $('.datepicker').datepicker();
 
   //init dates
   var beginningDate = document.getElementById("beginningDate");
@@ -113,6 +114,10 @@ function main() {
         for(let i = 0 ; i < recap.length ; i++) {
           recap[i].style.display = "block"; 
         }
+        console.log("par ici les petits"),
+        document.getElementById("submitInput").hidden = false;
+        document.getElementById("submitInput").disabled = false;
+        document.getElementById("next").hidden = true;
         document.getElementById("next").disabled = true;
       }
       
@@ -145,6 +150,9 @@ document.getElementById('previous').addEventListener('click', function() {
     for(let i = 0 ; i < recap.length ; i++) {
       recap[i].style.display = "none"; 
     }
+    document.getElementById("submitInput").hidden = true;
+    document.getElementById("submitInput").disabled = true;
+    document.getElementById("next").hidden = false;
     document.getElementById("next").disabled = false;
   }
 });

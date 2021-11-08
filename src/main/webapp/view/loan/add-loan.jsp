@@ -1,4 +1,4 @@
-<%@page import="java.util.Map"%>
+w<%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@page import="model.object.equipment.*"%>
@@ -14,6 +14,9 @@
 <title>Nouvel emprunt</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/view/loan/css/styleAddLoan.css" />
+
+<link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"></link>
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
 </head>
 <body onload="main()">
@@ -85,9 +88,8 @@
             <div class="recap">
               <h2>Récapitulatif</h2>
               <p id="recapUser">Emprunteur : </p>
-              <input type="date" name="beginningDate" id="beginningDate" required>
-              <input type="date" name="endDate" id="endDate" required>
-              <input type="submit" value="ajouter un prêt" name="submit">
+              <input data-provide="datepicker" name="beginningDate" id="beginningDate" required>
+              <input data-provide="datepicker" name="endDate" id="endDate" required>
             </div>
           </form>		
           
@@ -100,11 +102,19 @@
           <button id="cancel">Annuler</button>
         </a>
 				<button id="previous" disabled>Précédent</button>
-        <button id="next">Suivant</button>
+        <div id="nextButtons">
+          <input type="submit" value="ajouter un prêt" name="submit" id="submitInput" hidden disabled>
+          <button id="next">Suivant</button>
+        </div>
+        
 			</div>
 		</form>
 	</main>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="${pageContext.request.contextPath}/view/loan/js/main.js"></script>
+  
+  
 </body>
 </html>

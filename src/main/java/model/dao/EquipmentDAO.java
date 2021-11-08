@@ -93,7 +93,18 @@ public class EquipmentDAO implements Dao<Equipment> {
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT * FROM "+this.table + ";");
 			while (rs.next()) {
-				result.add(new Equipment(rs.getInt("id"), rs.getString("name"), rs.getBoolean("available"), rs.getString("imageUrl")));
+        int id = rs.getInt("id")
+        Equipment e = new Equipment(id, rs.getString("name"), rs.getBoolean("available"), rs.getString("imageUrl"));
+
+        ResultSet rsDates = statement.executeQuery("SELECT beginningDate, endDate FROM Loan WHERE equipmentId = " + id +";");
+
+        while(rsDates.next()) {
+          LocalDate beginningDate = this.mysqlDateToJavaDate(rsDates.getString("beginningDate"));
+          LocalDate endDate = this.mysqlDateToJavaDate(rsDates.getString("endDate"));
+          e.addPeriod(beginningDate, endDate);
+        }
+
+				result.add(e);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -134,5 +145,17 @@ public class EquipmentDAO implements Dao<Equipment> {
         e.printStackTrace();
       }
     }
+  }
+
+  private String javaDateToMysqlDate(LocalDate date) {
+	  DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	  String formattedDate = date.format(myFormatObj);
+	  return formattedDate;
+  }
+
+  private LocalDate mysqlDateToJavaDate(String mysqlDate) {
+	  DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	  LocalDate result = LocalDate.parse(mysqlDate);
+	  return result;
   }
 }
