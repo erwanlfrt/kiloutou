@@ -2,6 +2,12 @@ package controller.loan;
 
 import model.dao.*;
 import model.object.equipment.*;
+import model.object.loan.Loan;
+import model.object.user.User;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,18 +21,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+// import com.google.gson.Gson;
 
 public class AddLoanController extends HttpServlet {
 
-	private Gson gson;
+	// private Gson gson;
 
 	private EquipmentDAO eDAO;
-
+  private LoanDAO loanDAO;
 	private VehicleDAO vehicleDAO;
 	private VehicleAccessoryDAO vehicleAccessoryDAO;
 	private ComputerDAO computerDAO;
 	private ComputerAccessoryDAO computerAccessoryDAO;
+  private UserDAO userDAO;
 
 
 	public AddLoanController() {
@@ -35,33 +42,69 @@ public class AddLoanController extends HttpServlet {
 		this.vehicleAccessoryDAO = new VehicleAccessoryDAO();
 		this.computerDAO = new ComputerDAO();
 		this.computerAccessoryDAO = new ComputerAccessoryDAO();
-		this.gson = new Gson();
+    this.userDAO = new UserDAO();
+    this.loanDAO = new LoanDAO();
+		// this.gson = new Gson();
 	}
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)  {
 		
-		if(request.getParameter("idEquipment").trim() != null) {
-			response.setContentType("text/plain");
-			try {
-				response.getWriter().write("ça fonctiooooooone");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else {
 		HashMap<String, ArrayList<Equipment>> listEquipments = new HashMap<String, ArrayList<Equipment>>();
 
+    ArrayList<Equipment> allEquipments = this.eDAO.listAll();
 		ArrayList<Equipment> listVehicle = this.castArrayList(this.vehicleDAO.listAll());
 		ArrayList<Equipment> listVehicleAccessory = this.castArrayList(this.vehicleAccessoryDAO.listAll());
 		ArrayList<Equipment> listComputer = this.castArrayList(this.computerDAO.listAll());
 		ArrayList<Equipment> listComputerAccessory = this.castArrayList(this.computerAccessoryDAO.listAll());
+    ArrayList<Equipment> other = new ArrayList<Equipment>();
+    ArrayList<User> users = this.userDAO.listAll();
 
+    // list other equipments, TO IMPROVE
+    for(Equipment equipment : allEquipments) {
+      boolean isAVehicle = false;
+      boolean isAVehicleAccessory= false;
+      boolean isAComputerAccessory = false;
+      boolean isAComputer = false;
+      for(Equipment vehicle : listVehicle) {
+        if(vehicle.getId() == equipment.getId()) {
+          isAVehicle = true;
+          break;
+        }
+      }
+      for(Equipment va : listVehicleAccessory) {
+        if(va.getId() == equipment.getId()) {
+          isAVehicleAccessory = true;
+          break;
+        }
+      }
+      for(Equipment computer : listComputer) {
+        if(computer.getId() == equipment.getId()) {
+          isAComputer = true;
+          break;
+        }
+      }
+
+      for(Equipment computerAccessory : listComputerAccessory) {
+        if(computerAccessory.getId() == equipment.getId()) {
+          isAComputerAccessory = true;
+          break;
+        }
+      }
+
+      if(!isAComputer && !isAVehicle && !isAComputerAccessory && !isAVehicleAccessory) {
+        other.add(equipment);
+      }
+      
+    }
+
+    listEquipments.put("other", other);
 		listEquipments.put("vehicle", listVehicle);
 		listEquipments.put("vehicleAccessory", listVehicleAccessory);
 		listEquipments.put("computer", listComputer);
 		listEquipments.put("computerAccessory", listComputerAccessory);
 
 		request.setAttribute("equipments", listEquipments);
+    request.setAttribute("users", users);
 
 		String pageName="/view/loan/add-loan.jsp";
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
@@ -73,7 +116,6 @@ public class AddLoanController extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		}
 	}
 
 	@Override
@@ -83,25 +125,25 @@ public class AddLoanController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    int equipmentId = Integer.parseInt(req.getParameter("equipmentId"));
+    String userMail = req.getParameter("userMail");
+    String beginningDateString = req.getParameter("beginningDate");
+    String endDateString = req.getParameter("endDate");
 
-		//if(req.getAttribute("idEquipment") != null) {
-			//String equipment = this.gson.toJson(this.eDAO.get(request.getParameter("idEquipment")));
-			/*
-	        response.setContentType("application/json");
-	        response.setCharacterEncoding("UTF-8");
-	        PrintWriter out = response.getWriter();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
 
-	        out.print(equipment);
-	        out.flush();
-			 */
+    //convert String to LocalDate
+    LocalDate beginningDate = LocalDate.parse(beginningDateString, formatter);
+    LocalDate endDate = LocalDate.parse(endDateString, formatter);
+    
+    Equipment equipment = this.eDAO.get(equipmentId);
+    User user = this.userDAO.get(userMail);
+    Loan loan = new Loan(0, equipment, user, beginningDate, endDate, false);
 
-			String json = new Gson().toJson(this.eDAO.get(req.getParameter("idEquipment")));
-			resp.setContentType("application/json");
-			resp.setCharacterEncoding("UTF-8");
-			resp.getWriter().write("test");
-		//}
+    this.loanDAO.add(loan);
 
-//		this.doProcess(req, resp);
+    System.out.println("loan added");
+
 	}
 
 	private <N, O> ArrayList<N> castArrayList(ArrayList<O> list){

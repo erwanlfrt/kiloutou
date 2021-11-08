@@ -1,4 +1,8 @@
-INSERT INTO User (mail, name, firstname, login, password, address, phoneNumber) VALUES ("root@gmail.com", "Bob", "Billy", "root", SHA1("toor"), "1 root de Bretagne", "0102030405"); 
+INSERT INTO User (mail, name, firstname, login, password, address, phoneNumber) VALUES ("root@gmail.com", "Biden", "Joe", "root", SHA1("toor"), "1 root des USA", "0102030405"); 
+INSERT INTO User (mail, name, firstname, login, password, address, phoneNumber) VALUES ("user1@gmail.com", "Jiping", "Xi", "xj", SHA1("toor"), "1 root de Chine", "0102030405"); 
+INSERT INTO User (mail, name, firstname, login, password, address, phoneNumber) VALUES ("user2@gmail.com", "Putin", "Vladimir", "vlad", SHA1("toor"), "1 root de Mother land", "0102030405"); 
+INSERT INTO User (mail, name, firstname, login, password, address, phoneNumber) VALUES ("user3@gmail.com", "Macron", "Emmanuel", "EnMarche", SHA1("toor"), "1 root de France", "0102030405"); 
+INSERT INTO User (mail, name, firstname, login, password, address, phoneNumber) VALUES ("user4@gmail.com", "Merkel", "Angela", "Deutsch92", SHA1("toor"), "1 root de Germany", "0102030405"); 
 
 INSERT INTO Employee (mail, employeeFunction, employeeService, deskNumber, profil) VALUES ("root@gmail.com", "ceo", "administration", 1, "ADMIN");
 

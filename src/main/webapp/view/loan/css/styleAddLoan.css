@@ -2,6 +2,17 @@ body, main {
 	margin: 0;
 }
 
+table,
+td {
+    border: 1px solid #333;
+}
+
+thead,
+tfoot {
+    background-color: #333;
+    color: #fff;
+}
+
 section, .panel {
 	display: flex;
 }
@@ -32,4 +43,16 @@ section {
 .section-button * {
 	margin: 0 50px;
 	padding: 10px 30px;
+}
+
+.user {
+  display: none;
+}
+
+.recap {
+  display: none;
+}
+
+.equipment {
+  display: block;
 }
