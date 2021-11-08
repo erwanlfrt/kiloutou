@@ -149,6 +149,17 @@
 	 <url-pattern>/loan/add</url-pattern>
   </servlet-mapping>
 
+<servlet>
+    <display-name>ListAllLoan</display-name>
+    <servlet-name>ListAllLoan</servlet-name>
+    <servlet-class>controller.loan.ListAllLoan</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+	 <servlet-name>ListAllLoan</servlet-name>
+	 <url-pattern>/loan/all</url-pattern>
+  </servlet-mapping>
+
   <servlet>
     <display-name>SearchLoan</display-name>
     <servlet-name>SearchLoan</servlet-name>
