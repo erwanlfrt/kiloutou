@@ -1,11 +1,10 @@
-w<%@page import="java.util.Map"%>
+<%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@page import="model.object.equipment.*"%>
 <%@page import="model.object.user.User"%>
 <%@page import="java.util.ArrayList"%>
 <%
-  HashMap<String, ArrayList<Equipment>> listEquipments = (HashMap<String, ArrayList<Equipment>>) request.getAttribute("equipments");
   ArrayList<User> users = (ArrayList<User>) request.getAttribute("users");
 %>
 
@@ -32,26 +31,15 @@ w<%@page import="java.util.Map"%>
               <select name="liste1" id="liste1">
                 <option value="" selected disabled hidden>Type de
                   matériel</option>
-                <option value="other">Autre</option>
-                <option value="vehicle">Véhicule</option>
-                <option value="vehicleAccessory">Accessoire de véhicule</option>
-                <option value="computer">Ordinateur</option>
-                <option value="computerAccessory">Accessoire d'ordinateur</option>
+                <option value="others">Autre</option>
+                <option value="vehicles">Véhicule</option>
+                <option value="vehicleAccessories">Accessoire de véhicule</option>
+                <option value="computers">Ordinateur</option>
+                <option value="computerAccessories">Accessoire d'ordinateur</option>
               </select> 
     
               <select name="liste2" id="liste2">
                 <option value="" selected disabled hidden>Matériel</option>
-                <%
-                  for (Map.Entry<String, ArrayList<Equipment>> entry : listEquipments.entrySet()) {
-                    String key = entry.getKey();
-                    ArrayList<Equipment> value = entry.getValue();
-                    for (Equipment e : value) {
-                      %>
-                      <option class="options option-<%= key%>" value="<%=e.getId()%> <%= e.getName()%> <%= e.getImageUrl()%>"><%=e.getName()%></option>
-                      <%
-                    }
-                }
-                %>
               </select>
 
               <input type="text" value="" hidden name="equipmentId" id="equipmentId" required>
@@ -88,26 +76,26 @@ w<%@page import="java.util.Map"%>
             <div class="recap">
               <h2>Récapitulatif</h2>
               <p id="recapUser">Emprunteur : </p>
-              <input data-provide="datepicker" name="beginningDate" id="beginningDate" required>
-              <input data-provide="datepicker" name="endDate" id="endDate" required>
+              <input class="datepicker" data-provide="datepicker" name="beginningDate" id="beginningDate" required>
+              <input class="datepicker" data-provide="datepicker" name="endDate" id="endDate" required>
             </div>
           </form>		
           
 				</div>
 				<div class="panel equipment" id="info">
 				</div>
-			</section>
-			<div class="section-button">
-        <a href="${pageContext.request.contextPath}/welcome">
-          <button id="cancel">Annuler</button>
-        </a>
-				<button id="previous" disabled>Précédent</button>
-        <div id="nextButtons">
-          <input type="submit" value="ajouter un prêt" name="submit" id="submitInput" hidden disabled>
-          <button id="next">Suivant</button>
+        <div class="section-button">
+          <a href="${pageContext.request.contextPath}/welcome">
+            <input type="button" value="annuler" id="cancel">
+          </a>
+          <button id="previous" disabled>Précédent</button>
+          <div id="nextButtons">
+            <input type="submit" value="ajouter un prêt" name="submit" id="submitInput" hidden disabled>
+            <button id="next">Suivant</button>
+          </div>
+          
         </div>
-        
-			</div>
+			</section>
 		</form>
 	</main>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

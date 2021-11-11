@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -55,10 +56,11 @@ public class VehicleAccessoryDAO implements Dao<VehicleAccessory> {
   public VehicleAccessory get(Object id) {
     VehicleAccessory result = null;
     if(id instanceof Integer) {
-    	String query = "SELECT * from " + this.table + " WHERE id = " + (Integer)id + ";";
+    	String query = "SELECT * from " + this.table + " WHERE id = ? ;";
       try {
-        Statement statement = this.connection.createStatement();
-        ResultSet rs = statement.executeQuery(query);
+        PreparedStatement statement = this.connection.prepareStatement(query);
+        statement.setInt(1, (Integer)id);
+        ResultSet rs = statement.executeQuery();
         while(rs.next()) {
           EquipmentDAO equipmentDAO = new EquipmentDAO();
           Equipment equipment = equipmentDAO.get(id);
@@ -74,10 +76,10 @@ public class VehicleAccessoryDAO implements Dao<VehicleAccessory> {
 	public ArrayList<VehicleAccessory> listAll() {
 		ArrayList<VehicleAccessory> result = new ArrayList<VehicleAccessory>();
 		try {
-			Statement statement = this.connection.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM "+ this.table + ";");
+			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM "+ this.table + ";");
+			ResultSet rs = statement.executeQuery();
+      EquipmentDAO equipmentDAO = new EquipmentDAO();
 			while (rs.next()) {
-				EquipmentDAO equipmentDAO = new EquipmentDAO();
 				Equipment equipment = equipmentDAO.get(rs.getInt("id"));
 				result.add(new VehicleAccessory(equipment.getId(), equipment.getName(), equipment.isAvailable(),equipment.getImageUrl()));
 			}
@@ -86,6 +88,21 @@ public class VehicleAccessoryDAO implements Dao<VehicleAccessory> {
 		}
 		return result;
 	}
+
+  public ArrayList<Equipment> listAllIdAndName() {
+    ArrayList<Equipment> result = new ArrayList<Equipment>();
+		try {
+			Statement statement = this.connection.createStatement();
+			ResultSet rs = statement.executeQuery("SELECT id, name FROM Equipment WHERE id IN (SELECT id FROM " + this.table +") ;");
+			while (rs.next()) {
+        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "");
+				result.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+  }
 
   public void update(VehicleAccessory object, HashMap<String, Object> parameters) {
     int id = object.getId();

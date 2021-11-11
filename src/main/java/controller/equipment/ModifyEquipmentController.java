@@ -256,7 +256,7 @@ public class ModifyEquipmentController extends HttpServlet {
       params.put("purchaseDate", date);
       params.put("renewalDate", renewalDate);
 
-      Computer computer = new Computer(id, name, available, imageURL, brand, model, serialNumber, memorySize, isLaptop, screenSize, LocalDate.parse(date), LocalDate.parse(renewalDate), processor, graphicCard);
+      Computer computer = new Computer(id, name, available, imageURL, brand, model, serialNumber, memorySize, isLaptop, screenSize, date, renewalDate, processor, graphicCard);
       computerDAO.update(computer, params);
     }
     else if (category.equals("computerAccessory")) {

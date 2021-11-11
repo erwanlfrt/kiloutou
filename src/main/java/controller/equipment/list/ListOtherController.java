@@ -1,4 +1,4 @@
-package controller.loan;
+package controller.equipment.list;
 
 import model.dao.*;
 import model.object.equipment.*;
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-public class ListAllLoan extends HttpServlet {
+public class ListOtherController extends HttpServlet {
 
 	private Gson gson;
 
@@ -38,7 +38,7 @@ public class ListAllLoan extends HttpServlet {
 
 
 
-	public ListAllLoan() {
+	public ListOtherController() {
 		this.eDAO = new EquipmentDAO();
 		this.vehicleDAO = new VehicleDAO();
 		this.vehicleAccessoryDAO = new VehicleAccessoryDAO();
@@ -54,15 +54,22 @@ public class ListAllLoan extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    HashMap<String, ArrayList<Equipment>> listEquipments = new HashMap<String, ArrayList<Equipment>>();
 
-    ArrayList<Equipment> allEquipments = this.eDAO.listAll();
-		ArrayList<Equipment> listVehicle = this.castArrayList(this.vehicleDAO.listAll());
-		ArrayList<Equipment> listVehicleAccessory = this.castArrayList(this.vehicleAccessoryDAO.listAll());
-		ArrayList<Equipment> listComputer = this.castArrayList(this.computerDAO.listAll());
-		ArrayList<Equipment> listComputerAccessory = this.castArrayList(this.computerAccessoryDAO.listAll());
+    System.out.println("Start List other");
+    ArrayList<Equipment> allEquipments = this.eDAO.listAllIdAndName();
+    System.out.println(" 1/6 Done");
+		ArrayList<Equipment> listVehicle = this.castArrayList(this.vehicleDAO.listAllIdAndName());
+    System.out.println(" 2/6 Done");
+		ArrayList<Equipment> listVehicleAccessory = this.castArrayList(this.vehicleAccessoryDAO.listAllIdAndName());
+    System.out.println(" 3/6 Done");
+		ArrayList<Equipment> listComputer = this.castArrayList(this.computerDAO.listAllIdAndName());
+    System.out.println(" 4/6 Done");
+		ArrayList<Equipment> listComputerAccessory = this.castArrayList(this.computerAccessoryDAO.listAllIdAndName());
+    System.out.println(" 5/6 Done");
     ArrayList<Equipment> other = new ArrayList<Equipment>();
     ArrayList<User> users = this.userDAO.listAll();
+    System.out.println(" 6/6 Done");
+    System.out.println("début traitement");
 
     // list other equipments, TO IMPROVE
     for(Equipment equipment : allEquipments) {
@@ -101,32 +108,14 @@ public class ListAllLoan extends HttpServlet {
       }
       
     }
+    System.out.println("fin traitement");
 
-    listEquipments.put("other", other);
-		listEquipments.put("vehicle", listVehicle);
-		listEquipments.put("vehicleAccessory", listVehicleAccessory);
-		listEquipments.put("computer", listComputer);
-		listEquipments.put("computerAccessory", listComputerAccessory);
-
-		// ArrayList<Equipment> allEquipments = this.eDAO.listAll();
 		resp.setContentType("application/json");
 		PrintWriter out = resp.getWriter();
 
 		String otherJson = this.gson.toJson(other);
-    String vehiclesJson = this.gson.toJson(listVehicle);
-    String vehicleAccessoryJson = this.gson.toJson(listVehicleAccessory);
-    String computersJson = this.gson.toJson(listComputer);
-    String computerAccessoryJson = this.gson.toJson(listComputerAccessory);
-
-    JsonObject object = new JsonObject();
-    object.addProperty("other", otherJson);
-    object.addProperty("vehicles", vehiclesJson);
-    object.addProperty("vehicleAccessories", vehicleAccessoryJson);
-    object.addProperty("computers", computersJson);
-    object.addProperty("computerAccessories", computerAccessoryJson);
-		// out.print(object);
     out.print(otherJson);
-    out.print(vehiclesJson);
+    System.out.println("FIN Other List");
 	}
 
 	@Override

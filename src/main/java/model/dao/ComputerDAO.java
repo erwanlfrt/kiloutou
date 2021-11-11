@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,10 +16,6 @@ import model.object.equipment.Equipment;
 import model.object.equipment.Processor;
 import model.object.equipment.GraphicCard;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class ComputerDAO implements Dao<Computer> {
 	Connection connection;
@@ -38,13 +35,13 @@ public class ComputerDAO implements Dao<Computer> {
     int memorySize = object.getMemorySize();
     boolean isLaptop = object.isLaptop();
     int screenSize = object.getScreenSize();
-    LocalDate renewalDate = object.getRenewalDate();
-    LocalDate purchaseDate = object.getPurchaseDate();
+    String renewalDate = object.getRenewalDate();
+    String purchaseDate = object.getPurchaseDate();
     int processorId = object.getProcessor().getId();
     int graphicCardId = object.getGraphicCard().getId();
     
 
-    String query = "INSERT INTO " + this.table + " (id, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDate, renewalDate, processorId, graphicCardId) VALUES ("+ id  + ", \'" + brand +"\', \'" + model +"\', \'" + serialNumber +"\', " + memorySize +", " + isLaptop +", " + screenSize +", \'" + this.javaDateToMysqlDate(purchaseDate) +"\', \'" + this.javaDateToMysqlDate(renewalDate) +"\', " + processorId+", " + graphicCardId +");";
+    String query = "INSERT INTO " + this.table + " (id, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDate, renewalDate, processorId, graphicCardId) VALUES ("+ id  + ", \'" + brand +"\', \'" + model +"\', \'" + serialNumber +"\', " + memorySize +", " + isLaptop +", " + screenSize +", \'" + purchaseDate +"\', \'" + renewalDate +"\', " + processorId+", " + graphicCardId +");";
     try {
       Statement statement = this.connection.createStatement();
       statement.executeUpdate(query);
@@ -75,9 +72,10 @@ public class ComputerDAO implements Dao<Computer> {
   public Computer get(Object id) {
     Computer result = null;
     if(id instanceof Integer) {
-    	String query = "SELECT * from " + this.table + " WHERE id = " + (Integer)id + ";";
+    	String query = "SELECT * from " + this.table + " WHERE id = ? ;";
       try {
-        Statement statement = this.connection.createStatement();
+        PreparedStatement statement = this.connection.prepareStatement(query);
+        statement.setInt(1, (Integer)id);
         ResultSet rs = statement.executeQuery(query);
         while(rs.next()) {
           EquipmentDAO equipmentDAO = new EquipmentDAO();
@@ -86,7 +84,7 @@ public class ComputerDAO implements Dao<Computer> {
           Processor processor = processorDAO.get(rs.getInt("processorId"));
           GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
           GraphicCard graphicCard = graphicCardDAO.get(rs.getInt("graphicCardId"));
-          result = new Computer(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), rs.getString("brand"),rs.getString("model"), rs.getString("serialNumber"), rs.getInt("memorySize"), rs.getBoolean("isLaptop"), rs.getInt("screenSize"), this.mysqlDateToJavaDate(rs.getString("purchaseDate")), this.mysqlDateToJavaDate(rs.getString("renewalDate")), processor, graphicCard );
+          result = new Computer(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), rs.getString("brand"),rs.getString("model"), rs.getString("serialNumber"), rs.getInt("memorySize"), rs.getBoolean("isLaptop"), rs.getInt("screenSize"), rs.getString("purchaseDate"), rs.getString("renewalDate"), processor, graphicCard );
         }
       } catch(SQLException e) {
         e.printStackTrace();
@@ -112,24 +110,63 @@ public class ComputerDAO implements Dao<Computer> {
   }
 
 	public ArrayList<Computer> listAll() {
+    System.out.println("COMPUTER DAO LIST ALL START");
 		ArrayList<Computer> result = new ArrayList<Computer>();
 		try {
-			Statement statement = this.connection.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM "+this.table + ";");
+			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM "+this.table + ";");
+			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				EquipmentDAO equipmentDAO = new EquipmentDAO();
+        System.out.println("EquipmentDAO get");
 				Equipment equipment = equipmentDAO.get(rs.getInt("id"));
 				ProcessorDAO processorDAO = new ProcessorDAO();
+        System.out.println("processorDAO get");
 				Processor processor = processorDAO.get(rs.getInt("processorId"));
 				GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
+        System.out.println("GraphicCardDAO get");
 				GraphicCard graphicCard = graphicCardDAO.get(rs.getInt("graphicCardId"));
-				result.add(new Computer(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), rs.getString("brand"),rs.getString("model"), rs.getString("serialNumber"), rs.getInt("memorySize"), rs.getBoolean("isLaptop"), rs.getInt("screenSize"), this.mysqlDateToJavaDate(rs.getString("purchaseDate")), this.mysqlDateToJavaDate(rs.getString("renewalDate")), processor, graphicCard ));
+				result.add(new Computer(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), rs.getString("brand"),rs.getString("model"), rs.getString("serialNumber"), rs.getInt("memorySize"), rs.getBoolean("isLaptop"), rs.getInt("screenSize"), rs.getString("purchaseDate"), rs.getString("renewalDate"), processor, graphicCard ));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
+
+  public ArrayList<Equipment> listAllIdAndName() {
+    ArrayList<Equipment> result = new ArrayList<Equipment>();
+		try {
+			Statement statement = this.connection.createStatement();
+			ResultSet rs = statement.executeQuery("SELECT id, name FROM Equipment WHERE id IN (SELECT id FROM " + this.table +") ;");
+			while (rs.next()) {
+        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "");
+				result.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+  }
+
+  public ArrayList<Computer> simplifiedListAll() {
+    System.out.println("COMPUTER DAO LIST ALL START");
+		ArrayList<Computer> result = new ArrayList<Computer>();
+		try {
+			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM "+this.table + ";");
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				EquipmentDAO equipmentDAO = new EquipmentDAO();
+        System.out.println("EquipmentDAO get");
+				Equipment equipment = equipmentDAO.get(rs.getInt("id"));
+        Processor processor = new Processor(0, "", "", 0, 0);
+        GraphicCard graphicCard = new GraphicCard(0, "", "", 0);
+				result.add(new Computer(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), rs.getString("brand"),rs.getString("model"), rs.getString("serialNumber"), rs.getInt("memorySize"), rs.getBoolean("isLaptop"), rs.getInt("screenSize"), rs.getString("purchaseDate"), rs.getString("renewalDate"), processor, graphicCard ));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+  }
 
   public void update(Computer object, HashMap<String, Object> parameters) {
     int id = object.getId();
@@ -166,15 +203,4 @@ public class ComputerDAO implements Dao<Computer> {
     }
   }
 
-  private String javaDateToMysqlDate(LocalDate date) {
-	  DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	  String formattedDate = date.format(myFormatObj);
-	  return formattedDate;
-  }
-
-  private LocalDate mysqlDateToJavaDate(String mysqlDate) {
-	  DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	  LocalDate result = LocalDate.parse(mysqlDate);
-	  return result;
-  }
 }

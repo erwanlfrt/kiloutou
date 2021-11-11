@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -62,10 +63,11 @@ public class UserDAO implements Dao<User> {
   public User get(Object id) {
     User result = null;
     if(id instanceof String) {
-    	String query = "SELECT * from " + this.table + " WHERE mail = \'" + (String)id + "\';";
+    	String query = "SELECT * from " + this.table + " WHERE mail = ? ;";
         try {
-          Statement statement = this.connection.createStatement();
-          ResultSet rs = statement.executeQuery(query);
+          PreparedStatement statement = this.connection.prepareStatement(query);
+          statement.setString(1, (String)id);
+          ResultSet rs = statement.executeQuery();
           while(rs.next()) {
         	  result = new User(rs.getString("name"), rs.getString("firstname"), rs.getString("address"), rs.getString("phoneNumber"), rs.getString("mail"), rs.getString("login"), rs.getString("password"));
           }
@@ -79,8 +81,8 @@ public class UserDAO implements Dao<User> {
 	public ArrayList<User> listAll() {
 		ArrayList<User> result = new ArrayList<User>();
 		try {
-			Statement statement = this.connection.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM "+ this.table + ";");
+			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM "+ this.table + ";");
+			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				result.add(new User(rs.getString("name"), rs.getString("firstname"), rs.getString("address"), rs.getString("phoneNumber"), rs.getString("mail"), rs.getString("login"), rs.getString("password")));
 			}

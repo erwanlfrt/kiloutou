@@ -1,12 +1,17 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+// import java.time.LocalDate;
+// import java.time.format.DateTimeFormatter;
+// import java.util.Date;
 
 import model.DBManager;
 import model.object.equipment.Equipment;
@@ -57,10 +62,11 @@ public class EquipmentDAO implements Dao<Equipment> {
   public Equipment get(Object id) {
     Equipment result = null;
     if(id instanceof Integer) {
-    	String query = "SELECT * from " + this.table + " WHERE id = \'" + (Integer)id + "\';";
+    	String query = "SELECT * from " + this.table + " WHERE id = ? ;";
       try {
-        Statement statement = this.connection.createStatement();
-        ResultSet rs = statement.executeQuery(query);
+        PreparedStatement statement = this.connection.prepareStatement(query);
+        statement.setInt(1, (Integer)id);
+        ResultSet rs = statement.executeQuery();
         while(rs.next()) {
           result = new Equipment(rs.getInt("id"), rs.getString("name"), rs.getBoolean("available"), rs.getString("imageUrl"));
         }
@@ -93,16 +99,15 @@ public class EquipmentDAO implements Dao<Equipment> {
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT * FROM "+this.table + ";");
 			while (rs.next()) {
-        int id = rs.getInt("id")
+        int id = rs.getInt("id");
         Equipment e = new Equipment(id, rs.getString("name"), rs.getBoolean("available"), rs.getString("imageUrl"));
 
-        ResultSet rsDates = statement.executeQuery("SELECT beginningDate, endDate FROM Loan WHERE equipmentId = " + id +";");
-
+        Statement dateStatement= this.connection.createStatement();
+        ResultSet rsDates = dateStatement.executeQuery("SELECT beginningDate, endDate FROM Loan WHERE equipmentId = " + id +";");
+        
         while(rsDates.next()) {
-          LocalDate beginningDate = this.mysqlDateToJavaDate(rsDates.getString("beginningDate"));
-          LocalDate endDate = this.mysqlDateToJavaDate(rsDates.getString("endDate"));
-          e.addPeriod(beginningDate, endDate);
-        }
+          e.addPeriod(rsDates.getString("beginningDate"), rsDates.getString("endDate"));
+        } 
 
 				result.add(e);
 			}
@@ -111,6 +116,21 @@ public class EquipmentDAO implements Dao<Equipment> {
 		}
 		return result;
 	}
+
+  public ArrayList<Equipment> listAllIdAndName() {
+    ArrayList<Equipment> result = new ArrayList<Equipment>();
+		try {
+			Statement statement = this.connection.createStatement();
+			ResultSet rs = statement.executeQuery("SELECT id, name FROM "+this.table + ";");
+			while (rs.next()) {
+        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "");
+				result.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+  }
 
   public void update(Equipment object, HashMap<String, Object> parameters) {
     int id = object.getId();
@@ -145,17 +165,5 @@ public class EquipmentDAO implements Dao<Equipment> {
         e.printStackTrace();
       }
     }
-  }
-
-  private String javaDateToMysqlDate(LocalDate date) {
-	  DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	  String formattedDate = date.format(myFormatObj);
-	  return formattedDate;
-  }
-
-  private LocalDate mysqlDateToJavaDate(String mysqlDate) {
-	  DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	  LocalDate result = LocalDate.parse(mysqlDate);
-	  return result;
   }
 }

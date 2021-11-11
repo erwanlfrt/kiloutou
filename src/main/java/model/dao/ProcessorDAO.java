@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -58,10 +59,11 @@ public class ProcessorDAO implements Dao<Processor> {
   public Processor get(Object id) {
     Processor result = null;
     if(id instanceof Integer) {
-    	String query = "SELECT * from " + this.table + " WHERE id = " + (Integer)id + ";";
+    	String query = "SELECT * from " + this.table + " WHERE id =  ? ;";
       try {
-        Statement statement = this.connection.createStatement();
-        ResultSet rs = statement.executeQuery(query);
+        PreparedStatement statement = this.connection.prepareStatement(query);
+        statement.setInt(1, (Integer)id);
+        ResultSet rs = statement.executeQuery();
         while(rs.next()) {
           result = new Processor(rs.getInt("id"), rs.getString("name"),rs.getString("brand"), rs.getInt("numberOfCores"), rs.getFloat("frequency"));
         }
@@ -90,8 +92,8 @@ public class ProcessorDAO implements Dao<Processor> {
 	public ArrayList<Processor> listAll() {
 		ArrayList<Processor> result = new ArrayList<Processor>();
 		try {
-			Statement statement = this.connection.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM "+this.table + ";");
+			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM "+this.table + ";");
+			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				result.add( new Processor(rs.getInt("id"), rs.getString("name"),rs.getString("brand"), rs.getInt("numberOfCores"), rs.getFloat("frequency")));
 			}

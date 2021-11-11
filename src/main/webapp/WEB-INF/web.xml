@@ -149,7 +149,7 @@
 	 <url-pattern>/loan/add</url-pattern>
   </servlet-mapping>
 
-<servlet>
+  <servlet>
     <display-name>ListAllLoan</display-name>
     <servlet-name>ListAllLoan</servlet-name>
     <servlet-class>controller.loan.ListAllLoan</servlet-class>
@@ -182,6 +182,122 @@
 		<servlet-name>InfoLoan</servlet-name>
 		<url-pattern>/loan/info</url-pattern>
   </servlet-mapping>
+
+
+  <!-- list equipments -->
+
+  <servlet>
+    <display-name>ListOthers</display-name>
+    <servlet-name>ListOthers</servlet-name>
+    <servlet-class>controller.equipment.list.ListOtherController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+	 <servlet-name>ListOthers</servlet-name>
+	 <url-pattern>/loan/list/others</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <display-name>ListVehicles</display-name>
+    <servlet-name>ListVehicles</servlet-name>
+    <servlet-class>controller.equipment.list.ListVehiclesController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+	 <servlet-name>ListVehicles</servlet-name>
+	 <url-pattern>/loan/list/vehicles</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <display-name>ListVehicleAccessories</display-name>
+    <servlet-name>ListVehicleAccessories</servlet-name>
+    <servlet-class>controller.equipment.list.ListVehicleAccessoriesController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+	 <servlet-name>ListVehicleAccessories</servlet-name>
+	 <url-pattern>/loan/list/vehicleAccessories</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <display-name>ListComputers</display-name>
+    <servlet-name>ListComputers</servlet-name>
+    <servlet-class>controller.equipment.list.ListComputersController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+	 <servlet-name>ListComputers</servlet-name>
+	 <url-pattern>/loan/list/computers</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <display-name>ListComputerAccessories</display-name>
+    <servlet-name>ListComputerAccessories</servlet-name>
+    <servlet-class>controller.equipment.list.ListComputerAccessoriesController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+	 <servlet-name>ListComputerAccessories</servlet-name>
+	 <url-pattern>/loan/list/computerAccessories</url-pattern>
+  </servlet-mapping>
+
+
+  <!-- get equipment -->
+  <servlet>
+    <display-name>GetOther</display-name>
+    <servlet-name>GetOther</servlet-name>
+    <servlet-class>controller.equipment.get.GetOtherController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+	 <servlet-name>GetOther</servlet-name>
+	 <url-pattern>/loan/get/others</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <display-name>GetComputer</display-name>
+    <servlet-name>GetComputer</servlet-name>
+    <servlet-class>controller.equipment.get.GetComputerController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+	 <servlet-name>GetComputer</servlet-name>
+	 <url-pattern>/loan/get/computers</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <display-name>GetComputerAccessory</display-name>
+    <servlet-name>GetComputerAccessory</servlet-name>
+    <servlet-class>controller.equipment.get.GetComputerAccessoryController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+	 <servlet-name>GetComputerAccessory</servlet-name>
+	 <url-pattern>/loan/get/computerAccessories</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <display-name>GetVehicle</display-name>
+    <servlet-name>GetVehicle</servlet-name>
+    <servlet-class>controller.equipment.get.GetVehicleController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+	 <servlet-name>GetVehicle</servlet-name>
+	 <url-pattern>/loan/get/vehicles</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <display-name>GetVehicleAccessory</display-name>
+    <servlet-name>GetVehicleAccessory</servlet-name>
+    <servlet-class>controller.equipment.get.GetVehicleAccessoryController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+	 <servlet-name>GetVehicleAccessory</servlet-name>
+	 <url-pattern>/loan/get/vehicleAccessories</url-pattern>
+  </servlet-mapping>
+
   
   <servlet-mapping>
 	 <servlet-name>default</servlet-name>

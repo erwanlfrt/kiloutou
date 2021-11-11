@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 import model.DBManager;
 import model.object.equipment.Bike;
+import model.object.equipment.Equipment;
 import model.object.equipment.Vehicle;
 
 
@@ -58,12 +60,13 @@ public class BikeDAO implements Dao<Bike> {
   public Bike get(Object id) {
     Bike result = null;
     if(id instanceof Integer) {
-    	String query = "SELECT * from " + this.table + " WHERE id = " + (Integer)id + ";";
+    	String query = "SELECT * from " + this.table + " WHERE id = ?;";
       try {
-        Statement statement = this.connection.createStatement();
+        PreparedStatement statement = this.connection.prepareStatement(query);
+        statement.setInt(1, (Integer)id);
         ResultSet rs = statement.executeQuery(query);
+        VehicleDAO vehicleDAO = new VehicleDAO();
         while(rs.next()) {
-          VehicleDAO vehicleDAO = new VehicleDAO();
           Vehicle vehicle = vehicleDAO.get(id);
           result = new Bike(vehicle.getId(), vehicle.getName(), vehicle.isAvailable(), vehicle.getImageUrl(), vehicle.getKilometers(), vehicle.getBrand(), vehicle.getState(), vehicle.getMaxSpeed(), vehicle.getNumberOfSpeeds(), vehicle.getModel(), vehicle.getPower(), vehicle.getRegistrationNumber(), vehicle.getRenewalKilometers(), rs.getInt("numberOfCylinders"));
         }
@@ -77,10 +80,10 @@ public class BikeDAO implements Dao<Bike> {
 	public ArrayList<Bike> listAll() {
 		ArrayList<Bike> result = new ArrayList<Bike>();
 		try {
-			Statement statement = this.connection.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM "+ this.table + ";");
+			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM" + this.table + ";");
+			ResultSet rs = statement.executeQuery();
+      VehicleDAO vehicleDAO = new VehicleDAO();
 			while (rs.next()) {
-				VehicleDAO vehicleDAO = new VehicleDAO();
 				Vehicle vehicle = vehicleDAO.get(rs.getInt("id"));
 				result.add(new Bike(vehicle.getId(), vehicle.getName(), vehicle.isAvailable(), vehicle.getImageUrl(), vehicle.getKilometers(), vehicle.getBrand(), vehicle.getState(), vehicle.getMaxSpeed(), vehicle.getNumberOfSpeeds(), vehicle.getModel(), vehicle.getPower(), vehicle.getRegistrationNumber(), vehicle.getRenewalKilometers(), rs.getInt("numberOfCylinders")));
 			}
@@ -89,6 +92,21 @@ public class BikeDAO implements Dao<Bike> {
 		}
 		return result;
 	}
+
+  public ArrayList<Equipment> listAllIdAndName() {
+    ArrayList<Equipment> result = new ArrayList<Equipment>();
+		try {
+			Statement statement = this.connection.createStatement();
+			ResultSet rs = statement.executeQuery("SELECT id, name FROM Equipment WHERE id IN (SELECT id FROM " + this.table +") ;");
+			while (rs.next()) {
+        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "");
+				result.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+  }
 
   public void update(Bike object, HashMap<String, Object> parameters) {
     int id = object.getId();

@@ -87,6 +87,21 @@ public class ComputerAccessoryDAO implements Dao<ComputerAccessory> {
 		return result;
 	}
 
+  public ArrayList<Equipment> listAllIdAndName() {
+    ArrayList<Equipment> result = new ArrayList<Equipment>();
+		try {
+			Statement statement = this.connection.createStatement();
+			ResultSet rs = statement.executeQuery("SELECT id, name FROM Equipment WHERE id IN (SELECT id FROM " + this.table +") ;");
+			while (rs.next()) {
+        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "");
+				result.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+  }
+
   public void update(ComputerAccessory object, HashMap<String, Object> parameters) {
     int id = object.getId();
 

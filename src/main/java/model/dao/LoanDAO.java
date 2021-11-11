@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -83,12 +84,13 @@ public class LoanDAO implements Dao<Loan> {
   public Loan get(Object id) {
     Loan result = null;
     if(id instanceof Object) {
-    	String query = "SELECT * from " + this.table + " WHERE id = " + (int)id;
+    	String query = "SELECT * from " + this.table + " WHERE id = ? ;";
       try {
-        Statement statement = this.connection.createStatement();
-        ResultSet rs = statement.executeQuery(query);
+        PreparedStatement statement = this.connection.prepareStatement(query);
+        statement.setInt(1, (Integer)id);
+        ResultSet rs = statement.executeQuery();
+        EquipmentDAO equipmentDAO = new EquipmentDAO();
         while(rs.next()) {
-          EquipmentDAO equipmentDAO = new EquipmentDAO();
           Equipment equipment = equipmentDAO.get(rs.getInt("equipmentId"));
           UserDAO userDAO = new UserDAO();
           User user = userDAO.get(rs.getString("userMail"));
@@ -105,11 +107,11 @@ public class LoanDAO implements Dao<Loan> {
 	public ArrayList<Loan> listAll() {
 		ArrayList<Loan> result = new ArrayList<Loan>();
 		try {
-			Statement statement = this.connection.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM "+this.table + ";");
+			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM "+this.table + ";");
+			ResultSet rs = statement.executeQuery();
+      EquipmentDAO equipmentDAO = new EquipmentDAO();
 			while (rs.next()) {
-            int id = rs.getInt("id");
-		        EquipmentDAO equipmentDAO = new EquipmentDAO();
+            int id = rs.getInt("id");	        
 		        Equipment equipment = equipmentDAO.get(rs.getInt("equipmentId"));
 		        UserDAO userDAO = new UserDAO();
 		        User user = userDAO.get(rs.getString("userMail"));

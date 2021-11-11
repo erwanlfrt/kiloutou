@@ -1,23 +1,20 @@
 package model.object.equipment;
 
-import java.util.ArrayList;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.ArrayList;;
 
 public class Equipment {
   protected int id;
   protected String name;
   protected boolean available;
   protected String imageUrl;
-  protected ArrayList<LocalDate[]> loanedDates;
+  protected ArrayList<String[]> loanedDates;
 
   public Equipment(int id, String name, boolean available, String imageUrl) {
     this.id = id;
     this.name = name;
     this.available = available;
     this.imageUrl = imageUrl;
-    this.loanedDates new ArrayList<LocalDate[]>();
+    this.loanedDates =  new ArrayList<String[]>();
   }
 
   public int getId() {
@@ -56,14 +53,14 @@ public class Equipment {
     this.imageUrl = imageUrl;
   }
 
-  public void addPeriod(LocalDate beginningDate, endDate) {
-    LocalDate[] dates = new LocalDate[2];
+  public void addPeriod(String beginningDate, String endDate) {
+    String[] dates = new String[2];
     dates[0] = beginningDate;
     dates[1] = endDate;
     this.loanedDates.add(dates);
   }
 
-  public ArrayList<LocalDate> getLoanedDates() {
+  public ArrayList<String[]> getLoanedDates() {
     return this.loanedDates;
   }
 

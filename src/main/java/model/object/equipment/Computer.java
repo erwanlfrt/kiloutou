@@ -1,9 +1,9 @@
 package model.object.equipment;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+// import java.text.SimpleDateFormat;
+// import java.time.String;
+// import java.time.format.DateTimeFormatter;
+// import java.util.Date;
 
 public class Computer extends Equipment {
   private String brand;
@@ -12,12 +12,12 @@ public class Computer extends Equipment {
   private int memorySize;
   private boolean isLaptop;
   private int screenSize;
-  private LocalDate purchaseDate;
-  private LocalDate renewalDate;
+  private String purchaseDate;
+  private String renewalDate;
   private Processor processor;
   private GraphicCard graphicCard;
 
-  public Computer( int id, String name, boolean available, String imageUrl, String brand, String model, String serialNumber, int memorySize, boolean isLaptop, int screenSize, LocalDate purchaseDate, LocalDate renewalDate, Processor processor, GraphicCard graphicCard) {
+  public Computer( int id, String name, boolean available, String imageUrl, String brand, String model, String serialNumber, int memorySize, boolean isLaptop, int screenSize, String purchaseDate, String renewalDate, Processor processor, GraphicCard graphicCard) {
     super(id, name, available, imageUrl);
     this.brand = brand;
     this.model = model;
@@ -79,19 +79,19 @@ public class Computer extends Equipment {
     this.screenSize = screenSize;
   }
 
-  public LocalDate getPurchaseDate() {
+  public String getPurchaseDate() {
     return purchaseDate;
   }
 
-  public void setPurchaseDate(LocalDate purchaseDate) {
+  public void setPurchaseDate(String purchaseDate) {
     this.purchaseDate = purchaseDate;
   }
 
-  public LocalDate getRenewalDate() {
+  public String getRenewalDate() {
     return renewalDate;
   }
 
-  public void setRenewalDate(LocalDate renewalDate) {
+  public void setRenewalDate(String renewalDate) {
     this.renewalDate = renewalDate;
   }
 
@@ -109,18 +109,6 @@ public class Computer extends Equipment {
 
   public void setGraphicCard(GraphicCard graphicCard) {
     this.graphicCard = graphicCard;
-  }
-  
-  public String getStringPurchaseDate() {
-	  DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	  String formattedDate = this.purchaseDate.format(myFormatObj);
-	  return formattedDate;
-  }
-  
-  public String getStringRenewalDate() {
-	  DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	  String formattedDate = this.renewalDate.format(myFormatObj);
-	  return formattedDate;
   }
   
 }

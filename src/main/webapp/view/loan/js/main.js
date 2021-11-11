@@ -1,53 +1,11 @@
+var equipment;
+
+
 /**
  * Main from add-loan page
  */
 
 function main() {
-  $('.datepicker').datepicker();
-	
-	 $.ajax({
-        //L'URL de la requête 
-        url: "/kiloutou/loan/all",
-
-        //La méthode d'envoi (type de requête)
-        method: "GET",
-
-        //Le format de réponse attendu
-        dataType : "json",
-    })
-    //Ce code sera exécuté en cas de succès - La réponse du serveur est passée à done()
-    /*On peut par exemple convertir cette réponse en chaine JSON et insérer
-     * cette chaine dans un div id="res"*/
-    .done(function(response){
-		console.log(response);
-        let data = JSON.stringify(response);
-        console.log(data);
-    })
-
-    //Ce code sera exécuté en cas d'échec - L'erreur est passée à fail()
-    //On peut afficher les informations relatives à la requête et à l'erreur
-    .fail(function(error){
-        alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
-    })
-
-    //Ce code sera exécuté que la requête soit un succès ou un échec
-    .always(function(){
-        alert("Requête effectuée");
-    });
-
-  //init dates
-  var beginningDate = document.getElementById("beginningDate");
-  var endDate = document.getElementById("endDate")
-  beginningDate.min = new Date().toLocaleDateString('en-ca')
-  beginningDate.value = beginningDate.min;
-
-  //on beginningDate change, set the minimum of endDate
-  beginningDate.addEventListener('change', function() {
-    endDate.min = beginningDate.value;
-    endDate.value = endDate.min;
-  });
-
-
   let rows = document.getElementsByClassName('row');
 
   for(let i = 0 ; i <rows.length ; i++) {
@@ -73,34 +31,18 @@ function main() {
 	 * Event for the first <select> : Type de materiel
 	 */
 	let filterSelect = document.getElementById("liste1");
-	filterSelect.addEventListener("change", function() {
+	  filterSelect.addEventListener("change", function() {
 		let index = filterSelect.selectedIndex;
 		let filterSelected = filterSelect.children[index].value;
     
-		let selectedOptions = document.getElementsByClassName('option-' + filterSelected);
-    let options = document.getElementsByClassName('options');
-    
-    for (let i = 0 ; i < options.length ; i++) {
-      options[i].style.display = "none";
-    }
-
-    for (let i = 0 ; i < selectedOptions.length ; i++) {
-      selectedOptions[i].style.display = "block";
-    }
+    loadListEquipment(filterSelected);
 
 	});
 
-  document.getElementById("liste2").addEventListener('change', function() {
-    let content = document.getElementById("liste2").value;
-    let name = content.split(' ')[1];
-    let imageUrl = content.split(' ')[2];
-    document.getElementById('info').innerHTML = `
-    <h3>Équipement </h3>
-    <p> Nom : ` + name +` </p>
-    <img src="`+ imageUrl +`">
-    `;
+  // document.getElementById("liste2").addEventListener('change', ajax());
 
-    document.getElementById('equipmentId').value = content.split(' ')[0];
+  document.getElementById("liste2").addEventListener('change', function() {
+    loadInfoEquipment();
   });
 
   document.getElementById("next").addEventListener("click", function() {
@@ -115,7 +57,6 @@ function main() {
     let isUser = window.getComputedStyle(users[0], null).getPropertyValue("display") === "block";
 
     if(isEquipment) {
-      
       if(equipmentValue === "" ) {
         document.getElementById("liste2").style.border = "solid red";
       }
@@ -128,6 +69,7 @@ function main() {
           users[i].style.display = "block";
         }
         document.getElementById('previous').disabled = false;
+        
       }
     }
     else if(isUser) {
@@ -144,11 +86,12 @@ function main() {
         for(let i = 0 ; i < recap.length ; i++) {
           recap[i].style.display = "block"; 
         }
-        console.log("par ici les petits"),
         document.getElementById("submitInput").hidden = false;
         document.getElementById("submitInput").disabled = false;
         document.getElementById("next").hidden = true;
         document.getElementById("next").disabled = true;
+
+        setDatePickers(true);
       }
       
     }
@@ -205,12 +148,179 @@ function searchUsers() {
     }
 
   }
+}
 
-  function selectUser(row) {
-
-
-      if(row !== null && row !== undefined) {
-        row.style.backgroundColor = "green";
-      }
+function selectUser(row) {
+  if(row !== null && row !== undefined) {
+    row.style.backgroundColor = "green";
   }
+}
+
+function loadListEquipment(filter) {
+  $.ajax({
+    //L'URL de la requête 
+    url: "/Kiloutou/loan/list/" + filter,
+
+    //La méthode d'envoi (type de requête)
+    method: "GET",
+
+    //Le format de réponse attendu
+    dataType : "json",
+  })
+  .done(function(data){
+      let selectEquipment = document.getElementById('liste2');
+      selectEquipment.innerHTML = `<option value="" selected disabled hidden>Matériel</option>`
+      for(let i = 0 ; i < data.length ; i++) {
+        selectEquipment.innerHTML += `<option value="` + data[i].id + `">` + data[i].name + `</option>`
+      }
+  })
+}
+
+
+function loadInfoEquipment() {
+  $.ajax({
+    //L'URL de la requête 
+    url: "/Kiloutou/loan/get/" + document.getElementById("liste1").value + "?id=" + document.getElementById("liste2").value,
+
+    //La méthode d'envoi (type de requête)
+    method: "GET",
+
+    //Le format de réponse attendu
+    dataType : "json",
+  })
+  .done(function(response){
+    equipment = response;
+    prettyPrintEquipment(response);
+    document.getElementById('equipmentId').value = response.id;
+  });
+}
+
+
+function setDatePickers(isInit) {
+
+  console.log("equipment = ", equipment);
+  let periods = equipment.loanedDates
+  let dates = [];
+  console.log("periods = ", periods);
+  for(let period of periods) {
+    let beginningPeriod = new Date(period[0]);
+    let endPeriod = new Date(period[1]);
+
+    while(beginningPeriod.getTime() <= endPeriod.getTime()) {
+      let pFormat = beginningPeriod.toLocaleDateString('en-GB');
+      dates.push(pFormat);
+      beginningPeriod.setDate(beginningPeriod.getDate() + 1);
+    }
+  }
+  if(isInit) {
+    $('#beginningDate').datepicker({
+      format: 'dd/m/yyyy',
+      maxViewMode: 1,
+      datesDisabled: dates,
+      startDate : "today"
+    });
+    $('#beginningDate').datepicker('update', new Date());
+
+    //on beginningDate change, set the minimum of endDate
+    $('#beginningDate').datepicker().on('changeDate', function() {
+      setDatePickers(false);
+    });
+  }
+  else {
+    console.log("value = ", $('#beginningDate').val());
+
+    var dateString = $('#beginningDate').val();
+    var dateParts = dateString.split("/");
+    var validString = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0];
+    // var dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+    
+    
+    //check for max date, infinity if no loan to come or the beginning date of the next loan to come.
+    let beginningDateOfLoan = undefined;
+    let nextLoan = undefined
+    let now = new Date();
+    let chosenBeginning = new Date(validString);
+
+    for(let period of periods) {
+      beginningDateOfLoan = new Date(period[0]);
+      if (beginningDateOfLoan.getTime() > chosenBeginning && (nextLoan === undefined || beginningDateOfLoan.getTime() < nextLoan.getTime())) {
+        nextLoan = beginningDateOfLoan;
+      }
+    }
+
+    console.log("début next loan = ", nextLoan);
+
+    $('#endDate').datepicker({
+      format: 'dd/m/yyyy',
+      maxViewMode: 1,
+      datesDisabled: dates,
+      startDate: chosenBeginning,
+    }); 
+    if(nextLoan !== undefined) {
+      $('#endDate').datepicker('setEndDate', nextLoan);
+    }
+    else {
+      $('#endDate').datepicker('setEndDate',new Date(8640000000000000)); //infinity
+    }
+    $('#endDate').datepicker('setStartDate', chosenBeginning);
+    $('#endDate').datepicker('update', chosenBeginning);
+
+
+  }
+  
+}
+
+
+function prettyPrintEquipment(equipment) {
+  let info = document.getElementById('info');
+  info.innerHTML = `
+  <h3>Équipement </h3>
+  <p>Nom : ` + equipment.name +` </p>
+  <img src="`+ equipment.imageUrl +`">
+  `
+
+  // if is a vehicle
+  if(equipment.kilometers !== undefined) {
+    info.innerHTML += `
+      <p>Marque : ` + equipment.brand + `</p>
+      <p>Modèle : ` + equipment.model + `</p>
+      <p>Kilometrage : ` + equipment.kilometers + `</p>
+      <p>Puissance : ` + equipment.power + `</p>
+      <p>Vitesse maximale : ` + equipment.maxSpeed + `</p>
+      <p> : Boîte de vitesse ` + equipment.numberOfSpeeds + ` rapports</p>
+      <p>Immatriculation : ` + equipment.registrationNumber + `</p>
+    `
+
+    // if is a car
+    if(equipment.numberOfSeats !== undefined) {
+      info.innerHTML += `
+      <p>Nombre de places : ` + equipment.numberOfSeats + `</p>
+      `
+    }
+    else if(equipment.numberOfCylinders !== undefined) {
+      info.innerHTML += `
+      <p>Nombre de cylindres : ` + equipment.numberOfCylinders + ` cylindres</p>
+      `
+    }
+  }
+  // else if is a computer
+  else if(equipment.isLaptop !== undefined) {
+    info.innerHTML += `
+    <p>Marque : ` + equipment.brand + `</p>
+    <p>Modèle : ` + equipment.model + `</p>
+    <p>Stockage : ` + equipment.memorySize + ` Go</p>
+    <p>Portable : ` + (equipment.isLaptop ? "oui" : "non") + `</p>
+    <h3>Processeur</h3>
+    <p>Marque : ` + equipment.processor.brand + `</p>
+    <p>Modèle : ` + equipment.processor.name + `</p>
+    <p>Nombre de coeurs : ` + equipment.processor.numberOfCores + `</p>
+    <p>Fréquence : ` + equipment.processor.frequency + `</p>
+    <h3>Carte graphique</h3>
+    <p>Marque : ` + equipment.graphicCard.brand + `</p>
+    <p>Modèle : ` + equipment.graphicCard.name + `</p>
+    <p>Fréquence : ` + equipment.graphicCard.frequency + `</p>
+    `
+  }
+
+
 }

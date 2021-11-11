@@ -59,7 +59,6 @@ public class SuitableVehicleDAO implements Dao<SuitableVehicle> {
     SuitableVehicle result = null;
     if(id instanceof Integer[]) {
     	String query = "SELECT * from " + this.table + " WHERE vehicleId = " + ((Integer[])id)[0] + " AND accessoryId = "+ ((Integer[])id)[1] +";";
-    	System.out.println("query = " + query);
       try {
         Statement statement = this.connection.createStatement();
         ResultSet rs = statement.executeQuery(query);

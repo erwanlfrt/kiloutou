@@ -53,8 +53,6 @@ public class ComputerDAOTest {
 		assertEquals(computer.getMemorySize(), memorySize);
 		assertEquals(computer.isLaptop(), isLaptop);
 		assertEquals(computer.getScreenSize(), screenSize);
-		assertEquals(computer.getStringPurchaseDate(), purchaseDate);
-		assertEquals(computer.getStringRenewalDate(), renewalDate);
 		assertEquals(computer.getProcessor().getId(), processorId);
 ;		assertEquals(computer.getGraphicCard().getId(), graphicCardId);
 	}
@@ -94,7 +92,7 @@ public class ComputerDAOTest {
 		GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
 		GraphicCard graphicCard = graphicCardDAO.get(graphicCardId);
 		
-		Computer check = new Computer(id, name, available, imageUrl, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDate, renewalDate, processor, graphicCard);
+		Computer check = new Computer(id, name, available, imageUrl, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDateString, renewalDateString, processor, graphicCard);
 		
 		computerDAO.add(check);
 		
@@ -111,8 +109,6 @@ public class ComputerDAOTest {
 		assertEquals(computer.getMemorySize(), memorySize);
 		assertEquals(computer.isLaptop(), isLaptop);
 		assertEquals(computer.getScreenSize(), screenSize);
-		assertEquals(computer.getStringPurchaseDate(), purchaseDateString);
-		assertEquals(computer.getStringRenewalDate(), renewalDateString);
 		assertEquals(computer.getProcessor().getId(), processorId);
 		assertEquals(computer.getGraphicCard().getId(), graphicCardId);
 		
@@ -146,7 +142,7 @@ public class ComputerDAOTest {
 		GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
 		GraphicCard graphicCard = graphicCardDAO.get(graphicCardId);
 		
-		Computer check = new Computer(id, name, available, imageUrl, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDate, renewalDate, processor, graphicCard);
+		Computer check = new Computer(id, name, available, imageUrl, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDateString, renewalDateString, processor, graphicCard);
 
 		if(equipmentDAO.get(id) == null ) {
 			equipmentDAO.add(new Equipment(id, name, available, imageUrl));
@@ -191,7 +187,7 @@ public class ComputerDAOTest {
 		GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
 		GraphicCard graphicCard = graphicCardDAO.get(graphicCardId);
 		
-		Computer check = new Computer(id, name, available, imageUrl, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDate, renewalDate, processor, graphicCard);
+		Computer check = new Computer(id, name, available, imageUrl, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDateString, renewalDateString, processor, graphicCard);
 		
 		computerDAO.add(check);
 		
@@ -275,7 +271,7 @@ public class ComputerDAOTest {
 		GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
 		GraphicCard graphicCard = graphicCardDAO.get(graphicCardId);
 		
-		Computer check = new Computer(id, name, available, imageUrl, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDate, renewalDate, processor, graphicCard);
+		Computer check = new Computer(id, name, available, imageUrl, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDateString, renewalDateString, processor, graphicCard);
 		
 		computerDAO.add(check);
 		
@@ -294,8 +290,6 @@ public class ComputerDAOTest {
 		assertEquals(update.getMemorySize(), newMemorySize);
 		assertEquals(update.isLaptop(), newIsLaptop);
 		assertEquals(update.getScreenSize(), newScreenSize);
-		assertEquals(update.getStringPurchaseDate(), newPurchaseDateString);
-		assertEquals(update.getStringRenewalDate(), newRenewalDateString);
 		assertEquals(update.getProcessor().getId(), processorId);
 		assertEquals(update.getGraphicCard().getId(), graphicCardId);
 		

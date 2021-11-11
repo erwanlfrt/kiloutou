@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -57,10 +58,11 @@ public class GraphicCardDAO implements Dao<GraphicCard> {
   public GraphicCard get(Object id) {
     GraphicCard result = null;
     if(id instanceof Integer) {
-    	String query = "SELECT * from " + this.table + " WHERE id = " + (Integer)id + ";";
+    	String query = "SELECT * from " + this.table + " WHERE id = ? ;";
       try {
-        Statement statement = this.connection.createStatement();
-        ResultSet rs = statement.executeQuery(query);
+        PreparedStatement statement = this.connection.prepareStatement(query);
+        statement.setInt(1, (Integer)id);
+        ResultSet rs = statement.executeQuery();
         while(rs.next()) {
           result = new GraphicCard(rs.getInt("id"), rs.getString("name"),rs.getString("brand"), rs.getFloat("frequency"));
         }
@@ -90,8 +92,8 @@ public class GraphicCardDAO implements Dao<GraphicCard> {
 	public ArrayList<GraphicCard> listAll() {
 		ArrayList<GraphicCard> result = new ArrayList<GraphicCard>();
 		try {
-			Statement statement = this.connection.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM "+this.table + ";");
+      PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM "+this.table + ";");
+      ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				result.add( new GraphicCard(rs.getInt("id"), rs.getString("name"),rs.getString("brand"), rs.getFloat("frequency")));
 			}

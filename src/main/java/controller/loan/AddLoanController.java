@@ -48,64 +48,10 @@ public class AddLoanController extends HttpServlet {
 	}
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)  {
-		
-		HashMap<String, ArrayList<Equipment>> listEquipments = new HashMap<String, ArrayList<Equipment>>();
-
-    ArrayList<Equipment> allEquipments = this.eDAO.listAll();
-		ArrayList<Equipment> listVehicle = this.castArrayList(this.vehicleDAO.listAll());
-		ArrayList<Equipment> listVehicleAccessory = this.castArrayList(this.vehicleAccessoryDAO.listAll());
-		ArrayList<Equipment> listComputer = this.castArrayList(this.computerDAO.listAll());
-		ArrayList<Equipment> listComputerAccessory = this.castArrayList(this.computerAccessoryDAO.listAll());
-    ArrayList<Equipment> other = new ArrayList<Equipment>();
     ArrayList<User> users = this.userDAO.listAll();
 
-    // list other equipments, TO IMPROVE
-    for(Equipment equipment : allEquipments) {
-      boolean isAVehicle = false;
-      boolean isAVehicleAccessory= false;
-      boolean isAComputerAccessory = false;
-      boolean isAComputer = false;
-      for(Equipment vehicle : listVehicle) {
-        if(vehicle.getId() == equipment.getId()) {
-          isAVehicle = true;
-          break;
-        }
-      }
-      for(Equipment va : listVehicleAccessory) {
-        if(va.getId() == equipment.getId()) {
-          isAVehicleAccessory = true;
-          break;
-        }
-      }
-      for(Equipment computer : listComputer) {
-        if(computer.getId() == equipment.getId()) {
-          isAComputer = true;
-          break;
-        }
-      }
-
-      for(Equipment computerAccessory : listComputerAccessory) {
-        if(computerAccessory.getId() == equipment.getId()) {
-          isAComputerAccessory = true;
-          break;
-        }
-      }
-
-      if(!isAComputer && !isAVehicle && !isAComputerAccessory && !isAVehicleAccessory) {
-        other.add(equipment);
-      }
-      
-    }
-
-    listEquipments.put("other", other);
-		listEquipments.put("vehicle", listVehicle);
-		listEquipments.put("vehicleAccessory", listVehicleAccessory);
-		listEquipments.put("computer", listComputer);
-		listEquipments.put("computerAccessory", listComputerAccessory);
-
-		request.setAttribute("equipments", listEquipments);
     request.setAttribute("users", users);
-
+    
 		String pageName="/view/loan/add-loan.jsp";
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 
@@ -130,7 +76,7 @@ public class AddLoanController extends HttpServlet {
     String beginningDateString = req.getParameter("beginningDate");
     String endDateString = req.getParameter("endDate");
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
 
     //convert String to LocalDate
     LocalDate beginningDate = LocalDate.parse(beginningDateString, formatter);

@@ -146,7 +146,7 @@ public class AddEquipmentController extends HttpServlet {
       String date = req.getParameter("purchaseDate");
       String renewalDate = req.getParameter("renewalDate");
      
-      Computer computer = new Computer(id, name, available, imageURL, brand, model, serialNumber, memorySize, isLaptop, screenSize, LocalDate.parse(date), LocalDate.parse(renewalDate), processor, graphicCard);
+      Computer computer = new Computer(id, name, available, imageURL, brand, model, serialNumber, memorySize, isLaptop, screenSize, date, renewalDate, processor, graphicCard);
       computerDAO.add(computer);
     }
     else if (category.equals("computerAccessory")) {

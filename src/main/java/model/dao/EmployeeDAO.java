@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -61,12 +62,13 @@ public class EmployeeDAO implements Dao<Employee> {
   public Employee get(Object id) {
     Employee result = null;
     if(id instanceof String) {
-    	String query = "SELECT * from " + this.table + " WHERE mail = \'" + (String)id + "\';";
+    	String query = "SELECT * from " + this.table + " WHERE mail = ?;";
       try {
-        Statement statement = this.connection.createStatement();
+        PreparedStatement statement = this.connection.prepareStatement(query);
+        statement.setString(1, (String)id);
         ResultSet rs = statement.executeQuery(query);
+        UserDAO userDAO = new UserDAO();
         while(rs.next()) {
-        	UserDAO userDAO = new UserDAO();
         	User user = userDAO.get(id);
         	result = new Employee(user.getName(), user.getFirstname(), user.getAddress(), user.getPhoneNumber(), user.getMail(), user.getLogin(), user.getPassword(), rs.getString("employeeFunction"), rs.getString("employeeService"), rs.getInt("deskNumber"), Profil.valueOf(rs.getString("profil")));
         }
@@ -80,11 +82,11 @@ public class EmployeeDAO implements Dao<Employee> {
 	public ArrayList<Employee> listAll() {
 		ArrayList<Employee> result = new ArrayList<Employee>();
 		try {
-			Statement statement = this.connection.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM "+this.table + ";");
+			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM "+this.table + ";");
+			ResultSet rs = statement.executeQuery();
+      UserDAO userDAO = new UserDAO();
 			while (rs.next()) {
-				UserDAO userDAO = new UserDAO();
-	        	User user = userDAO.get(rs.getString("mail"));
+        User user = userDAO.get(rs.getString("mail"));
 				result.add(new Employee(user.getName(), user.getFirstname(), user.getAddress(), user.getPhoneNumber(), user.getMail(), user.getLogin(), user.getPassword(), rs.getString("employeeFunction"), rs.getString("employeeService"), rs.getInt("deskNumber"), Profil.valueOf(rs.getString("profil"))));
 			}
 		} catch (SQLException e) {
