@@ -18,6 +18,14 @@ import java.time.LocalDate;
 
 
 public class InfoLoanController extends HttpServlet {
+  private LoanDAO loanDAO;
+  private Loan loan;
+
+  public InfoLoanController() {
+    super();
+    this.loanDAO = new LoanDAO();
+  }
+
 	private void doProcess(HttpServletRequest request, HttpServletResponse response, String pageName) {
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 
@@ -34,8 +42,7 @@ public class InfoLoanController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     String pageName;
     int id = Integer.valueOf(req.getParameter("id"));
-    LoanDAO loanDAO = new LoanDAO();
-    Loan loan = loanDAO.get(id);
+    this.loan = this.loanDAO.get(id);
 
     if(loan != null) {
       req.setAttribute("loan", loan);
@@ -49,5 +56,13 @@ public class InfoLoanController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    if(this.loan != null) {
+      HashMap<String, Object> params = new HashMap<String, Object>();
+      params.put("isBorrowed", req.getParameter("updateLoan").equals("signaler comme rendu"));
+      loanDAO.update(loan, params);
+    }
+    this.doGet(req,resp);
 	}
+  
+
 }

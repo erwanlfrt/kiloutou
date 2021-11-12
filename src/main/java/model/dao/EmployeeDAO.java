@@ -66,7 +66,7 @@ public class EmployeeDAO implements Dao<Employee> {
       try {
         PreparedStatement statement = this.connection.prepareStatement(query);
         statement.setString(1, (String)id);
-        ResultSet rs = statement.executeQuery(query);
+        ResultSet rs = statement.executeQuery();
         UserDAO userDAO = new UserDAO();
         while(rs.next()) {
         	User user = userDAO.get(id);

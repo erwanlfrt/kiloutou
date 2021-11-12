@@ -54,22 +54,13 @@ public class ListOtherController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    System.out.println("Start List other");
     ArrayList<Equipment> allEquipments = this.eDAO.listAllIdAndName();
-    System.out.println(" 1/6 Done");
 		ArrayList<Equipment> listVehicle = this.castArrayList(this.vehicleDAO.listAllIdAndName());
-    System.out.println(" 2/6 Done");
 		ArrayList<Equipment> listVehicleAccessory = this.castArrayList(this.vehicleAccessoryDAO.listAllIdAndName());
-    System.out.println(" 3/6 Done");
 		ArrayList<Equipment> listComputer = this.castArrayList(this.computerDAO.listAllIdAndName());
-    System.out.println(" 4/6 Done");
 		ArrayList<Equipment> listComputerAccessory = this.castArrayList(this.computerAccessoryDAO.listAllIdAndName());
-    System.out.println(" 5/6 Done");
     ArrayList<Equipment> other = new ArrayList<Equipment>();
     ArrayList<User> users = this.userDAO.listAll();
-    System.out.println(" 6/6 Done");
-    System.out.println("début traitement");
 
     // list other equipments, TO IMPROVE
     for(Equipment equipment : allEquipments) {

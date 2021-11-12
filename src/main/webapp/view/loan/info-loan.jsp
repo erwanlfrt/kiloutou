@@ -1,6 +1,6 @@
 
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@page import="model.object.loan.Loan , model.object.user.* , model.object.equipment.*"%>
+<%@page import="model.object.loan.Loan , model.object.user.* , model.object.equipment.* , java.time.LocalDate"%>
 <%
   Loan loan = (Loan)request.getAttribute("loan");
   Equipment equipment = loan.getEquipment();
@@ -35,6 +35,20 @@
       <img src="<%= equipment.getImageUrl()%>" style="width : 300px ; height : 300px">
     </div>
     
+    <form method="POST">
+      <% if(loan.isBorrowed()) {
+        %>
+        <input type="submit" value="signaler comme non rendu" name="updateLoan">
+        <%
+      }
+      else if(!loan.isBorrowed() && loan.getBeginningDate().isBefore(LocalDate.now())){
+    	  %>
+        <input type="submit" value="signaler comme rendu" name="updateLoan">
+        <%
+      }
+      %>
+      
+    </form>
     
   </body>
 </html>

@@ -298,6 +298,18 @@
 	 <url-pattern>/loan/get/vehicleAccessories</url-pattern>
   </servlet-mapping>
 
+  <!-- stats -->
+  <servlet>
+    <display-name>Stats</display-name>
+    <servlet-name>Stats</servlet-name>
+    <servlet-class>controller.stats.StatisticController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+	 <servlet-name>Stats</servlet-name>
+	 <url-pattern>/stats/statistics</url-pattern>
+  </servlet-mapping>
+
   
   <servlet-mapping>
 	 <servlet-name>default</servlet-name>
