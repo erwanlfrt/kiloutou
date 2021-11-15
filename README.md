@@ -18,7 +18,7 @@ Depuis la racine :  ```git update-index --assume-unchanged src/main/java/config.
   - Utilisateur (ajouter, lister, info)
   - Matériels (ajouter, lister, info)
  ### Fonctionnalité
-  - Page de statistique
+  - ~~Page de statistique~~
   - Vérifier l'authentification de l'utilisateur dans chaque page et vérifier son profil
   - Page d'erreur à compléter (afficher un message d'erreur correspondant à l'erreur produite + redirection vers l'accueil)
   - Déconnexion (supprimer le user et l'employee de la session et rediriger vers la page login)
