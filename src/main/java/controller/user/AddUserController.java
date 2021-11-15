@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-public class AddUserController extends Htt+pServlet {
+public class AddUserController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
 		String pageName="/view/user/add-user.jsp";
 	
