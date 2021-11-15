@@ -87,9 +87,6 @@ public class AddLoanController extends HttpServlet {
     Loan loan = new Loan(0, equipment, user, beginningDate, endDate, false);
 
     this.loanDAO.add(loan);
-
-    System.out.println("loan added");
-
 	}
 
 	private <N, O> ArrayList<N> castArrayList(ArrayList<O> list){

@@ -110,20 +110,16 @@ public class ComputerDAO implements Dao<Computer> {
   }
 
 	public ArrayList<Computer> listAll() {
-    System.out.println("COMPUTER DAO LIST ALL START");
 		ArrayList<Computer> result = new ArrayList<Computer>();
 		try {
 			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM "+this.table + ";");
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				EquipmentDAO equipmentDAO = new EquipmentDAO();
-        System.out.println("EquipmentDAO get");
 				Equipment equipment = equipmentDAO.get(rs.getInt("id"));
 				ProcessorDAO processorDAO = new ProcessorDAO();
-        System.out.println("processorDAO get");
 				Processor processor = processorDAO.get(rs.getInt("processorId"));
 				GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
-        System.out.println("GraphicCardDAO get");
 				GraphicCard graphicCard = graphicCardDAO.get(rs.getInt("graphicCardId"));
 				result.add(new Computer(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), equipment.canBeLoaned(), rs.getString("brand"),rs.getString("model"), rs.getString("serialNumber"), rs.getInt("memorySize"), rs.getBoolean("isLaptop"), rs.getInt("screenSize"), rs.getString("purchaseDate"), rs.getString("renewalDate"), processor, graphicCard ));
 			}
@@ -149,14 +145,12 @@ public class ComputerDAO implements Dao<Computer> {
   }
 
   public ArrayList<Computer> simplifiedListAll() {
-    System.out.println("COMPUTER DAO LIST ALL START");
 		ArrayList<Computer> result = new ArrayList<Computer>();
 		try {
 			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM "+this.table + ";");
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				EquipmentDAO equipmentDAO = new EquipmentDAO();
-        System.out.println("EquipmentDAO get");
 				Equipment equipment = equipmentDAO.get(rs.getInt("id"));
         Processor processor = new Processor(0, "", "", 0, 0);
         GraphicCard graphicCard = new GraphicCard(0, "", "", 0);

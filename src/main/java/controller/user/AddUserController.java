@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-public class AddUserController extends HttpServlet {
+public class AddUserController extends Htt+pServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
 		String pageName="/view/user/add-user.jsp";
 	
@@ -58,8 +58,6 @@ public class AddUserController extends HttpServlet {
   
     UserDAO userDAO = new UserDAO();
     userDAO.add(user);
-    
-    System.out.println("User added");
 
     if(req.getParameter("isEmployee").equals("true")) {
       String employeeService = req.getParameter("employeeService");

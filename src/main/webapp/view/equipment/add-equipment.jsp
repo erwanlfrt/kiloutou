@@ -2,6 +2,7 @@
 <%@page import="model.object.equipment.* , java.io.IOException"%>
 <%
   Equipment equipment = (Equipment) request.getAttribute("equipment");
+  boolean isAModification = (equipment != null);
   Vehicle vehicle = (Vehicle) request.getAttribute("vehicle");
   Car car = (Car) request.getAttribute("car");
   Bike bike = (Bike) request.getAttribute("bike");
@@ -13,6 +14,7 @@
 <html>
   <head>
     <title>Add equipment</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/view/equipment/css/add-equipment.css" />
   </head>
   <body>
     <h1>Add equipment</h1>
@@ -39,7 +41,17 @@
         <option value="computerAccessory" <%= computerAccessory != null ? "selected" : "" %>>Accessoire informatique</option>
         <option value="vehicleAccessory" <%= vehicleAccessory != null ? "selected" : "" %>>Accessoire automobile</option>
       </select>
+
+      <input type="text" value="true" name="canBeLoaned" hidden>
+
+
       <div id="specificForm"></div>
+   
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
+      
       <input type="submit" value="submit">
     </form>
   </body>

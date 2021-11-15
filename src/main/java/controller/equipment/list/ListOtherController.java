@@ -99,14 +99,12 @@ public class ListOtherController extends HttpServlet {
       }
       
     }
-    System.out.println("fin traitement");
 
 		resp.setContentType("application/json");
 		PrintWriter out = resp.getWriter();
 
 		String otherJson = this.gson.toJson(other);
     out.print(otherJson);
-    System.out.println("FIN Other List");
 	}
 
 	@Override

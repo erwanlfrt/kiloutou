@@ -156,7 +156,6 @@ public class SuitableDAOTest {
 		assertEquals(suitableVehicleDAO.get(id) == null, true);
 		
 		ArrayList<SuitableVehicle> list = suitableVehicleDAO.listAll();
-		System.out.println("length here = " + list.size());
 	}
 	
 	
@@ -164,9 +163,6 @@ public class SuitableDAOTest {
 	public void listAllTest() {
 		SuitableVehicleDAO suitableVehicleDAO = new SuitableVehicleDAO();
 		ArrayList<SuitableVehicle> list = suitableVehicleDAO.listAll();
-		for (SuitableVehicle sv : list) {
-			System.out.println("sv : " + sv.getVehicle().getId() + " / " + sv.getVehicleAccessory().getId());
-		}
 		assertEquals(list.size(), 1);
 	}
 	/*
