@@ -62,9 +62,10 @@ public class AddEquipmentController extends HttpServlet {
 		String name = req.getParameter("name");
 		boolean available = req.getParameter("available").equals("available");
     String imageURL = req.getParameter("imageURL");
+    boolean canBeLoaned = true;
 
     
-    Equipment equipment = new Equipment(id, name, available, imageURL);
+    Equipment equipment = new Equipment(id, name, available, imageURL, canBeLoaned);
 
     equipmentDAO.add(equipment);
 
@@ -93,7 +94,7 @@ public class AddEquipmentController extends HttpServlet {
       int power = Integer.parseInt(req.getParameter("power"));
       int numberOfSpeeds = Integer.parseInt(req.getParameter("numberOfSpeeds"));
 
-      Vehicle vehicle = new Vehicle(id, name, available, imageURL, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
+      Vehicle vehicle = new Vehicle(id, name, available, imageURL, canBeLoaned, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
       VehicleDAO vehicleDAO = new VehicleDAO();
       vehicleDAO.add(vehicle);
       
@@ -102,13 +103,13 @@ public class AddEquipmentController extends HttpServlet {
       
       if(numberOfSeatsString != null) {
     	  int numberOfSeats = Integer.parseInt(numberOfSeatsString);
-    	  Car car = new Car(id, name, available, imageURL, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfSeats);
+    	  Car car = new Car(id, name, available, imageURL, canBeLoaned, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfSeats);
     	  CarDAO carDAO = new CarDAO();
     	  carDAO.add(car);
       }
       else if(numberOfCylindersString != null) {
     	  int numberOfCylinders = Integer.parseInt(numberOfCylindersString);
-    	  Bike bike = new Bike(id, name, available, imageURL, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
+    	  Bike bike = new Bike(id, name, available, imageURL, canBeLoaned, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
     	  BikeDAO bikeDAO = new BikeDAO();
     	  bikeDAO.add(bike);
       }
@@ -146,16 +147,16 @@ public class AddEquipmentController extends HttpServlet {
       String date = req.getParameter("purchaseDate");
       String renewalDate = req.getParameter("renewalDate");
      
-      Computer computer = new Computer(id, name, available, imageURL, brand, model, serialNumber, memorySize, isLaptop, screenSize, date, renewalDate, processor, graphicCard);
+      Computer computer = new Computer(id, name, available, imageURL, canBeLoaned, brand, model, serialNumber, memorySize, isLaptop, screenSize, date, renewalDate, processor, graphicCard);
       computerDAO.add(computer);
     }
     else if (category.equals("computerAccessory")) {
-      ComputerAccessory computerAccessory = new ComputerAccessory(id, name, available, imageURL);
+      ComputerAccessory computerAccessory = new ComputerAccessory(id, name, available, imageURL, canBeLoaned);
       ComputerAccessoryDAO caDAO = new ComputerAccessoryDAO();
       caDAO.add(computerAccessory);
     }
     else if (category.equals("vehicleAccessory")) {
-      VehicleAccessory vehicleAccessory = new VehicleAccessory(id, name, available, imageURL);
+      VehicleAccessory vehicleAccessory = new VehicleAccessory(id, name, available, imageURL, canBeLoaned);
       VehicleAccessoryDAO  vaDAO = new VehicleAccessoryDAO();
       vaDAO.add(vehicleAccessory);
     }

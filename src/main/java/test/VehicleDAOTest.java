@@ -75,10 +75,10 @@ public class VehicleDAOTest {
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		
 		if(equipmentDAO.get(id) == null) {
-			equipmentDAO.add(new Equipment(id, name, available, imageUrl));
+			equipmentDAO.add(new Equipment(id, name, available, imageUrl, true));
 		}
 		
-		Vehicle vehicle = new Vehicle(id, name, available, imageUrl, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
+		Vehicle vehicle = new Vehicle(id, name, available, imageUrl, true, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
 		
 		vehicleDAO.add(vehicle);
 		
@@ -126,10 +126,10 @@ public class VehicleDAOTest {
 		
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		
-		Vehicle vehicle = new Vehicle(id, name, available, imageUrl, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
+		Vehicle vehicle = new Vehicle(id, name, available, imageUrl, true, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
 		
 		if(equipmentDAO.get(id) == null) {
-			equipmentDAO.add(new Equipment(id, name, available, imageUrl));
+			equipmentDAO.add(new Equipment(id, name, available, imageUrl, true));
 		}
 		
 		if(vehicleDAO.get(id) == null ) {
@@ -165,10 +165,10 @@ public class VehicleDAOTest {
 		
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		
-		Vehicle vehicle = new Vehicle(id, name, available, imageUrl, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
+		Vehicle vehicle = new Vehicle(id, name, available, imageUrl, true, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
 		
 		if(equipmentDAO.get(id) == null) {
-			equipmentDAO.add(new Equipment(id, name, available, imageUrl));
+			equipmentDAO.add(new Equipment(id, name, available, imageUrl, true));
 		}
 		
 		if(vehicleDAO.get(id) == null ) {
@@ -212,10 +212,10 @@ public class VehicleDAOTest {
 		
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		
-		Vehicle vehicle = new Vehicle(id, name, available, imageUrl, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
+		Vehicle vehicle = new Vehicle(id, name, available, imageUrl, true, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
 		
 		if(equipmentDAO.get(id) == null) {
-			equipmentDAO.add(new Equipment(id, name, available, imageUrl));
+			equipmentDAO.add(new Equipment(id, name, available, imageUrl, true));
 		}
 		
 		if(vehicleDAO.get(id) == null ) {

@@ -68,7 +68,7 @@ public class EquipmentDAO implements Dao<Equipment> {
         statement.setInt(1, (Integer)id);
         ResultSet rs = statement.executeQuery();
         while(rs.next()) {
-          result = new Equipment(rs.getInt("id"), rs.getString("name"), rs.getBoolean("available"), rs.getString("imageUrl"));
+          result = new Equipment(rs.getInt("id"), rs.getString("name"), rs.getBoolean("available"), rs.getString("imageUrl"), rs.getBoolean("canBeLoaned"));
         }
       } catch(SQLException e) {
         e.printStackTrace();
@@ -100,7 +100,7 @@ public class EquipmentDAO implements Dao<Equipment> {
 			ResultSet rs = statement.executeQuery("SELECT * FROM "+this.table + ";");
 			while (rs.next()) {
         int id = rs.getInt("id");
-        Equipment e = new Equipment(id, rs.getString("name"), rs.getBoolean("available"), rs.getString("imageUrl"));
+        Equipment e = new Equipment(id, rs.getString("name"), rs.getBoolean("available"), rs.getString("imageUrl"), rs.getBoolean("canBeLoaned"));
 
         Statement dateStatement= this.connection.createStatement();
         ResultSet rsDates = dateStatement.executeQuery("SELECT beginningDate, endDate FROM Loan WHERE equipmentId = " + id +";");
@@ -123,7 +123,7 @@ public class EquipmentDAO implements Dao<Equipment> {
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT id, name FROM "+this.table + ";");
 			while (rs.next()) {
-        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "");
+        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "", true);
 				result.add(e);
 			}
 		} catch (SQLException e) {

@@ -37,7 +37,7 @@ public class VehicleAccessoryDAOTest {
 		boolean available = true;
 		String imageUrl = "http://randomURL4.com";
 		
-		VehicleAccessory vehicleAccessory = new VehicleAccessory(id, name, available, imageUrl);
+		VehicleAccessory vehicleAccessory = new VehicleAccessory(id, name, available, imageUrl, true);
 		VehicleAccessoryDAO vehicleAccessoryDAO = new VehicleAccessoryDAO();
 		
 		if(vehicleAccessoryDAO.get(id) != null) {
@@ -46,7 +46,7 @@ public class VehicleAccessoryDAOTest {
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		
 		if(equipmentDAO.get(id) == null ) {
-			equipmentDAO.add(new Equipment(id, name, available, imageUrl));
+			equipmentDAO.add(new Equipment(id, name, available, imageUrl, true));
 		}
 		
 		vehicleAccessoryDAO.add(vehicleAccessory);
@@ -70,7 +70,7 @@ public class VehicleAccessoryDAOTest {
 		boolean available = true;
 		String imageUrl = "http://randomURL2.com";
 		
-		VehicleAccessory vehicleAccessory = new VehicleAccessory(id, name, available, imageUrl);
+		VehicleAccessory vehicleAccessory = new VehicleAccessory(id, name, available, imageUrl, true);
 		VehicleAccessoryDAO vehicleAccessoryDAO = new VehicleAccessoryDAO();
 		
 		if(vehicleAccessoryDAO.get(id) == null) {
@@ -89,7 +89,7 @@ public class VehicleAccessoryDAOTest {
 		boolean available = true;
 		String imageUrl = "http://randomURL2.com";
 		
-		VehicleAccessory vehicleAccessory = new VehicleAccessory(id, name, available, imageUrl);
+		VehicleAccessory vehicleAccessory = new VehicleAccessory(id, name, available, imageUrl, true);
 		VehicleAccessoryDAO vehicleAccessoryDAO = new VehicleAccessoryDAO();
 		
 		if(vehicleAccessoryDAO.get(id) == null) {

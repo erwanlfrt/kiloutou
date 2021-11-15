@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class VehicleAccessory extends Equipment {
   private ArrayList<Vehicle> suitableVehicles;
 
-  public VehicleAccessory(int id, String name, boolean available, String imageUrl) {
-    super(id, name, available, imageUrl);
+  public VehicleAccessory(int id, String name, boolean available, String imageUrl, boolean canBeLoaned) {
+    super(id, name, available, imageUrl, canBeLoaned);
     this.suitableVehicles = new ArrayList<Vehicle>();
   }
 

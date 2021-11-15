@@ -80,7 +80,7 @@ public class ComputerDAOTest {
 		int graphicCardId = 1;
 		
 		if(equipmentDAO.get(id) == null ) {
-			equipmentDAO.add(new Equipment(id, name, available, imageUrl));
+			equipmentDAO.add(new Equipment(id, name, available, imageUrl, true));
 		}
 		
 		if(computerDAO.get(id) != null ) {
@@ -92,7 +92,7 @@ public class ComputerDAOTest {
 		GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
 		GraphicCard graphicCard = graphicCardDAO.get(graphicCardId);
 		
-		Computer check = new Computer(id, name, available, imageUrl, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDateString, renewalDateString, processor, graphicCard);
+		Computer check = new Computer(id, name, available, imageUrl, true, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDateString, renewalDateString, processor, graphicCard);
 		
 		computerDAO.add(check);
 		
@@ -142,10 +142,10 @@ public class ComputerDAOTest {
 		GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
 		GraphicCard graphicCard = graphicCardDAO.get(graphicCardId);
 		
-		Computer check = new Computer(id, name, available, imageUrl, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDateString, renewalDateString, processor, graphicCard);
+		Computer check = new Computer(id, name, available, imageUrl, true, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDateString, renewalDateString, processor, graphicCard);
 
 		if(equipmentDAO.get(id) == null ) {
-			equipmentDAO.add(new Equipment(id, name, available, imageUrl));
+			equipmentDAO.add(new Equipment(id, name, available, imageUrl, true));
 		}
 		
 		if(computerDAO.get(id) == null ) {
@@ -187,12 +187,12 @@ public class ComputerDAOTest {
 		GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
 		GraphicCard graphicCard = graphicCardDAO.get(graphicCardId);
 		
-		Computer check = new Computer(id, name, available, imageUrl, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDateString, renewalDateString, processor, graphicCard);
+		Computer check = new Computer(id, name, available, imageUrl, true, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDateString, renewalDateString, processor, graphicCard);
 		
 		computerDAO.add(check);
 		
 		if(equipmentDAO.get(id) == null ) {
-			equipmentDAO.add(new Equipment(id, name, available, imageUrl));
+			equipmentDAO.add(new Equipment(id, name, available, imageUrl, true));
 		}
 		
 		if(computerDAO.get(id) == null ) {
@@ -259,7 +259,7 @@ public class ComputerDAOTest {
 		int graphicCardId = 1;
 		
 		if(equipmentDAO.get(id) == null ) {
-			equipmentDAO.add(new Equipment(id, name, available, imageUrl));
+			equipmentDAO.add(new Equipment(id, name, available, imageUrl, true));
 		}
 		
 		if(computerDAO.get(id) != null ) {
@@ -271,7 +271,7 @@ public class ComputerDAOTest {
 		GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
 		GraphicCard graphicCard = graphicCardDAO.get(graphicCardId);
 		
-		Computer check = new Computer(id, name, available, imageUrl, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDateString, renewalDateString, processor, graphicCard);
+		Computer check = new Computer(id, name, available, imageUrl, true, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDateString, renewalDateString, processor, graphicCard);
 		
 		computerDAO.add(check);
 		

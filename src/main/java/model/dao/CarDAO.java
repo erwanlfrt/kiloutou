@@ -65,7 +65,7 @@ public class CarDAO implements Dao<Car> {
         while(rs.next()) {
           VehicleDAO vehicleDAO = new VehicleDAO();
           Vehicle vehicle = vehicleDAO.get(id);
-          result = new Car(vehicle.getId(), vehicle.getName(), vehicle.isAvailable(), vehicle.getImageUrl(), vehicle.getKilometers(), vehicle.getBrand(), vehicle.getState(), vehicle.getMaxSpeed(), vehicle.getNumberOfSpeeds(), vehicle.getModel(), vehicle.getPower(), vehicle.getRegistrationNumber(), vehicle.getRenewalKilometers(), rs.getInt("numberOfSeats"));
+          result = new Car(vehicle.getId(), vehicle.getName(), vehicle.isAvailable(), vehicle.getImageUrl(), vehicle.canBeLoaned(), vehicle.getKilometers(), vehicle.getBrand(), vehicle.getState(), vehicle.getMaxSpeed(), vehicle.getNumberOfSpeeds(), vehicle.getModel(), vehicle.getPower(), vehicle.getRegistrationNumber(), vehicle.getRenewalKilometers(), rs.getInt("numberOfSeats"));
         }
       } catch(SQLException e) {
         e.printStackTrace();
@@ -82,7 +82,7 @@ public class CarDAO implements Dao<Car> {
 			while (rs.next()) {
 				VehicleDAO vehicleDAO = new VehicleDAO();
 				Vehicle vehicle = vehicleDAO.get(rs.getInt("id"));
-				result.add(new Car(vehicle.getId(), vehicle.getName(), vehicle.isAvailable(), vehicle.getImageUrl(), vehicle.getKilometers(), vehicle.getBrand(), vehicle.getState(), vehicle.getMaxSpeed(), vehicle.getNumberOfSpeeds(), vehicle.getModel(), vehicle.getPower(), vehicle.getRegistrationNumber(), vehicle.getRenewalKilometers(), rs.getInt("numberOfSeats")));
+				result.add(new Car(vehicle.getId(), vehicle.getName(), vehicle.isAvailable(), vehicle.getImageUrl(), vehicle.canBeLoaned(), vehicle.getKilometers(), vehicle.getBrand(), vehicle.getState(), vehicle.getMaxSpeed(), vehicle.getNumberOfSpeeds(), vehicle.getModel(), vehicle.getPower(), vehicle.getRegistrationNumber(), vehicle.getRenewalKilometers(), rs.getInt("numberOfSeats")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -96,7 +96,7 @@ public class CarDAO implements Dao<Car> {
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT id, name FROM Equipment WHERE id IN (SELECT id FROM " + this.table +") ;");
 			while (rs.next()) {
-        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "");
+        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "", true);
 				result.add(e);
 			}
 		} catch (SQLException e) {

@@ -26,6 +26,7 @@ public class EquipmentDAOTest {
 		assertEquals(equipment.getName(), name);
 		assertEquals(equipment.isAvailable(), true);
 		assertEquals(equipment.getImageUrl(), imageUrl);
+    assertEquals(equipment.canBeLoaned(), true);
 	}
  	
 	@Test
@@ -35,7 +36,7 @@ public class EquipmentDAOTest {
 		boolean available = true;
 		String imageUrl = "http://randomURL2.com";
 		
-		Equipment equipment = new Equipment(id, name, available, imageUrl);
+		Equipment equipment = new Equipment(id, name, available, imageUrl, true);
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		if(equipmentDAO.get(equipment) != null) {
 			equipmentDAO.delete(equipment);
@@ -58,7 +59,7 @@ public class EquipmentDAOTest {
 		boolean available = true;
 		String imageUrl = "http://randomURL2.com";
 		
-		Equipment equipment = new Equipment(id, name, available, imageUrl);
+		Equipment equipment = new Equipment(id, name, available, imageUrl, true);
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		
 		if(equipmentDAO.get(id) == null) {
@@ -77,7 +78,7 @@ public class EquipmentDAOTest {
 		boolean available = true;
 		String imageUrl = "http://randomURL2.com";
 		
-		Equipment equipment = new Equipment(id, name, available, imageUrl);
+		Equipment equipment = new Equipment(id, name, available, imageUrl, true);
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		
 		if(equipmentDAO.get(id) == null) {
@@ -111,7 +112,7 @@ public class EquipmentDAOTest {
 		boolean available = true;
 		String imageUrl = "http://randomURL2.com";
 		
-		Equipment equipment = new Equipment(id, name, available, imageUrl);
+		Equipment equipment = new Equipment(id, name, available, imageUrl, true);
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		
 		if(equipmentDAO.get(id) == null) {

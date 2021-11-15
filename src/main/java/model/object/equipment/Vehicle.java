@@ -11,9 +11,9 @@ public class Vehicle extends Equipment{
   protected String registrationNumber;
   protected int renewalKilometers;
   
-  public Vehicle(int id, String name, boolean available, String imageUrl, int kilometers, String brand, String state,
+  public Vehicle(int id, String name, boolean available, String imageUrl, boolean canBeLoaned, int kilometers, String brand, String state,
       int maxSpeed, int numberOfSpeeds, String model, int power, String registrationNumber, int renewalKilometers) {
-    super(id, name, available, imageUrl);
+    super(id, name, available, imageUrl, canBeLoaned);
     this.kilometers = kilometers;
     this.brand = brand;
     this.state = state;

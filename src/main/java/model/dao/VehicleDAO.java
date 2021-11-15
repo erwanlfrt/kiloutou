@@ -74,7 +74,7 @@ public class VehicleDAO implements Dao<Vehicle> {
         EquipmentDAO equipmentDAO = new EquipmentDAO();
         while(rs.next()) {
           Equipment equipment = equipmentDAO.get(id);
-          result = new Vehicle(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), rs.getInt("kilometers"), rs.getString("brand"), rs.getString("state"), rs.getInt("maxSpeed"), rs.getInt("numberOfSpeeds"), rs.getString("model"), rs.getInt("power"), rs.getString("registrationNumber"), rs.getInt("renewalKilometers"));
+          result = new Vehicle(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), equipment.canBeLoaned(), rs.getInt("kilometers"), rs.getString("brand"), rs.getString("state"), rs.getInt("maxSpeed"), rs.getInt("numberOfSpeeds"), rs.getString("model"), rs.getInt("power"), rs.getString("registrationNumber"), rs.getInt("renewalKilometers"));
         }
       } catch(SQLException e) {
         e.printStackTrace();
@@ -91,7 +91,7 @@ public class VehicleDAO implements Dao<Vehicle> {
 			EquipmentDAO equipmentDAO = new EquipmentDAO();
 			while (rs.next()) {
 				Equipment equipment = equipmentDAO.get(rs.getInt("id"));
-				result.add(new Vehicle(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), rs.getInt("kilometers"), rs.getString("brand"), rs.getString("state"), rs.getInt("maxSpeed"), rs.getInt("numberOfSpeeds"), rs.getString("model"), rs.getInt("power"), rs.getString("registrationNumber"), rs.getInt("renewalKilometers")));
+				result.add(new Vehicle(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), equipment.canBeLoaned(), rs.getInt("kilometers"), rs.getString("brand"), rs.getString("state"), rs.getInt("maxSpeed"), rs.getInt("numberOfSpeeds"), rs.getString("model"), rs.getInt("power"), rs.getString("registrationNumber"), rs.getInt("renewalKilometers")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -105,7 +105,7 @@ public class VehicleDAO implements Dao<Vehicle> {
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT id, name FROM Equipment WHERE id IN (SELECT id FROM " + this.table +") ;");
 			while (rs.next()) {
-        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "");
+        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "", true);
 				result.add(e);
 			}
 		} catch (SQLException e) {

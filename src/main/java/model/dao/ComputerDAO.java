@@ -84,7 +84,7 @@ public class ComputerDAO implements Dao<Computer> {
           Processor processor = processorDAO.get(rs.getInt("processorId"));
           GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
           GraphicCard graphicCard = graphicCardDAO.get(rs.getInt("graphicCardId"));
-          result = new Computer(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), rs.getString("brand"),rs.getString("model"), rs.getString("serialNumber"), rs.getInt("memorySize"), rs.getBoolean("isLaptop"), rs.getInt("screenSize"), rs.getString("purchaseDate"), rs.getString("renewalDate"), processor, graphicCard );
+          result = new Computer(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), equipment.canBeLoaned(), rs.getString("brand"),rs.getString("model"), rs.getString("serialNumber"), rs.getInt("memorySize"), rs.getBoolean("isLaptop"), rs.getInt("screenSize"), rs.getString("purchaseDate"), rs.getString("renewalDate"), processor, graphicCard );
         }
       } catch(SQLException e) {
         e.printStackTrace();
@@ -125,7 +125,7 @@ public class ComputerDAO implements Dao<Computer> {
 				GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
         System.out.println("GraphicCardDAO get");
 				GraphicCard graphicCard = graphicCardDAO.get(rs.getInt("graphicCardId"));
-				result.add(new Computer(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), rs.getString("brand"),rs.getString("model"), rs.getString("serialNumber"), rs.getInt("memorySize"), rs.getBoolean("isLaptop"), rs.getInt("screenSize"), rs.getString("purchaseDate"), rs.getString("renewalDate"), processor, graphicCard ));
+				result.add(new Computer(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), equipment.canBeLoaned(), rs.getString("brand"),rs.getString("model"), rs.getString("serialNumber"), rs.getInt("memorySize"), rs.getBoolean("isLaptop"), rs.getInt("screenSize"), rs.getString("purchaseDate"), rs.getString("renewalDate"), processor, graphicCard ));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -139,7 +139,7 @@ public class ComputerDAO implements Dao<Computer> {
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT id, name FROM Equipment WHERE id IN (SELECT id FROM " + this.table +") ;");
 			while (rs.next()) {
-        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "");
+        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "", true);
 				result.add(e);
 			}
 		} catch (SQLException e) {
@@ -160,7 +160,7 @@ public class ComputerDAO implements Dao<Computer> {
 				Equipment equipment = equipmentDAO.get(rs.getInt("id"));
         Processor processor = new Processor(0, "", "", 0, 0);
         GraphicCard graphicCard = new GraphicCard(0, "", "", 0);
-				result.add(new Computer(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), rs.getString("brand"),rs.getString("model"), rs.getString("serialNumber"), rs.getInt("memorySize"), rs.getBoolean("isLaptop"), rs.getInt("screenSize"), rs.getString("purchaseDate"), rs.getString("renewalDate"), processor, graphicCard ));
+				result.add(new Computer(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), equipment.canBeLoaned(), rs.getString("brand"),rs.getString("model"), rs.getString("serialNumber"), rs.getInt("memorySize"), rs.getBoolean("isLaptop"), rs.getInt("screenSize"), rs.getString("purchaseDate"), rs.getString("renewalDate"), processor, graphicCard ));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -17,8 +17,8 @@ public class Computer extends Equipment {
   private Processor processor;
   private GraphicCard graphicCard;
 
-  public Computer( int id, String name, boolean available, String imageUrl, String brand, String model, String serialNumber, int memorySize, boolean isLaptop, int screenSize, String purchaseDate, String renewalDate, Processor processor, GraphicCard graphicCard) {
-    super(id, name, available, imageUrl);
+  public Computer( int id, String name, boolean available, String imageUrl, boolean canBeLoaned, String brand, String model, String serialNumber, int memorySize, boolean isLaptop, int screenSize, String purchaseDate, String renewalDate, Processor processor, GraphicCard graphicCard) {
+    super(id, name, available, imageUrl, canBeLoaned);
     this.brand = brand;
     this.model = model;
     this.serialNumber = serialNumber;

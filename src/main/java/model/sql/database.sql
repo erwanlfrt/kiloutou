@@ -41,7 +41,8 @@ CREATE TABLE Equipment (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(30) NOT NULL,
   available BOOLEAN DEFAULT 1,
-  imageURL VARCHAR(300)
+  imageURL VARCHAR(300),
+  canBeLoaned BOOLEAN DEFAULT 1
 );
 
 CREATE TABLE Processor ( 

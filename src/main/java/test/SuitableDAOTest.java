@@ -45,7 +45,7 @@ public class SuitableDAOTest {
 		boolean available = true;
 		String imageUrl = "http://randomURL4.com";
 		
-		VehicleAccessory  vehicleAccessory = new VehicleAccessory(accessoryId, name, available, imageUrl);
+		VehicleAccessory  vehicleAccessory = new VehicleAccessory(accessoryId, name, available, imageUrl, true);
 		Integer[] id = {1, vehicleAccessory.getId()};
 		SuitableVehicleDAO suitableVehicleDAO = new SuitableVehicleDAO();
 		
@@ -55,7 +55,7 @@ public class SuitableDAOTest {
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		
 		if(equipmentDAO.get(accessoryId) == null ) {
-			equipmentDAO.add(new Equipment(accessoryId, name, available, imageUrl));
+			equipmentDAO.add(new Equipment(accessoryId, name, available, imageUrl, true));
 		}
 		
 		VehicleAccessoryDAO vaDAO = new VehicleAccessoryDAO();
@@ -87,14 +87,14 @@ public class SuitableDAOTest {
 		boolean available = true;
 		String imageUrl = "http://randomURL4.com";
 		
-		VehicleAccessory  vehicleAccessory = new VehicleAccessory(accessoryId, name, available, imageUrl);
+		VehicleAccessory  vehicleAccessory = new VehicleAccessory(accessoryId, name, available, imageUrl, true);
 		Integer[] id = {1, vehicleAccessory.getId()};
 		SuitableVehicleDAO suitableVehicleDAO = new SuitableVehicleDAO();
 		
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		
 		if(equipmentDAO.get(accessoryId) == null ) {
-			equipmentDAO.add(new Equipment(accessoryId, name, available, imageUrl));
+			equipmentDAO.add(new Equipment(accessoryId, name, available, imageUrl, true));
 		}
 		
 		VehicleAccessoryDAO vaDAO = new VehicleAccessoryDAO();
@@ -126,7 +126,7 @@ public class SuitableDAOTest {
 		boolean available = true;
 		String imageUrl = "http://randomURL4.com";
 		
-		VehicleAccessory  vehicleAccessory = new VehicleAccessory(accessoryId, name, available, imageUrl);
+		VehicleAccessory  vehicleAccessory = new VehicleAccessory(accessoryId, name, available, imageUrl, true);
 		VehicleDAO vehicleDAO = new VehicleDAO();
 		Vehicle vehicle= vehicleDAO.get(1);
 		Integer[] id = {vehicle.getId(), accessoryId};
@@ -135,7 +135,7 @@ public class SuitableDAOTest {
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		
 		if(equipmentDAO.get(accessoryId) == null ) {
-			equipmentDAO.add(new Equipment(accessoryId, name, available, imageUrl));
+			equipmentDAO.add(new Equipment(accessoryId, name, available, imageUrl, true));
 		}
 		
 		VehicleAccessoryDAO vaDAO = new VehicleAccessoryDAO();

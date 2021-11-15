@@ -62,7 +62,7 @@ public class ComputerAccessoryDAO implements Dao<ComputerAccessory> {
         while(rs.next()) {
           EquipmentDAO equipmentDAO = new EquipmentDAO();
           Equipment equipment = equipmentDAO.get(id);
-          result = new ComputerAccessory(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl());
+          result = new ComputerAccessory(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), equipment.canBeLoaned());
         }
       } catch(SQLException e) {
         e.printStackTrace();
@@ -79,7 +79,7 @@ public class ComputerAccessoryDAO implements Dao<ComputerAccessory> {
 			while (rs.next()) {
 				EquipmentDAO equipmentDAO = new EquipmentDAO();
 				Equipment equipment = equipmentDAO.get(rs.getInt("id"));
-				result.add(new ComputerAccessory(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl()));
+				result.add(new ComputerAccessory(equipment.getId(), equipment.getName(), equipment.isAvailable(), equipment.getImageUrl(), equipment.canBeLoaned()));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -93,7 +93,7 @@ public class ComputerAccessoryDAO implements Dao<ComputerAccessory> {
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT id, name FROM Equipment WHERE id IN (SELECT id FROM " + this.table +") ;");
 			while (rs.next()) {
-        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "");
+        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "", true);
 				result.add(e);
 			}
 		} catch (SQLException e) {

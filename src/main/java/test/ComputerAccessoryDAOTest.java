@@ -37,7 +37,7 @@ public class ComputerAccessoryDAOTest {
 		boolean available = true;
 		String imageUrl = "http://randomURL4.com";
 		
-		ComputerAccessory computerAccessory = new ComputerAccessory(id, name, available, imageUrl);
+		ComputerAccessory computerAccessory = new ComputerAccessory(id, name, available, imageUrl, true);
 		ComputerAccessoryDAO computerAccessoryDAO = new ComputerAccessoryDAO();
 		
 		if(computerAccessoryDAO.get(id) != null) {
@@ -46,7 +46,7 @@ public class ComputerAccessoryDAOTest {
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		
 		if(equipmentDAO.get(id) == null ) {
-			equipmentDAO.add(new Equipment(id, name, available, imageUrl));
+			equipmentDAO.add(new Equipment(id, name, available, imageUrl, true));
 		}
 		
 		computerAccessoryDAO.add(computerAccessory);
@@ -70,7 +70,7 @@ public class ComputerAccessoryDAOTest {
 		boolean available = true;
 		String imageUrl = "http://randomURL2.com";
 		
-		ComputerAccessory computerAccessory = new ComputerAccessory(id, name, available, imageUrl);
+		ComputerAccessory computerAccessory = new ComputerAccessory(id, name, available, imageUrl, true);
 		ComputerAccessoryDAO computerAccessoryDAO = new ComputerAccessoryDAO();
 		
 		if(computerAccessoryDAO.get(id) == null) {
@@ -89,7 +89,7 @@ public class ComputerAccessoryDAOTest {
 		boolean available = true;
 		String imageUrl = "http://randomURL2.com";
 		
-		ComputerAccessory computerAccessory = new ComputerAccessory(id, name, available, imageUrl);
+		ComputerAccessory computerAccessory = new ComputerAccessory(id, name, available, imageUrl, true);
 		ComputerAccessoryDAO computerAccessoryDAO = new ComputerAccessoryDAO();
 		
 		if(computerAccessoryDAO.get(id) == null) {

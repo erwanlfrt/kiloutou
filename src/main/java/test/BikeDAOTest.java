@@ -62,11 +62,11 @@ public class BikeDAOTest {
 		}
 		
 		if(equipmentDAO.get(id) == null ) {
-			Equipment e = new Equipment(id, name, available, imageUrl);
+			Equipment e = new Equipment(id, name, available, imageUrl, true);
 			equipmentDAO.add(e);
 		}
 		
-		Bike bike = new Bike(id, name, available, imageUrl, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
+		Bike bike = new Bike(id, name, available, imageUrl, true, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
 		
 		bikeDAO.add(bike);
 		
@@ -110,7 +110,7 @@ public class BikeDAOTest {
 		int numberOfSpeeds = 5;
 		int power = 80;
 		
-		Bike bike = new Bike(id, name, available, imageUrl, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
+		Bike bike = new Bike(id, name, available, imageUrl, true, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
 		
 		
 		if(bikeDAO.get(id) == null ) {
@@ -118,7 +118,7 @@ public class BikeDAOTest {
 		}
 		
 		if(equipmentDAO.get(id) == null ) {
-			Equipment e = new Equipment(id, name, available, imageUrl);
+			Equipment e = new Equipment(id, name, available, imageUrl, true);
 			equipmentDAO.add(e);
 		}
 		bikeDAO.delete(bike);
@@ -147,15 +147,15 @@ public class BikeDAOTest {
 		int numberOfSpeeds = 5;
 		int power = 80;
 		
-		Bike bike = new Bike(id, name, available, imageUrl, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
+		Bike bike = new Bike(id, name, available, imageUrl, true, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
 		
 		if(equipmentDAO.get(id) == null ) {
-			Equipment e = new Equipment(id, name, available, imageUrl);
+			Equipment e = new Equipment(id, name, available, imageUrl, true);
 			equipmentDAO.add(e);
 		}
 		
 		if(vehicleDAO.get(id) == null ) {
-			Vehicle vehicle = new Vehicle(id, name, available, imageUrl, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
+			Vehicle vehicle = new Vehicle(id, name, available, imageUrl, true, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
 			vehicleDAO.add(vehicle);
 		}
 		
@@ -201,15 +201,15 @@ public class BikeDAOTest {
 		int numberOfSpeeds = 5;
 		int power = 80;
 		
-		Bike bike = new Bike(id, name, available, imageUrl, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
+		Bike bike = new Bike(id, name, available, imageUrl, true, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
 		
 		if(equipmentDAO.get(id) == null ) {
-			Equipment e = new Equipment(id, name, available, imageUrl);
+			Equipment e = new Equipment(id, name, available, imageUrl, true);
 			equipmentDAO.add(e);
 		}
 		
 		if(vehicleDAO.get(id) == null ) {
-			Vehicle vehicle = new Vehicle(id, name, available, imageUrl, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
+			Vehicle vehicle = new Vehicle(id, name, available, imageUrl, true, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
 			vehicleDAO.add(vehicle);
 		}
 		

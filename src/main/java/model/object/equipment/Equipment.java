@@ -8,8 +8,9 @@ public class Equipment {
   protected boolean available;
   protected String imageUrl;
   protected ArrayList<String[]> loanedDates;
+  protected boolean canBeLoaned;
 
-  public Equipment(int id, String name, boolean available, String imageUrl) {
+  public Equipment(int id, String name, boolean available, String imageUrl, boolean canBeLoaned) {
     this.id = id;
     this.name = name;
     this.available = available;
@@ -63,5 +64,14 @@ public class Equipment {
   public ArrayList<String[]> getLoanedDates() {
     return this.loanedDates;
   }
+
+  public boolean canBeLoaned() {
+    return this.canBeLoaned;
+  }
+
+  public void setCanBeLoaned(boolean canBeLoaned) {
+    this.canBeLoaned = canBeLoaned;
+    
+  } 
 
 }

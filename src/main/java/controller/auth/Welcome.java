@@ -33,7 +33,6 @@ public class Welcome extends HttpServlet {
        rd = getServletContext().getRequestDispatcher("/view/auth/welcome.jsp");
     }
     else {
-      System.out.println("redirect vers login");
       rd = getServletContext().getRequestDispatcher("/login");
     }
 	

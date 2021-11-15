@@ -68,7 +68,7 @@ public class BikeDAO implements Dao<Bike> {
         VehicleDAO vehicleDAO = new VehicleDAO();
         while(rs.next()) {
           Vehicle vehicle = vehicleDAO.get(id);
-          result = new Bike(vehicle.getId(), vehicle.getName(), vehicle.isAvailable(), vehicle.getImageUrl(), vehicle.getKilometers(), vehicle.getBrand(), vehicle.getState(), vehicle.getMaxSpeed(), vehicle.getNumberOfSpeeds(), vehicle.getModel(), vehicle.getPower(), vehicle.getRegistrationNumber(), vehicle.getRenewalKilometers(), rs.getInt("numberOfCylinders"));
+          result = new Bike(vehicle.getId(), vehicle.getName(), vehicle.isAvailable(), vehicle.getImageUrl(), vehicle.canBeLoaned(), vehicle.getKilometers(), vehicle.getBrand(), vehicle.getState(), vehicle.getMaxSpeed(), vehicle.getNumberOfSpeeds(), vehicle.getModel(), vehicle.getPower(), vehicle.getRegistrationNumber(), vehicle.getRenewalKilometers(), rs.getInt("numberOfCylinders"));
         }
       } catch(SQLException e) {
         e.printStackTrace();
@@ -85,7 +85,7 @@ public class BikeDAO implements Dao<Bike> {
       VehicleDAO vehicleDAO = new VehicleDAO();
 			while (rs.next()) {
 				Vehicle vehicle = vehicleDAO.get(rs.getInt("id"));
-				result.add(new Bike(vehicle.getId(), vehicle.getName(), vehicle.isAvailable(), vehicle.getImageUrl(), vehicle.getKilometers(), vehicle.getBrand(), vehicle.getState(), vehicle.getMaxSpeed(), vehicle.getNumberOfSpeeds(), vehicle.getModel(), vehicle.getPower(), vehicle.getRegistrationNumber(), vehicle.getRenewalKilometers(), rs.getInt("numberOfCylinders")));
+				result.add(new Bike(vehicle.getId(), vehicle.getName(), vehicle.isAvailable(), vehicle.getImageUrl(), vehicle.canBeLoaned(), vehicle.getKilometers(), vehicle.getBrand(), vehicle.getState(), vehicle.getMaxSpeed(), vehicle.getNumberOfSpeeds(), vehicle.getModel(), vehicle.getPower(), vehicle.getRegistrationNumber(), vehicle.getRenewalKilometers(), rs.getInt("numberOfCylinders")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -99,7 +99,7 @@ public class BikeDAO implements Dao<Bike> {
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT id, name FROM Equipment WHERE id IN (SELECT id FROM " + this.table +") ;");
 			while (rs.next()) {
-        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "");
+        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "", true);
 				result.add(e);
 			}
 		} catch (SQLException e) {

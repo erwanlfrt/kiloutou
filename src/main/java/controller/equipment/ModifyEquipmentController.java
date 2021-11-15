@@ -138,13 +138,14 @@ public class ModifyEquipmentController extends HttpServlet {
 		String name = req.getParameter("name");
 		boolean available = req.getParameter("available").equals("available");
     String imageURL = req.getParameter("imageURL");
+    boolean canBeLoaned = req.getParameter("canBeLoaned").equals("true");
 
     params.put("name", name);
     params.put("available", available);
     params.put("imageURL", imageURL);
     
     
-    Equipment equipment = new Equipment(id, name, available, imageURL);
+    Equipment equipment = new Equipment(id, name, available, imageURL, canBeLoaned);
 
     equipmentDAO.update(equipment, params);
 
@@ -173,7 +174,7 @@ public class ModifyEquipmentController extends HttpServlet {
       params.put("numberOfSpeeds", numberOfSpeeds);
 
 
-      Vehicle vehicle = new Vehicle(id, name, available, imageURL, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
+      Vehicle vehicle = new Vehicle(id, name, available, imageURL, canBeLoaned, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
       VehicleDAO vehicleDAO = new VehicleDAO();
       vehicleDAO.update(vehicle, params);
       
@@ -185,7 +186,7 @@ public class ModifyEquipmentController extends HttpServlet {
         params = new HashMap<String, Object>();
         params.put("numberOfSeats", numberOfSeats);
 
-    	  Car car = new Car(id, name, available, imageURL, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfSeats);
+    	  Car car = new Car(id, name, available, imageURL, canBeLoaned, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfSeats);
     	  CarDAO carDAO = new CarDAO();
     	  carDAO.update(car, params);
       }
@@ -193,7 +194,7 @@ public class ModifyEquipmentController extends HttpServlet {
     	  int numberOfCylinders = Integer.parseInt(numberOfCylindersString);
         params = new HashMap<String, Object>();
         params.put("numberOfCylinders", numberOfCylinders);
-    	  Bike bike = new Bike(id, name, available, imageURL, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
+    	  Bike bike = new Bike(id, name, available, imageURL, canBeLoaned, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
     	  BikeDAO bikeDAO = new BikeDAO();
     	  bikeDAO.update(bike, params);
       }
@@ -256,17 +257,17 @@ public class ModifyEquipmentController extends HttpServlet {
       params.put("purchaseDate", date);
       params.put("renewalDate", renewalDate);
 
-      Computer computer = new Computer(id, name, available, imageURL, brand, model, serialNumber, memorySize, isLaptop, screenSize, date, renewalDate, processor, graphicCard);
+      Computer computer = new Computer(id, name, available, imageURL, canBeLoaned, brand, model, serialNumber, memorySize, isLaptop, screenSize, date, renewalDate, processor, graphicCard);
       computerDAO.update(computer, params);
     }
     else if (category.equals("computerAccessory")) {
-      ComputerAccessory computerAccessory = new ComputerAccessory(id, name, available, imageURL);
+      ComputerAccessory computerAccessory = new ComputerAccessory(id, name, available, imageURL, canBeLoaned);
       ComputerAccessoryDAO caDAO = new ComputerAccessoryDAO();
       params = new HashMap<String, Object>();
       caDAO.update(computerAccessory, params);
     }
     else if (category.equals("vehicleAccessory")) {
-      VehicleAccessory vehicleAccessory = new VehicleAccessory(id, name, available, imageURL);
+      VehicleAccessory vehicleAccessory = new VehicleAccessory(id, name, available, imageURL, canBeLoaned);
       VehicleAccessoryDAO  vaDAO = new VehicleAccessoryDAO();
       params = new HashMap<String, Object>();
       vaDAO.update(vehicleAccessory, params);
