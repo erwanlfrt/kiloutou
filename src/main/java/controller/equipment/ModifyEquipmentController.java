@@ -143,6 +143,9 @@ public class ModifyEquipmentController extends HttpServlet {
     params.put("name", name);
     params.put("available", available);
     params.put("imageURL", imageURL);
+    params.put("canBeLoaned", canBeLoaned);
+
+    System.out.println("canBeLoaned = " + canBeLoaned);
     
     
     Equipment equipment = new Equipment(id, name, available, imageURL, canBeLoaned);

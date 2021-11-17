@@ -68,6 +68,7 @@ public class EquipmentDAO implements Dao<Equipment> {
         statement.setInt(1, (Integer)id);
         ResultSet rs = statement.executeQuery();
         while(rs.next()) {
+          System.out.println("canbeLoaned here = " + rs.getBoolean("canBeLoaned"));
           result = new Equipment(rs.getInt("id"), rs.getString("name"), rs.getBoolean("available"), rs.getString("imageUrl"), rs.getBoolean("canBeLoaned"));
         }
       } catch(SQLException e) {
@@ -121,10 +122,12 @@ public class EquipmentDAO implements Dao<Equipment> {
     ArrayList<Equipment> result = new ArrayList<Equipment>();
 		try {
 			Statement statement = this.connection.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT id, name FROM "+this.table + ";");
+			ResultSet rs = statement.executeQuery("SELECT id, name, canBeLoaned FROM "+this.table + ";");
 			while (rs.next()) {
-        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "", true);
-				result.add(e);
+        if(rs.getBoolean("canBeLoaned")) {
+          Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "", rs.getBoolean("canBeLoaned"));
+          result.add(e);
+        }
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -41,7 +41,7 @@ function main() {
 
   // document.getElementById("liste2").addEventListener('change', ajax());
 
-  document.getElementById("liste2").addEventListener('change', function() {
+  document.getElementById("liste2").addEventListener('click', function() {
     loadInfoEquipment();
   });
 

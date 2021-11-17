@@ -94,10 +94,12 @@ public class CarDAO implements Dao<Car> {
     ArrayList<Equipment> result = new ArrayList<Equipment>();
 		try {
 			Statement statement = this.connection.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT id, name FROM Equipment WHERE id IN (SELECT id FROM " + this.table +") ;");
+			ResultSet rs = statement.executeQuery("SELECT id, name, canBeLoaned FROM Equipment WHERE id IN (SELECT id FROM " + this.table +") ;");
 			while (rs.next()) {
-        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "", true);
-				result.add(e);
+        if(rs.getBoolean("canBeLoaned")) {
+          Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "", rs.getBoolean("canBeLoaned"));
+          result.add(e);
+        }
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

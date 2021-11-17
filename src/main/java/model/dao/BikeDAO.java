@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Arrays;
 
 import model.DBManager;
 import model.object.equipment.Bike;
@@ -79,8 +80,9 @@ public class BikeDAO implements Dao<Bike> {
 	
 	public ArrayList<Bike> listAll() {
 		ArrayList<Bike> result = new ArrayList<Bike>();
+    System.out.println("listAll bikeDAO called");
 		try {
-			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM" + this.table + ";");
+			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM " + this.table + ";");
 			ResultSet rs = statement.executeQuery();
       VehicleDAO vehicleDAO = new VehicleDAO();
 			while (rs.next()) {
@@ -97,10 +99,12 @@ public class BikeDAO implements Dao<Bike> {
     ArrayList<Equipment> result = new ArrayList<Equipment>();
 		try {
 			Statement statement = this.connection.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT id, name FROM Equipment WHERE id IN (SELECT id FROM " + this.table +") ;");
+			ResultSet rs = statement.executeQuery("SELECT id, name, canBeLoaned FROM Equipment WHERE id IN (SELECT id FROM " + this.table +") ;");
 			while (rs.next()) {
-        Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "", true);
-				result.add(e);
+        if(rs.getBoolean("canBeLoaned")) {
+          Equipment e = new Equipment(rs.getInt("id"), rs.getString("name"),false,  "", rs.getBoolean("canBeLoaned"));
+			  	result.add(e);
+        }
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

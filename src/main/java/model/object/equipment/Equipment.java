@@ -15,6 +15,7 @@ public class Equipment {
     this.name = name;
     this.available = available;
     this.imageUrl = imageUrl;
+    this.canBeLoaned = canBeLoaned;
     this.loanedDates =  new ArrayList<String[]>();
   }
 

@@ -18,5 +18,5 @@ public class Bike extends Vehicle {
   public void setNumberOfCylinders(int numberOfCylinders) {
     this.numberOfCylinders = numberOfCylinders;
   }
-  
+
 }

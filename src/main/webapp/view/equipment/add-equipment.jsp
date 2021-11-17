@@ -10,6 +10,7 @@
   VehicleAccessory vehicleAccessory = (VehicleAccessory) request.getAttribute("vehicleAccessory");
   Computer computer = (Computer) request.getAttribute("computer");
   boolean isAvailable = (equipment == null) || equipment.isAvailable();
+  boolean canBeLoaned = (equipment == null) || equipment.canBeLoaned();
 %>
 <html>
   <head>
@@ -42,15 +43,19 @@
         <option value="vehicleAccessory" <%= vehicleAccessory != null ? "selected" : "" %>>Accessoire automobile</option>
       </select>
 
-      <input type="text" value="true" name="canBeLoaned" hidden>
-
-
       <div id="specificForm"></div>
-   
-      <label class="switch">
-        <input type="checkbox">
-        <span class="slider round"></span>
-      </label>
+      <% if(isAModification) {
+        %>
+        <input type="text"  name="canBeLoaned" value="<%= canBeLoaned%>" id="sliderButton">
+        <label for="canBeLoaned" >Actif : </label>
+        <label class="switch" >
+          <input type="checkbox" <%= canBeLoaned && isAModification ? "checked" : "" %>>
+          <span onclick="test()" class="slider round" ></span>
+        </label>
+        <%
+      }
+      %>
+     
       
       <input type="submit" value="submit">
     </form>
@@ -195,6 +200,11 @@
         return new Promise(resolve => {
             requestAnimationFrame(resolve); //faster than set time out
         });
+    }
+
+    function test() {
+      let canBeLoaned = document.getElementById("sliderButton");
+      canBeLoaned.value === "true" ? canBeLoaned.value = "false" : canBeLoaned.value ="true";
     }
 
   </script>
