@@ -68,7 +68,6 @@ public class EquipmentDAO implements Dao<Equipment> {
         statement.setInt(1, (Integer)id);
         ResultSet rs = statement.executeQuery();
         while(rs.next()) {
-          System.out.println("canbeLoaned here = " + rs.getBoolean("canBeLoaned"));
           result = new Equipment(rs.getInt("id"), rs.getString("name"), rs.getBoolean("available"), rs.getString("imageUrl"), rs.getBoolean("canBeLoaned"));
         }
       } catch(SQLException e) {

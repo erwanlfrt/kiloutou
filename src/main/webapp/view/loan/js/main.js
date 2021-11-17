@@ -197,11 +197,8 @@ function loadInfoEquipment() {
 
 
 function setDatePickers(isInit) {
-
-  console.log("equipment = ", equipment);
   let periods = equipment.loanedDates
   let dates = [];
-  console.log("periods = ", periods);
   for(let period of periods) {
     let beginningPeriod = new Date(period[0]);
     let endPeriod = new Date(period[1]);
@@ -227,8 +224,6 @@ function setDatePickers(isInit) {
     });
   }
   else {
-    console.log("value = ", $('#beginningDate').val());
-
     var dateString = $('#beginningDate').val();
     var dateParts = dateString.split("/");
     var validString = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0];
@@ -247,8 +242,6 @@ function setDatePickers(isInit) {
         nextLoan = beginningDateOfLoan;
       }
     }
-
-    console.log("début next loan = ", nextLoan);
 
     $('#endDate').datepicker({
       format: 'dd/m/yyyy',

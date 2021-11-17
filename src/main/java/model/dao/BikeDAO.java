@@ -80,7 +80,6 @@ public class BikeDAO implements Dao<Bike> {
 	
 	public ArrayList<Bike> listAll() {
 		ArrayList<Bike> result = new ArrayList<Bike>();
-    System.out.println("listAll bikeDAO called");
 		try {
 			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM " + this.table + ";");
 			ResultSet rs = statement.executeQuery();
