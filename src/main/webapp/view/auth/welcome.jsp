@@ -27,6 +27,49 @@ else {
   <link rel="stylesheet" href="${pageContext.request.contextPath}/view/auth/css/welcome.css" />
 </head>
 <body>
+	<header>
+		<div>
+			<img src="images?name=logo.png" width="auto" height="30px" alt="KILOUPRESQUETOUT" >
+		</div>
+		<nav>
+			<a href="#" class="active">Accueil</a>
+			<a href="#">Emprunts</a>
+			<a href="#">Matériels</a>
+			<a href="#">Utilisateurs</a>
+		</nav>
+		<div class="disconnect">
+			<img src="images?name=power-off.png" alt="Déconnexion" width="auto" height="20px" >
+			<a href="#">Se déconnecter</a>
+		</div>
+	</header>
+	<main>
+		<h1>Application de Gestion d'Emprunt</h1>
+        <h2>Bienvenue <%=login %> !</h2>
+        <section class="section-nav">
+        	<div class="section-nav-item">
+        		<h2>NOUVEL EMPRUNT</h2>
+        		<p>Un nouvel emprunt à faire ?</p>
+        		<a>Emprunter</a>
+        	</div>
+        	
+        	<div class="section-nav-item">
+        		<h2>NOUVEAU MAT&Eacute;RIEL</h2>
+        		<p>Un ou plusieurs matériels à saisir</p>
+        		<a>Découvrir</a>
+        	</div>
+        	
+        	<div class="section-nav-item">
+        		<h2>NOUVEL EMPRUNT</h2>
+        		<p>Un nouvel emprunt à faire ?</p>
+        		<a>Emprunter</a>
+        	</div>
+        	
+        </section>
+        <img src="images?name=tracteur.png" alt="Image de trois tracto-pelles" width="80%" height="auto" >
+	</main>
+
+
+<!-- 
   <div id="container">
     <div id="navigation">
       <nav>
@@ -66,15 +109,7 @@ else {
       </nav>
       
     </div>
-
-    <div id="centralContainer">
-      <div id="welcomeMessage">
-        <h1>Application de Gestion d'Emprunt</h1>
-        <h2>Bienvenue <%=login %> !</h2>
-      </div>
-    </div>
-    
-  </div>
+ -->
 </body>
 
 </html>
