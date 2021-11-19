@@ -321,6 +321,17 @@
 	 <url-pattern>/stats/statistics</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+     <description>Servlet fournissant les images</description>
+     <display-name>ImageServlet</display-name>
+     <servlet-name>ImageServlet</servlet-name>
+     <servlet-class>resources.ImageServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+     <servlet-name>ImageServlet</servlet-name>
+     <url-pattern>/images/*</url-pattern>
+  </servlet-mapping>
   
   <servlet-mapping>
 	 <servlet-name>default</servlet-name>

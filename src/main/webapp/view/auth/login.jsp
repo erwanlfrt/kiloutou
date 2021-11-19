@@ -9,16 +9,17 @@
 <head>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/view/auth/css/login.css" />
 </head>
-<form action="welcome" method="post">
-  <div id="main">
-    <div id="logDiv">
-      <h1 class="element">Kiloutou</h1>
-      <input class="element inputForm" type="text" placeholder="Saisissez votre adresse mail" name="mailAddress" required>
-      <input class="element inputForm" type="password" placeholder="Saisissez votre mot de passe" name="pwd" required>
-      <button id="submitButton" class="element" type="submit">Login</button>
-      <p id="error"><%= error%></p>
-    </div>
-  </div>
-  
-</form>
+<body>
+	<main>
+ 		<form action="welcome" method="post">
+      		<img src="images?name=logo.png" alt="KILOUPRESQUETOUT" width="250px" height="auto">
+      		<h1>SE CONNECTER</h1>
+      		<input class="element inputForm" type="text" placeholder="Saisissez votre adresse mail" name="mailAddress" required>
+      		<input class="element inputForm" type="password" placeholder="Saisissez votre mot de passe" name="pwd" required>
+      		<button id="submitButton" class="element" type="submit"><strong>CONTINUER</strong></button>
+      		<p id="error"><%= error%></p>
+ 		</form>
+ 	</main>
+</body>
+
 </html>

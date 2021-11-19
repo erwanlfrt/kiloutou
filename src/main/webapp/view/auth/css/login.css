@@ -1,50 +1,51 @@
-:root {
-  --main-bg-color: rgb(149, 189, 213);
-}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-body {
-  background-color: var(--main-bg-color)
-}
-
-#logDiv {
-  background-color: white;
-  border-radius: 5px;
-  display : flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 30%;
-  height: 70%;
-}
-
-#main {
-  display: flex;
-  flex-direction: column;
+body, main {
   margin: 0;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+  font-family: 'Roboto', sans-serif;
 }
 
-.element {
-  width: 70%;
-  height: 10%;
-  border-radius: 5px;
-  text-align: center;
+main {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.inputForm {
-  margin-bottom: 10%;
-  text-align: left;
+form {
+	padding: 80px 150px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-#submitButton {
-  background-color: var(--main-bg-color);
-  color: white;
+form * {
+	margin: 10px 15px;
 }
 
-#error {
-  color : red;
+form h1 {
+	font-weight: bold;
+	line-height: 56px;
+	letter-spacing: 0.125em;
+	font-variant: small-caps;
 }
 
+form input, form button {
+	padding: 15px;
+	width: 100%;
+}
+
+form button {
+	margin-top: 20px;
+	background-color: white;
+	border: 2px solid black !important;
+}
+
+form button:hover {
+	background-color: black;
+	color: white;
+	cursor: pointer;
+	transition: background-color 0.15s ease-in, color 0.15s ease-in;
+}
