@@ -18,7 +18,7 @@ Depuis la racine :  ```git update-index --assume-unchanged src/main/java/config.
   - ~~Page de connexion~~
   - Page d'erreur
   - Page de statistiques
-  - Emprunt (ajouter, lister, info) -> attendre la fin du dev des fonctionnalités
+  - Emprunt (ajouter, lister, info)
   - Utilisateur (ajouter, lister, info)
   - Matériels (ajouter, lister, info)
  ### Fonctionnalité
