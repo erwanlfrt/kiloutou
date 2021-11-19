@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@page import="model.object.equipment.* , java.io.IOException"%>
+<%@page import=" java.io.IOException, java.util.ArrayList, model.object.equipment.* "%>
 <%
   Equipment equipment = (Equipment) request.getAttribute("equipment");
   boolean isAModification = (equipment != null);
@@ -11,6 +11,15 @@
   Computer computer = (Computer) request.getAttribute("computer");
   boolean isAvailable = (equipment == null) || equipment.isAvailable();
   boolean canBeLoaned = (equipment == null) || equipment.canBeLoaned();
+
+  ArrayList<Processor> processors = new ArrayList<Processor>();
+  ArrayList<GraphicCard> graphicCards = new ArrayList<GraphicCard>();
+
+  if(!isAModification || computer != null) {
+    processors = (ArrayList<Processor>) request.getAttribute("processors");
+    graphicCards = (ArrayList<GraphicCard>) request.getAttribute("graphicCards");
+  }
+
 %>
 <html>
   <head>
@@ -63,6 +72,28 @@
 
   <script>
 
+    // load processorsS
+    var processors = [];
+    var processorsIds = [];
+    var graphicCards = [];
+    var graphicCardsIds = [];
+    <%
+    for (Processor p : processors) {
+      %>
+      processors.push("<%= p.getBrand()%> <%= p.getName()%>");
+      processorsIds.push(<%= p.getId()%>);
+      <%
+    }
+
+    for (GraphicCard gc : graphicCards) {
+      %>
+      graphicCards.push("<%= gc.getBrand()%> <%= gc.getName()%>");
+      graphicCardsIds.push(<%= gc.getId()%>);
+      <%
+    }
+    %>
+
+
     var isCar = ('<%= car != null%>') === 'true';
     var isBike = ('<%= bike != null%>') === 'true';
     var isComputer = ('<%= computer != null%>') === 'true';
@@ -95,7 +126,13 @@
       } 
     }
     function injectForm(category) {
-      fetch("${pageContext.request.contextPath}/view/equipment/forms/" + category + ".jsp").then(data => data.text()).then(html => document.getElementById("specificForm").innerHTML = html);
+      fetch("${pageContext.request.contextPath}/view/equipment/forms/" + category + ".jsp").then(data => data.text()).then((html) => {
+        document.getElementById("specificForm").innerHTML = html;
+        if(category === "computer") {
+          initComputerForm();
+        }
+      });
+      
     }
 
 
@@ -175,15 +212,47 @@
       document.getElementById('renewalDate').value = '<%= computer != null ? computer.getRenewalDate() : ""%>';
 
       //init processor form
-      document.getElementById("processorBrand").value = '<%= computer != null ? computer.getProcessor().getBrand(): ""%>';
-      document.getElementById("processorName").value = '<%= computer != null ? computer.getProcessor().getName() : ""%>';
-      document.getElementById("numberOfCores").value = '<%= computer != null ? computer.getProcessor().getNumberOfCores() : ""%>';
-      document.getElementById("processorFrequency").value = '<%= computer != null ? computer.getProcessor().getFrequency() : ""%>';
+      let processorSelect = document.getElementById("processorSelect");
+      processorSelect.innerHTML = "";
+      for(let i = 0 ; i < processors.length ; i++) {
+        processorSelect.innerHTML += '<option value="' + processorsIds[i] + '">' + processors[i] +'</option>';
+      }
+      <%
+      if (computer != null) {
+        %>
+        document.getElementById("processorSelect").value = '<%= computer.getProcessor().getId()%>';
+
+        <%
+      }
+      %>
+      
+      // document.getElementById("processorBrand").value = '<%= computer != null ? computer.getProcessor().getBrand(): ""%>';
+      // document.getElementById("processorName").value = '<%= computer != null ? computer.getProcessor().getName() : ""%>';
+      // document.getElementById("numberOfCores").value = '<%= computer != null ? computer.getProcessor().getNumberOfCores() : ""%>';
+      // document.getElementById("processorFrequency").value = '<%= computer != null ? computer.getProcessor().getFrequency() : ""%>';
+
+      
 
       //intit graphic card
-      document.getElementById("graphicCardBrand").value = '<%= computer != null ? computer.getGraphicCard().getBrand() : ""%>';
-      document.getElementById("graphicCardName").value = '<%= computer != null ? computer.getGraphicCard().getName() : ""%>';
-      document.getElementById("graphicCardFrequency").value = '<%= computer != null ? computer.getGraphicCard().getFrequency() : ""%>';
+      let graphicCardSelect = document.getElementById("graphicCardSelect");
+      graphicCardSelect.innerHTML = "";
+      for(let j = 0 ; j < graphicCards.length ; j++) {
+        graphicCardSelect.innerHTML += '<option value="' + graphicCardsIds[j] + '" >' + graphicCards[j] + '</option>';
+      }
+      <%
+      if (computer != null) {
+        %>
+        document.getElementById("graphicCardSelect").value = '<%= computer.getGraphicCard().getId()%>';
+
+        <%
+      }
+      %>
+
+      // document.getElementById("graphicCardBrand").value = '<%= computer != null ? computer.getGraphicCard().getBrand() : ""%>';
+      // document.getElementById("graphicCardName").value = '<%= computer != null ? computer.getGraphicCard().getName() : ""%>';
+      // document.getElementById("graphicCardFrequency").value = '<%= computer != null ? computer.getGraphicCard().getFrequency() : ""%>';
+
+  
     }
 
 
@@ -205,6 +274,42 @@
     function sliderClick() {
       let canBeLoaned = document.getElementById("sliderButton");
       canBeLoaned.value === "true" ? canBeLoaned.value = "false" : canBeLoaned.value ="true";
+    }
+
+    function processorClick() {
+      let processorChoice = document.getElementById("processorChoice");
+      let processorForm = document.getElementById("processorForm");
+      let processorSelect = document.getElementById("processorSelect");
+      let processorLabel = document.getElementById("processorLabel");
+      if(!processorChoice.checked) {
+        processorLabel.innerText = "Nouveau processeur";
+        processorForm.style.display = "block";
+        processorSelect.style.display = "none";
+        
+      }
+      else {
+        processorLabel.innerText = "Choisir un processeur déjà existant";
+        processorForm.style.display = "none";
+        processorSelect.style.display = "block";
+      }
+    }
+
+    function graphicCardClick() {
+      let graphicCardChoice = document.getElementById("graphicCardChoice");
+      let graphicCardForm = document.getElementById("graphicCardForm");
+      let graphicCardSelect = document.getElementById("graphicCardSelect");
+      let graphicCardLabel = document.getElementById("graphicCardLabel");
+      if(!graphicCardChoice.checked) {
+        graphicCardLabel.innerText = "Nouvelle carte graphique";
+        graphicCardForm.style.display = "block";
+        graphicCardSelect.style.display = "none";
+        
+      }
+      else {
+        graphicCardLabel.innerText = "Choisir une carte graphique déjà existante";
+        graphicCardForm.style.display = "none";
+        graphicCardSelect.style.display = "block";
+      }
     }
 
   </script>

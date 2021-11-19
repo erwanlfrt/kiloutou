@@ -63,3 +63,20 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+
+#processorForm {
+  display: none;
+}
+
+#processorSelect {
+  display: block;
+}
+
+#graphicCardForm {
+  display : none;
+}
+
+#graphicCardSelect {
+  display : block;
+}

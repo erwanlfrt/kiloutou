@@ -53,6 +53,15 @@ public class ModifyEquipmentController extends HttpServlet {
 
     EquipmentDAO equipmentDAO = new EquipmentDAO();
     Equipment equipment = equipmentDAO.get(id);
+    
+    ProcessorDAO processorDAO = new ProcessorDAO();
+    ArrayList<Processor> processors = processorDAO.listAll();
+    
+    GraphicCardDAO gcDAO = new GraphicCardDAO();
+    ArrayList<GraphicCard> graphicCards = gcDAO.listAll();
+    
+    req.setAttribute("processors", processors);
+    req.setAttribute("graphicCards", graphicCards);
 
     if(equipment != null) {
       req.setAttribute("equipment", equipment);
@@ -207,38 +216,39 @@ public class ModifyEquipmentController extends HttpServlet {
       GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
       
       Computer cmp = computerDAO.get(id);
-      // add processor
-      int processorId = cmp.getProcessor().getId();
-      String processorBrand = req.getParameter("processorBrand");
-      String processorName = req.getParameter("processorName");
-      int numberOfCores = Integer.parseInt(req.getParameter("numberOfCores"));
-      float processorFrequency = Float.parseFloat(req.getParameter("processorFrequency"));
-
-      params = new HashMap<String, Object>();
-      params.put("brand", processorBrand);
-      params.put("name", processorName);
-      params.put("numberOfCores", numberOfCores);
-      params.put("frequency", processorFrequency);
-
-
-      Processor processor = new Processor(processorId, processorName, processorBrand, numberOfCores, processorFrequency);
-      processorDAO.update(processor, params);
-
-      // add graphic card
-      int graphicCardId = cmp.getGraphicCard().getId();
-      String graphicCardBrand = req.getParameter("graphicCardBrand");
-      String graphicCardName = req.getParameter("graphicCardName");
-      float graphicCardFrequency = Float.parseFloat(req.getParameter("graphicCardFrequency"));
       
-      params = new HashMap<String, Object>();
-      params.put("brand", graphicCardBrand);
-      params.put("name", graphicCardName);
-      params.put("frequency", graphicCardFrequency);
+      String[] processorChoice = req.getParameterValues("processorChoice");
+      String[] gcChoice = req.getParameterValues("graphicCardChoice");
 
+      Processor processor;
+      GraphicCard graphicCard;
+      if(processorChoice != null) {
+        // add processor
+        int processorId = processorDAO.autoIncrementId();
+        String processorBrand = req.getParameter("processorBrand");
+        String processorName = req.getParameter("processorName");
+        int numberOfCores = Integer.parseInt(req.getParameter("numberOfCores"));
+        float processorFrequency = Float.parseFloat(req.getParameter("processorFrequency"));
+        processor = new Processor(processorId, processorName, processorBrand, numberOfCores, processorFrequency);
+        processorDAO.add(processor);
+      }
+      else {
+        processor = new Processor(Integer.parseInt(req.getParameter("processorSelect")), "", "", 0, 0.0f);
+      }
 
-      GraphicCard graphicCard = new GraphicCard(graphicCardId, graphicCardName, graphicCardBrand, graphicCardFrequency);
-      graphicCardDAO.update(graphicCard, params);
-
+      if(gcChoice != null) {
+        // add graphic card
+        int graphicCardId = graphicCardDAO.autoIncrementId();
+        String graphicCardBrand = req.getParameter("graphicCardBrand");
+        String graphicCardName = req.getParameter("graphicCardName");
+        float graphicCardFrequency = Float.parseFloat(req.getParameter("graphicCardFrequency"));
+        graphicCard = new GraphicCard(graphicCardId, graphicCardName, graphicCardBrand, graphicCardFrequency);
+        graphicCardDAO.add(graphicCard);
+      }
+      else {
+        graphicCard = new GraphicCard(Integer.parseInt(req.getParameter("graphicCardSelect")),"", "", 0.0f);
+      }
+      
       // add computer
       String brand = req.getParameter("brand");
       String model = req.getParameter("model");
@@ -256,6 +266,8 @@ public class ModifyEquipmentController extends HttpServlet {
       params.put("screenSize", screenSize);
       params.put("purchaseDate", date);
       params.put("renewalDate", renewalDate);
+      params.put("processorId", processor.getId());
+      params.put("graphicCardId", graphicCard.getId());
 
       Computer computer = new Computer(id, name, available, imageURL, canBeLoaned, brand, model, serialNumber, memorySize, isLaptop, screenSize, date, renewalDate, processor, graphicCard);
       computerDAO.update(computer, params);

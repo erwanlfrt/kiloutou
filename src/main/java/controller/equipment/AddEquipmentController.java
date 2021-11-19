@@ -49,6 +49,15 @@ public class AddEquipmentController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    ProcessorDAO processorDAO = new ProcessorDAO();
+    GraphicCardDAO gcDAO = new GraphicCardDAO();
+
+    ArrayList<Processor> processors = processorDAO.listAll();
+    ArrayList<GraphicCard> graphicCards = gcDAO.listAll();
+
+    req.setAttribute("processors", processors);
+    req.setAttribute("graphicCards", graphicCards);
+    
 		this.doProcess(req, resp);
 	}
 	
@@ -121,23 +130,40 @@ public class AddEquipmentController extends HttpServlet {
       ProcessorDAO processorDAO = new ProcessorDAO();
       GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
 
-      // add processor
-      int processorId = processorDAO.autoIncrementId();
-      String processorBrand = req.getParameter("processorBrand");
-      String processorName = req.getParameter("processorName");
-      int numberOfCores = Integer.parseInt(req.getParameter("numberOfCores"));
-      float processorFrequency = Float.parseFloat(req.getParameter("processorFrequency"));
-      Processor processor = new Processor(processorId, processorName, processorBrand, numberOfCores, processorFrequency);
-      processorDAO.add(processor);
+      String[] processorChoice = req.getParameterValues("processorChoice");
+      String[] gcChoice = req.getParameterValues("graphicCardChoice");
 
-      // add graphic card
-      int graphicCardId = graphicCardDAO.autoIncrementId();
-      String graphicCardBrand = req.getParameter("graphicCardBrand");
-      String graphicCardName = req.getParameter("graphicCardName");
-      float graphicCardFrequency = Float.parseFloat(req.getParameter("graphicCardFrequency"));
-      GraphicCard graphicCard = new GraphicCard(graphicCardId, graphicCardName, graphicCardBrand, graphicCardFrequency);
-      graphicCardDAO.add(graphicCard);
-
+      Processor processor;
+      GraphicCard graphicCard;
+      if(processorChoice != null) {
+        // add processor
+        int processorId = processorDAO.autoIncrementId();
+        String processorBrand = req.getParameter("processorBrand");
+        String processorName = req.getParameter("processorName");
+        int numberOfCores = Integer.parseInt(req.getParameter("numberOfCores"));
+        float processorFrequency = Float.parseFloat(req.getParameter("processorFrequency"));
+        processor = new Processor(processorId, processorName, processorBrand, numberOfCores, processorFrequency);
+        processorDAO.add(processor);
+      }
+      else {
+        processor = new Processor(Integer.parseInt(req.getParameter("processorSelect")), "", "", 0, 0.0f);
+      }
+      
+      if(gcChoice != null) {
+        // add graphic card
+        int graphicCardId = graphicCardDAO.autoIncrementId();
+        String graphicCardBrand = req.getParameter("graphicCardBrand");
+        String graphicCardName = req.getParameter("graphicCardName");
+        float graphicCardFrequency = Float.parseFloat(req.getParameter("graphicCardFrequency"));
+        graphicCard = new GraphicCard(graphicCardId, graphicCardName, graphicCardBrand, graphicCardFrequency);
+        graphicCardDAO.add(graphicCard);
+      }
+      else {
+        graphicCard = new GraphicCard(Integer.parseInt(req.getParameter("graphicCardSelect")),"", "", 0.0f);
+      }
+      
+      
+      
       // add computer
       String brand = req.getParameter("brand");
       String model = req.getParameter("model");

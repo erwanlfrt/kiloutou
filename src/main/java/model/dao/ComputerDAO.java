@@ -76,7 +76,7 @@ public class ComputerDAO implements Dao<Computer> {
       try {
         PreparedStatement statement = this.connection.prepareStatement(query);
         statement.setInt(1, (Integer)id);
-        ResultSet rs = statement.executeQuery(query);
+        ResultSet rs = statement.executeQuery();
         while(rs.next()) {
           EquipmentDAO equipmentDAO = new EquipmentDAO();
           Equipment equipment = equipmentDAO.get(id);

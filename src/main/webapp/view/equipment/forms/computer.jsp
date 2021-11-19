@@ -32,28 +32,45 @@
 
   <div>
     <h3>Processeur : </h3>
-    <label for="processorBrand">Marque</label>
-    <input id="processorBrand" type="text" value="" name="processorBrand" required>
-    
-    <label for="processorName">Nom</label>
-    <input id="processorName" type="text" value="" name="processorName" required>
+    <label class="switch" >
+        <input type="checkbox" name="processorChoice" id="processorChoice">
+        <span onclick="processorClick()" class="slider round" ></span>
+    </label>
+    <label id="processorLabel" >Choisir un processeur déjà existant</label>
+    <select id="processorSelect" name="processorSelect"></select>
+    <div id="processorForm">
+      <label for="processorBrand">Marque</label>
+      <input id="processorBrand" type="text" value="" name="processorBrand">
+      
+      <label for="processorName">Nom</label>
+      <input id="processorName" type="text" value="" name="processorName">
 
-    <label for="numberOfCores">Nombre de coeurs</label>
-    <input  id="numberOfCores" type="number" value="" name="numberOfCores" required>
+      <label for="numberOfCores">Nombre de coeurs</label>
+      <input  id="numberOfCores" type="number" value="" name="numberOfCores">
 
-    <label for="processorFrequency">Fréquence</label>
-    <input id="processorFrequency" type="number" value="" name="processorFrequency" step="0.1">
+      <label for="processorFrequency">Fréquence</label>
+      <input id="processorFrequency" type="number" value="" name="processorFrequency" step="0.1">
+    </div>
   </div>
 
   <div>
     <h3>Carte graphique</h3>
-    <label for="graphicCardBrand">Marque</label>
-    <input  id="graphicCardBrand" type="text" value="" name="graphicCardBrand" required>
+    <label class="switch" >
+        <input type="checkbox" id="graphicCardChoice" name="graphicCardChoice">
+        <span onclick="graphicCardClick()" class="slider round" ></span>
+    </label>
+    <label id="graphicCardLabel" >Choisir une carte graphique déjà existante</label>
+    <select id="graphicCardSelect" name="graphicCardSelect"></select>
+    <div id="graphicCardForm">
+      <label for="graphicCardBrand">Marque</label>
+      <input  id="graphicCardBrand" type="text" value="" name="graphicCardBrand">
 
-    <label for="graphicCardName">Nom</label>
-    <input id="graphicCardName" type="text" value="" name="graphicCardName" required>
+      <label for="graphicCardName">Nom</label>
+      <input id="graphicCardName" type="text" value="" name="graphicCardName">
 
-    <label for="graphicCardFrequency">Fréquence</label>
-    <input id="graphicCardFrequency" type="number" value="" name="graphicCardFrequency" step="0.1">
+      <label for="graphicCardFrequency">Fréquence</label>
+      <input id="graphicCardFrequency" type="number" value="" name="graphicCardFrequency" step="0.1">
+    </div>
+    
   </div>
 </div>
