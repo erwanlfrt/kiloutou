@@ -14,6 +14,10 @@ Depuis la racine :  ```git update-index --assume-unchanged src/main/java/config.
 
 ## To do
  ### Style
+  - ~~Page d'accueil~~
+  - ~~Page de connexion~~
+  - Page d'erreur
+  - Page de statistiques
   - Emprunt (ajouter, lister, info) -> attendre la fin du dev des fonctionnalités
   - Utilisateur (ajouter, lister, info)
   - Matériels (ajouter, lister, info)
@@ -26,4 +30,4 @@ Depuis la racine :  ```git update-index --assume-unchanged src/main/java/config.
   - Ajout d'un matériel : si on ajoute un ordinateur, il faut pouvoir choisir un processeur et une carte graphique parmi les processeurs et carte graphique déjà existants ou alors créer une nouvelle carte graphique et un nouveau processeur
 
 ### Problème
-  - ~~# OBLIGATION de garder les emprunts une fois rendu, 1 emprunt = 1 matériel + 1 utilisateur (as primary key) alors impossible de supprimer les utilisateurs et les matériels ???~~ -> solution : on ne supprime pas un utilisateur ou un équipement dans la BDD, en revanche on modifie un flag ```isActive``` pour les User et ```canBeLoaned``` pour les équipements.
+  - ~~# OBLIGATION de garder les emprunts une fois rendu, 1 emprunt = 1 matériel + 1 utilisateur (as primary key) alors impossible de supprimer les utilisateurs et les matériels ???~~ -> solution : on ne supprime pas un utilisateur ou un équipement dans la BDD, en revanche on modifie un flag  ```canBeLoaned``` pour les équipements. SI on souhaite supprimer un utilisateur, celui-ci est remplacé par un autre utilisateur non identifiable dans les emprunts existants.
