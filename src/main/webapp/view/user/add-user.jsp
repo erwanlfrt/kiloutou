@@ -119,27 +119,12 @@ else {
           }
         %>
 
-        <div>
-        <input type="text" id="isReal" name="isReal"  value="<%= user.isReal() ? "true" : "false" %>">
-          <label for="isReal" >Actif : </label>
-          <label class="switch" >
-            <input type="checkbox" <%= user.isReal() ? "checked" : "" %>>
-            <span onclick="sliderClick()" class="slider round" ></span>
-          </label>
-        </div>
         <input type="submit" value="submit">
       </form>
     </div>
   </body>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script>
-    function sliderClick() {
-      console.log("slider click ");
-      let isReal = document.getElementById("isReal");
-      console.log("isReal = ", isReal);
-      console.log("value = " + isReal.value);
-      isReal.value === "true" ? isReal.value = "false" : isReal.value = "true";
-    }
 
     function handleEmployeeZone(radio) {
       let isEmployee = radio.value === "true";

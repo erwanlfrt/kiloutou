@@ -66,8 +66,6 @@ public class ModifyUserController extends HttpServlet {
 		String email = req.getParameter("email");
 		String address = req.getParameter("address");
 		String phoneNumber = req.getParameter("phoneNumber");
-    boolean isReal = req.getParameter("isReal").equals("true");
-
     User user = new User(name, firstname, address, phoneNumber, email, login, password);
 
     HashMap<String, Object> userParameters = new HashMap<String, Object>();
@@ -77,9 +75,6 @@ public class ModifyUserController extends HttpServlet {
     userParameters.put("password", password);
     userParameters.put("address", address);
     userParameters.put("phoneNumber", phoneNumber);
-    userParameters.put("isReal", isReal);
-
-    System.out.println("isReal = " + isReal);
   
     UserDAO userDAO = new UserDAO();
     userDAO.update(user, userParameters);
