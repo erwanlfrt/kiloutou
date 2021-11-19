@@ -58,13 +58,15 @@
                 <tbody>
                   <%
                     for(User user : users) {
-                      %>
-                      <tr class="row" >
-                        <td><%= user.getName()%></td>
-                        <td><%= user.getFirstname()%></td>
-                        <td hidden><%= user.getMail()%></td>
-                      </tr>
-                      <%
+                      if(user.isReal()) {
+                        %>
+                        <tr class="row" >
+                          <td><%= user.getName()%></td>
+                          <td><%= user.getFirstname()%></td>
+                          <td hidden><%= user.getMail()%></td>
+                        </tr>
+                        <%
+                      }
                     }
                   %>
                 </tbody>

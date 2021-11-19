@@ -55,7 +55,9 @@ public class EmployeeDAO implements Dao<Employee> {
   public void deleteById(Object id) {
 	  if(id instanceof String) {
 		  Employee employee = this.get(id);
-		  this.delete(employee);
+      if(employee != null) {
+        this.delete(employee);
+      }
 	  }
   }
 
@@ -71,6 +73,7 @@ public class EmployeeDAO implements Dao<Employee> {
         while(rs.next()) {
         	User user = userDAO.get(id);
         	result = new Employee(user.getName(), user.getFirstname(), user.getAddress(), user.getPhoneNumber(), user.getMail(), user.getLogin(), user.getPassword(), rs.getString("employeeFunction"), rs.getString("employeeService"), rs.getInt("deskNumber"), Profil.valueOf(rs.getString("profil")));
+        	result.setReal(false);
         }
       } catch(SQLException e) {
         e.printStackTrace();
@@ -87,7 +90,10 @@ public class EmployeeDAO implements Dao<Employee> {
       UserDAO userDAO = new UserDAO();
 			while (rs.next()) {
         User user = userDAO.get(rs.getString("mail"));
-				result.add(new Employee(user.getName(), user.getFirstname(), user.getAddress(), user.getPhoneNumber(), user.getMail(), user.getLogin(), user.getPassword(), rs.getString("employeeFunction"), rs.getString("employeeService"), rs.getInt("deskNumber"), Profil.valueOf(rs.getString("profil"))));
+        Employee employee = new Employee(user.getName(), user.getFirstname(), user.getAddress(), user.getPhoneNumber(), user.getMail(), user.getLogin(), user.getPassword(), rs.getString("employeeFunction"), rs.getString("employeeService"), rs.getInt("deskNumber"), Profil.valueOf(rs.getString("profil")));
+        employee.setReal(user.isReal());
+				result.add(employee);
+        
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

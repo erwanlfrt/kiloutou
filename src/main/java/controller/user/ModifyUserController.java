@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.router.Router;
+
 
 public class ModifyUserController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
@@ -56,9 +58,7 @@ public class ModifyUserController extends HttpServlet {
 	}
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    this.doProcess(req, resp);
-    
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {    
     String name = req.getParameter("name");
 		String firstname = req.getParameter("firstname");
 		String login = req.getParameter("login");
@@ -66,6 +66,7 @@ public class ModifyUserController extends HttpServlet {
 		String email = req.getParameter("email");
 		String address = req.getParameter("address");
 		String phoneNumber = req.getParameter("phoneNumber");
+    boolean isReal = req.getParameter("isReal").equals("true");
 
     User user = new User(name, firstname, address, phoneNumber, email, login, password);
 
@@ -76,6 +77,9 @@ public class ModifyUserController extends HttpServlet {
     userParameters.put("password", password);
     userParameters.put("address", address);
     userParameters.put("phoneNumber", phoneNumber);
+    userParameters.put("isReal", isReal);
+
+    System.out.println("isReal = " + isReal);
   
     UserDAO userDAO = new UserDAO();
     userDAO.update(user, userParameters);
@@ -94,19 +98,16 @@ public class ModifyUserController extends HttpServlet {
 
       Employee employee = new Employee(name, firstname, address, phoneNumber, email, login, password, employeeFunction, employeeService, deskNumber, Profil.valueOf(profile));
       EmployeeDAO employeeDAO = new EmployeeDAO();
-      employeeDAO.update(employee, employeeParameters);
+      Employee check = employeeDAO.get(email);
+      if(check != null) {
+        employeeDAO.update(employee, employeeParameters);
+      }
+      else {
+        employeeDAO.add(employee);
+      }
+      
     }
 
-    String pageName="/view/auth/login.jsp";
-
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
-
-    try {
-			rd.forward(req, resp);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    Router.redirect("/view/auth/welcome.jsp", this,  req, resp);
 	}
 }

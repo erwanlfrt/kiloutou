@@ -47,11 +47,13 @@ public class Welcome extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    System.out.println("Welcome doGet");
 		this.doProcess(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    System.out.println("Welcome doPost");
 		String mail = req.getParameter("mailAddress");
 		String password = req.getParameter("pwd");
 		User user = this.userDAO.get(mail);

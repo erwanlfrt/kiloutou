@@ -70,6 +70,17 @@
   </servlet-mapping>
 
   <servlet>
+    <display-name>ResetPassword</display-name>
+    <servlet-name>ResetPassword</servlet-name>
+    <servlet-class>controller.user.ResetPassword</servlet-class>
+  </servlet>
+    
+  <servlet-mapping>
+    <servlet-name>ResetPassword</servlet-name>
+    <url-pattern>/user/resetPassword</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <display-name>SearchUser</display-name>
     <servlet-name>SearchUser</servlet-name>
     <servlet-class>controller.user.SearchUserController</servlet-class>

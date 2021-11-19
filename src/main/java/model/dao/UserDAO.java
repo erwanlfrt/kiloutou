@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,9 +10,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 import model.DBManager;
 import model.object.user.User;
+
+import java.nio.charset.*;
 
 public class UserDAO implements Dao<User> {
 	Connection connection;
@@ -30,8 +35,9 @@ public class UserDAO implements Dao<User> {
     String mail = object.getMail();
     String login = object.getLogin();
     String password = object.getPassword();
+    boolean isReal = object.isReal();
 
-    String query = "INSERT INTO " + this.table + " (name, firstname, address, phoneNumber, mail, login, password) VALUES (\'"+ name +"\', \'" + firstname +"\', \'" + address +"\', \'" + phoneNumber +"\', \'" + mail +"\', \'" + login +"\', SHA1(\'" + password + "\'));";
+    String query = "INSERT INTO " + this.table + " (name, firstname, address, phoneNumber, mail, login, password, isReal) VALUES (\'"+ name +"\', \'" + firstname +"\', \'" + address +"\', \'" + phoneNumber +"\', \'" + mail +"\', \'" + login +"\', SHA1(\'" + password + "\'), "+ isReal + " );";
     try {
       Statement statement = this.connection.createStatement();
       statement.executeUpdate(query);
@@ -69,6 +75,7 @@ public class UserDAO implements Dao<User> {
           ResultSet rs = statement.executeQuery();
           while(rs.next()) {
         	  result = new User(rs.getString("name"), rs.getString("firstname"), rs.getString("address"), rs.getString("phoneNumber"), rs.getString("mail"), rs.getString("login"), rs.getString("password"));
+            result.setReal(rs.getBoolean("isReal"));
           }
         } catch(SQLException e) {
           e.printStackTrace();
@@ -83,13 +90,93 @@ public class UserDAO implements Dao<User> {
 			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM "+ this.table + ";");
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
-				result.add(new User(rs.getString("name"), rs.getString("firstname"), rs.getString("address"), rs.getString("phoneNumber"), rs.getString("mail"), rs.getString("login"), rs.getString("password")));
-			}
+        if(rs.getBoolean("isReal")) {
+          User user = new User(rs.getString("name"), rs.getString("firstname"), rs.getString("address"), rs.getString("phoneNumber"), rs.getString("mail"), rs.getString("login"), rs.getString("password"));
+          user.setReal(rs.getBoolean("isReal")); 
+          result.add(user);
+        }
+      }
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
+
+  public void generateRandomPwd(String mail) {
+    int min = 8;
+    int max = 15;
+    int size = (int) (min + (Math.random() * (max - min)));
+
+    User user = this.get(mail);
+    
+    if(user != null) {
+    	String generatedPwd = UUID.randomUUID().toString();
+    	generatedPwd = generatedPwd.replace("-", "");
+    	generatedPwd = generatedPwd.substring(0,size);
+    	
+      HashMap<String, Object> params = new HashMap<String, Object>();
+      params.put("password", generatedPwd);
+      this.update(user, params);
+    }
+  }
+
+  public String getRandomLogin() {
+    String login = UUID.randomUUID().toString();
+    login = login.replace("-", "");
+    boolean alreadyExist = true;
+    int count = 0;
+    try {
+      // check if login doesn't already exist in database
+      while(alreadyExist) {
+        PreparedStatement statement = this.connection.prepareStatement("SELECT COUNT(*) AS count FROM " + this.table + " WHERE login = ?");
+        statement.setString(1, login);
+        ResultSet rs = statement.executeQuery();
+        while(rs.next()) {
+          count = rs.getInt("count");
+          if(count == 0) {
+            alreadyExist = false;
+          }
+          else {
+            login = UUID.randomUUID().toString();
+            login = login.replace("-", "");
+          }
+        }
+      }
+    }
+    catch( SQLException e) {
+      e.printStackTrace();
+    }
+    return login;
+  }
+
+  public String getRandomEmail() {
+    String email = UUID.randomUUID().toString();
+    email = email.replace("-", "") + "@unknown.com";
+    boolean alreadyExist = true;
+    int count = 0;
+    try {
+      // check if login doesn't already exist in database
+      while(alreadyExist) {
+        PreparedStatement statement = this.connection.prepareStatement("SELECT COUNT(*) AS count FROM " + this.table + " WHERE mail = ?");
+        statement.setString(1, email);
+        ResultSet rs = statement.executeQuery();
+        while(rs.next()) {
+          count = rs.getInt("count");
+          if(count == 0) {
+            alreadyExist = false;
+          }
+          else {
+            email = UUID.randomUUID().toString();
+            email = email.replace("-", "") + "@unknown.com";
+          }
+        }
+      }
+    }
+    catch( SQLException e) {
+      e.printStackTrace();
+    }
+    return email;
+  }
 
   public void update(User object, HashMap<String, Object> parameters) {
     String mail = object.getMail();

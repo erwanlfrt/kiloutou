@@ -8,6 +8,7 @@ public class User {
   protected String mail;
   protected String login;
   protected String password;
+  protected boolean isReal;
   
   public User(String name, String firstname, String address, String phoneNumber, String mail, String login,
       String password) {
@@ -18,6 +19,7 @@ public class User {
     this.mail = mail;
     this.login = login;
     this.password = password;
+    this.isReal= true;
   }
 
   public String getName() {
@@ -74,6 +76,14 @@ public class User {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public void setReal(boolean isReal) {
+    this.isReal = isReal;
+  }
+
+  public boolean isReal() {
+    return this.isReal;
   }
 
   

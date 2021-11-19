@@ -32,9 +32,11 @@ else {
       <ul id="listUsers">
         <%
           for(User user : users) {
-            %>
-              <li class="userItem"><a href="/Kiloutou/user/info?mail=<%=user.getMail()%>"><%=user.getMail()%></a></li>
-            <%
+            if(user.isReal()) {
+              %>
+                <li class="userItem"><a href="/Kiloutou/user/info?mail=<%=user.getMail()%>"><%=user.getMail()%></a></li>
+              <%
+            }
           }
         %>
       </ul>

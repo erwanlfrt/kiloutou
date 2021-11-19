@@ -50,7 +50,7 @@
         <label for="canBeLoaned" >Actif : </label>
         <label class="switch" >
           <input type="checkbox" <%= canBeLoaned && isAModification ? "checked" : "" %>>
-          <span onclick="test()" class="slider round" ></span>
+          <span onclick="sliderClick()" class="slider round" ></span>
         </label>
         <%
       }
@@ -202,7 +202,7 @@
         });
     }
 
-    function test() {
+    function sliderClick() {
       let canBeLoaned = document.getElementById("sliderButton");
       canBeLoaned.value === "true" ? canBeLoaned.value = "false" : canBeLoaned.value ="true";
     }

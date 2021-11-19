@@ -53,8 +53,30 @@ else {
       <a href="modify?mail=<%= user.getMail()%>">
         <button>Modifier</button>
      </a>
-     <a href="delete?mail=<%= user.getMail()%>">
-      <button>Supprimer</button>
+     <button onClick="deleteUser()">Supprimer</button>
    </a>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+      function deleteUser() {
+        
+        let data = {
+          mail : '<%= user.getMail()%>'
+        }
+        $.ajax({
+          url: "/Kiloutou/user/delete",
+          method: "POST",
+          contentType: "application/json", // NOT dataType!
+          data: JSON.stringify(data),
+        }).done(function() {
+        let url = window.location.href;
+        url = url.substring(0, url.indexOf('info'));
+        url += 'search'
+        window.location.href = url;
+        });
+
+        
+      }
+    </script>
 </html>

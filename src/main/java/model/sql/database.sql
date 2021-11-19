@@ -18,10 +18,11 @@ CREATE TABLE User (
   mail VARCHAR(100) PRIMARY KEY ,
   name VARCHAR(30) NOT NULL,
   firstname VARCHAR(30) NOT NULL,
-  login VARCHAR(30) NOT NULL,
+  login VARCHAR(200) NOT NULL,
   password VARCHAR(200) NOT NULL, -- add SHA function
   address VARCHAR(200),
-  phoneNumber VARCHAR(20)
+  phoneNumber VARCHAR(20),
+  isReal BOOLEAN DEFAULT 1
 );
 
 CREATE TABLE Employee (

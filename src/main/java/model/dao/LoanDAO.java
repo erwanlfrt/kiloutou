@@ -168,4 +168,17 @@ public class LoanDAO implements Dao<Loan> {
 	  LocalDate result = LocalDate.parse(mysqlDate);
 	  return result;
   }
+
+  public void replaceUser(String mail, User user) {
+    String query = "UPDATE " + this.table + " SET userMail = ? WHERE userMail = ?";
+    
+    try {
+      PreparedStatement statement = this.connection.prepareStatement(query);
+      statement.setString(1, user.getMail());
+      statement.setString(2, mail);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 }

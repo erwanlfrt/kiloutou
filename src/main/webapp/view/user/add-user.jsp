@@ -27,6 +27,7 @@ else {
   <head>
     <meta charset="utf-8">
     <title>Add user</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/view/user/css/add-user.css" />
   </head>
   <body>
     <div>
@@ -40,8 +41,21 @@ else {
         <label for="login"><b>Login : </b></label>
         <input type="text" value="<%= user.getLogin() %>" name="login" required>
 
-        <label for="password"><b>Mot de passe: </b></label>
-        <input type="password" value="" name="password" required>
+        <% 
+          if(logged.getMail().equals(user.getMail())) {
+            %>
+            <label for="password"><b>Mot de passe: </b></label>
+            <input type="password" value="" name="password" required>
+            <%
+          }
+          else {
+            %>
+            <button type="button" id="resetPasswordButton" onClick="resetPassword()">Regénérer un mot de passe</button>
+            <%
+          }
+        %>
+
+        
 
         <label for="email"><b>Addresse mail : </b></label>
         <%
@@ -104,11 +118,28 @@ else {
             <%
           }
         %>
+
+        <div>
+        <input type="text" id="isReal" name="isReal"  value="<%= user.isReal() ? "true" : "false" %>">
+          <label for="isReal" >Actif : </label>
+          <label class="switch" >
+            <input type="checkbox" <%= user.isReal() ? "checked" : "" %>>
+            <span onclick="sliderClick()" class="slider round" ></span>
+          </label>
+        </div>
         <input type="submit" value="submit">
       </form>
     </div>
   </body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script>
+    function sliderClick() {
+      console.log("slider click ");
+      let isReal = document.getElementById("isReal");
+      console.log("isReal = ", isReal);
+      console.log("value = " + isReal.value);
+      isReal.value === "true" ? isReal.value = "false" : isReal.value = "true";
+    }
 
     function handleEmployeeZone(radio) {
       let isEmployee = radio.value === "true";
@@ -148,7 +179,18 @@ else {
           document.getElementById("employeeZone").removeChild(employeeForm);
         }
       }
-      
+    }
+
+    function resetPassword() {
+      let data = {
+        mail : '<%= user.getMail()%>'
+      }
+      $.ajax({
+        url: "/Kiloutou/user/resetPassword",
+        method: "POST",
+        contentType: "application/json", // NOT dataType!
+        data: JSON.stringify(data),
+      });
     }
   </script>
 </html>
