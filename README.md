@@ -14,6 +14,10 @@ Depuis la racine :  ```git update-index --assume-unchanged src/main/java/config.
 
 ## To do
  ### Style
+  - ~~Page d'accueil~~
+  - ~~Page de connexion~~
+  - Page d'erreur
+  - Page de statistiques
   - Emprunt (ajouter, lister, info) -> attendre la fin du dev des fonctionnalités
   - Utilisateur (ajouter, lister, info)
   - Matériels (ajouter, lister, info)
