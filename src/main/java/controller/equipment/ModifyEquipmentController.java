@@ -22,9 +22,6 @@ import model.object.equipment.VehicleAccessory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,11 +29,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 public class ModifyEquipmentController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
-		String pageName="/view/equipment/add-equipment.jsp";
-	
+		String pageName = "/view/equipment/add-equipment.jsp";
+
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 		try {
 			rd.forward(request, response);
@@ -46,248 +42,238 @@ public class ModifyEquipmentController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    int id = Integer.parseInt(req.getParameter("id"));
+		int id = Integer.parseInt(req.getParameter("id"));
 
-    EquipmentDAO equipmentDAO = new EquipmentDAO();
-    Equipment equipment = equipmentDAO.get(id);
-    
-    ProcessorDAO processorDAO = new ProcessorDAO();
-    ArrayList<Processor> processors = processorDAO.listAll();
-    
-    GraphicCardDAO gcDAO = new GraphicCardDAO();
-    ArrayList<GraphicCard> graphicCards = gcDAO.listAll();
-    
-    req.setAttribute("processors", processors);
-    req.setAttribute("graphicCards", graphicCards);
+		EquipmentDAO equipmentDAO = new EquipmentDAO();
+		Equipment equipment = equipmentDAO.get(id);
 
-    if(equipment != null) {
-      req.setAttribute("equipment", equipment);
+		ProcessorDAO processorDAO = new ProcessorDAO();
+		ArrayList<Processor> processors = processorDAO.listAll();
 
-      //check if equipment is a vehicle
-      VehicleDAO vehicleDAO = new VehicleDAO();
-      Vehicle vehicle = vehicleDAO.get(id);
+		GraphicCardDAO gcDAO = new GraphicCardDAO();
+		ArrayList<GraphicCard> graphicCards = gcDAO.listAll();
 
-      if(vehicle != null) {
-        req.setAttribute("vehicle", vehicle);
+		req.setAttribute("processors", processors);
+		req.setAttribute("graphicCards", graphicCards);
 
-        //check if equipment is a car
-        CarDAO carDAO = new CarDAO();
-        Car car = carDAO.get(id);
+		if (equipment != null) {
+			req.setAttribute("equipment", equipment);
 
-        if(car != null) {
-          req.setAttribute("car", car);
-        }
-        else {
-          //check if equipment is a bike
-          BikeDAO bikeDAO = new BikeDAO();
-          Bike bike = bikeDAO.get(id);
+			// check if equipment is a vehicle
+			VehicleDAO vehicleDAO = new VehicleDAO();
+			Vehicle vehicle = vehicleDAO.get(id);
 
-          if(bike != null) {
-            req.setAttribute("bike", bike);
-          }
-        }
-      }
-      else {
-        //check if equipment is a computer
-        ComputerDAO computerDAO = new ComputerDAO();
-        Computer computer = computerDAO.get(id);
+			if (vehicle != null) {
+				req.setAttribute("vehicle", vehicle);
 
-        if(computer != null) {
-          req.setAttribute("computer", computer);
-        }
-        else {
-          //check if equipment is a computer accessory
-          ComputerAccessoryDAO computerAccessoryDAO = new ComputerAccessoryDAO();
-          ComputerAccessory computerAccessory = computerAccessoryDAO.get(id);
+				// check if equipment is a car
+				CarDAO carDAO = new CarDAO();
+				Car car = carDAO.get(id);
 
-          if(computerAccessory != null) {
-            req.setAttribute("computerAccessory", computerAccessory);
-          }
-          else {
-            //check if equipment is a vheicle accessory
-            VehicleAccessoryDAO vehicleAccessoryDAO = new VehicleAccessoryDAO();
-            VehicleAccessory vehicleAccessory = vehicleAccessoryDAO.get(id);
+				if (car != null) {
+					req.setAttribute("car", car);
+				} else {
+					// check if equipment is a bike
+					BikeDAO bikeDAO = new BikeDAO();
+					Bike bike = bikeDAO.get(id);
 
-            if(vehicleAccessory != null) {
-              req.setAttribute("vehicleAccessory", vehicleAccessory);
-            }
-          }
-        }
-      }
+					if (bike != null) {
+						req.setAttribute("bike", bike);
+					}
+				}
+			} else {
+				// check if equipment is a computer
+				ComputerDAO computerDAO = new ComputerDAO();
+				Computer computer = computerDAO.get(id);
 
-    }
-    else {
-      String pageName = "/error";
-	
-      RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
-      try {
-        rd.forward(req, resp);
-      } catch (ServletException e) {
-        e.printStackTrace();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
+				if (computer != null) {
+					req.setAttribute("computer", computer);
+				} else {
+					// check if equipment is a computer accessory
+					ComputerAccessoryDAO computerAccessoryDAO = new ComputerAccessoryDAO();
+					ComputerAccessory computerAccessory = computerAccessoryDAO.get(id);
+
+					if (computerAccessory != null) {
+						req.setAttribute("computerAccessory", computerAccessory);
+					} else {
+						// check if equipment is a vheicle accessory
+						VehicleAccessoryDAO vehicleAccessoryDAO = new VehicleAccessoryDAO();
+						VehicleAccessory vehicleAccessory = vehicleAccessoryDAO.get(id);
+
+						if (vehicleAccessory != null) {
+							req.setAttribute("vehicleAccessory", vehicleAccessory);
+						}
+					}
+				}
+			}
+
+		} else {
+			String pageName = "/error";
+
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
+			try {
+				rd.forward(req, resp);
+			} catch (ServletException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
 		this.doProcess(req, resp);
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    EquipmentDAO equipmentDAO = new EquipmentDAO();
-    HashMap<String, Object> params = new HashMap<String, Object>();
-    
+		EquipmentDAO equipmentDAO = new EquipmentDAO();
+		HashMap<String, Object> params = new HashMap<String, Object>();
 
-    String category = req.getParameter("categories");
+		String category = req.getParameter("categories");
 
-    int id = Integer.parseInt(req.getParameter("id"));
+		int id = Integer.parseInt(req.getParameter("id"));
 		String name = req.getParameter("name");
 		boolean available = req.getParameter("available").equals("available");
-    String imageURL = req.getParameter("imageURL");
-    boolean canBeLoaned = req.getParameter("canBeLoaned").equals("true");
+		String imageURL = req.getParameter("imageURL");
+		boolean canBeLoaned = req.getParameter("canBeLoaned").equals("true");
 
-    params.put("name", name);
-    params.put("available", available);
-    params.put("imageURL", imageURL);
-    params.put("canBeLoaned", canBeLoaned);    
-    
-    Equipment equipment = new Equipment(id, name, available, imageURL, canBeLoaned);
+		params.put("name", name);
+		params.put("available", available);
+		params.put("imageURL", imageURL);
+		params.put("canBeLoaned", canBeLoaned);
 
-    equipmentDAO.update(equipment, params);
+		Equipment equipment = new Equipment(id, name, available, imageURL, canBeLoaned);
 
-    String registrationNumber = req.getParameter("registrationNumber");
-    String serialNumber = req.getParameter("serialNumber");
+		equipmentDAO.update(equipment, params);
 
-    //if vehicle is chosen
-    if(registrationNumber != null) {
-      int renewalKilometers = Integer.parseInt(req.getParameter("renewalKilometers"));
-      int kilometers = Integer.parseInt(req.getParameter("kilometers"));
-      String model = req.getParameter("model");
-      String brand = req.getParameter("brand");
-      String state = req.getParameter("state");
-      int maxSpeed = Integer.parseInt(req.getParameter("maxSpeed"));
-      int power = Integer.parseInt(req.getParameter("power"));
-      int numberOfSpeeds = Integer.parseInt(req.getParameter("numberOfSpeeds"));
+		String registrationNumber = req.getParameter("registrationNumber");
+		String serialNumber = req.getParameter("serialNumber");
 
-      params = new HashMap<String, Object>();
-      params.put("renewalKilometers", renewalKilometers);
-      params.put("kilometers", kilometers);
-      params.put("model", model);
-      params.put("brand", brand);
-      params.put("state", state);
-      params.put("maxSpeed", maxSpeed);
-      params.put("power", power);
-      params.put("numberOfSpeeds", numberOfSpeeds);
+		// if vehicle is chosen
+		if (registrationNumber != null) {
+			int renewalKilometers = Integer.parseInt(req.getParameter("renewalKilometers"));
+			int kilometers = Integer.parseInt(req.getParameter("kilometers"));
+			String model = req.getParameter("model");
+			String brand = req.getParameter("brand");
+			String state = req.getParameter("state");
+			int maxSpeed = Integer.parseInt(req.getParameter("maxSpeed"));
+			int power = Integer.parseInt(req.getParameter("power"));
+			int numberOfSpeeds = Integer.parseInt(req.getParameter("numberOfSpeeds"));
 
+			params = new HashMap<String, Object>();
+			params.put("renewalKilometers", renewalKilometers);
+			params.put("kilometers", kilometers);
+			params.put("model", model);
+			params.put("brand", brand);
+			params.put("state", state);
+			params.put("maxSpeed", maxSpeed);
+			params.put("power", power);
+			params.put("numberOfSpeeds", numberOfSpeeds);
 
-      Vehicle vehicle = new Vehicle(id, name, available, imageURL, canBeLoaned, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
-      VehicleDAO vehicleDAO = new VehicleDAO();
-      vehicleDAO.update(vehicle, params);
-      
-      String numberOfSeatsString = req.getParameter("numberOfSeats");
-      String numberOfCylindersString = req.getParameter("numberOfCylinders");
-      
-      if(numberOfSeatsString != null) {
-    	  int numberOfSeats = Integer.parseInt(numberOfSeatsString);
-        params = new HashMap<String, Object>();
-        params.put("numberOfSeats", numberOfSeats);
+			Vehicle vehicle = new Vehicle(id, name, available, imageURL, canBeLoaned, kilometers, brand, state,
+					maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
+			VehicleDAO vehicleDAO = new VehicleDAO();
+			vehicleDAO.update(vehicle, params);
 
-    	  Car car = new Car(id, name, available, imageURL, canBeLoaned, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfSeats);
-    	  CarDAO carDAO = new CarDAO();
-    	  carDAO.update(car, params);
-      }
-      else if(numberOfCylindersString != null) {
-    	  int numberOfCylinders = Integer.parseInt(numberOfCylindersString);
-        params = new HashMap<String, Object>();
-        params.put("numberOfCylinders", numberOfCylinders);
-    	  Bike bike = new Bike(id, name, available, imageURL, canBeLoaned, kilometers, brand, state, maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
-    	  BikeDAO bikeDAO = new BikeDAO();
-    	  bikeDAO.update(bike, params);
-      }
-      
-    }
-    //else if computer is chosen
-    else if(serialNumber != null) {
-      ComputerDAO computerDAO = new ComputerDAO();
-      ProcessorDAO processorDAO = new ProcessorDAO();
-      GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
-      
-      Computer cmp = computerDAO.get(id);
-      
-      String[] processorChoice = req.getParameterValues("processorChoice");
-      String[] gcChoice = req.getParameterValues("graphicCardChoice");
+			String numberOfSeatsString = req.getParameter("numberOfSeats");
+			String numberOfCylindersString = req.getParameter("numberOfCylinders");
 
-      Processor processor;
-      GraphicCard graphicCard;
-      if(processorChoice != null) {
-        // add processor
-        int processorId = processorDAO.autoIncrementId();
-        String processorBrand = req.getParameter("processorBrand");
-        String processorName = req.getParameter("processorName");
-        int numberOfCores = Integer.parseInt(req.getParameter("numberOfCores"));
-        float processorFrequency = Float.parseFloat(req.getParameter("processorFrequency"));
-        processor = new Processor(processorId, processorName, processorBrand, numberOfCores, processorFrequency);
-        processorDAO.add(processor);
-      }
-      else {
-        processor = new Processor(Integer.parseInt(req.getParameter("processorSelect")), "", "", 0, 0.0f);
-      }
+			if (numberOfSeatsString != null) {
+				int numberOfSeats = Integer.parseInt(numberOfSeatsString);
+				params = new HashMap<String, Object>();
+				params.put("numberOfSeats", numberOfSeats);
 
-      if(gcChoice != null) {
-        // add graphic card
-        int graphicCardId = graphicCardDAO.autoIncrementId();
-        String graphicCardBrand = req.getParameter("graphicCardBrand");
-        String graphicCardName = req.getParameter("graphicCardName");
-        float graphicCardFrequency = Float.parseFloat(req.getParameter("graphicCardFrequency"));
-        graphicCard = new GraphicCard(graphicCardId, graphicCardName, graphicCardBrand, graphicCardFrequency);
-        graphicCardDAO.add(graphicCard);
-      }
-      else {
-        graphicCard = new GraphicCard(Integer.parseInt(req.getParameter("graphicCardSelect")),"", "", 0.0f);
-      }
-      
-      // add computer
-      String brand = req.getParameter("brand");
-      String model = req.getParameter("model");
-      int memorySize = Integer.parseInt(req.getParameter("memorySize"));
-      boolean isLaptop = req.getParameter("isLaptop").equals("true");
-      int screenSize = Integer.parseInt(req.getParameter("screenSize"));
-      String date = req.getParameter("purchaseDate");
-      String renewalDate = req.getParameter("renewalDate");
+				Car car = new Car(id, name, available, imageURL, canBeLoaned, kilometers, brand, state, maxSpeed,
+						numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfSeats);
+				CarDAO carDAO = new CarDAO();
+				carDAO.update(car, params);
+			} else if (numberOfCylindersString != null) {
+				int numberOfCylinders = Integer.parseInt(numberOfCylindersString);
+				params = new HashMap<String, Object>();
+				params.put("numberOfCylinders", numberOfCylinders);
+				Bike bike = new Bike(id, name, available, imageURL, canBeLoaned, kilometers, brand, state, maxSpeed,
+						numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
+				BikeDAO bikeDAO = new BikeDAO();
+				bikeDAO.update(bike, params);
+			}
 
-      params = new HashMap<String, Object>();
-      params.put("brand", brand);
-      params.put("model", model);
-      params.put("memorySize", memorySize);
-      params.put("isLaptop", isLaptop);
-      params.put("screenSize", screenSize);
-      params.put("purchaseDate", date);
-      params.put("renewalDate", renewalDate);
-      params.put("processorId", processor.getId());
-      params.put("graphicCardId", graphicCard.getId());
+		}
+		// else if computer is chosen
+		else if (serialNumber != null) {
+			ComputerDAO computerDAO = new ComputerDAO();
+			ProcessorDAO processorDAO = new ProcessorDAO();
+			GraphicCardDAO graphicCardDAO = new GraphicCardDAO();
 
-      Computer computer = new Computer(id, name, available, imageURL, canBeLoaned, brand, model, serialNumber, memorySize, isLaptop, screenSize, date, renewalDate, processor, graphicCard);
-      computerDAO.update(computer, params);
-    }
-    else if (category.equals("computerAccessory")) {
-      ComputerAccessory computerAccessory = new ComputerAccessory(id, name, available, imageURL, canBeLoaned);
-      ComputerAccessoryDAO caDAO = new ComputerAccessoryDAO();
-      params = new HashMap<String, Object>();
-      caDAO.update(computerAccessory, params);
-    }
-    else if (category.equals("vehicleAccessory")) {
-      VehicleAccessory vehicleAccessory = new VehicleAccessory(id, name, available, imageURL, canBeLoaned);
-      VehicleAccessoryDAO  vaDAO = new VehicleAccessoryDAO();
-      params = new HashMap<String, Object>();
-      vaDAO.update(vehicleAccessory, params);
-    }
+			String[] processorChoice = req.getParameterValues("processorChoice");
+			String[] gcChoice = req.getParameterValues("graphicCardChoice");
 
-    
-    String pageName="/welcome";
-	
+			Processor processor;
+			GraphicCard graphicCard;
+			if (processorChoice != null) {
+				// add processor
+				int processorId = processorDAO.autoIncrementId();
+				String processorBrand = req.getParameter("processorBrand");
+				String processorName = req.getParameter("processorName");
+				int numberOfCores = Integer.parseInt(req.getParameter("numberOfCores"));
+				float processorFrequency = Float.parseFloat(req.getParameter("processorFrequency"));
+				processor = new Processor(processorId, processorName, processorBrand, numberOfCores,
+						processorFrequency);
+				processorDAO.add(processor);
+			} else {
+				processor = new Processor(Integer.parseInt(req.getParameter("processorSelect")), "", "", 0, 0.0f);
+			}
+
+			if (gcChoice != null) {
+				// add graphic card
+				int graphicCardId = graphicCardDAO.autoIncrementId();
+				String graphicCardBrand = req.getParameter("graphicCardBrand");
+				String graphicCardName = req.getParameter("graphicCardName");
+				float graphicCardFrequency = Float.parseFloat(req.getParameter("graphicCardFrequency"));
+				graphicCard = new GraphicCard(graphicCardId, graphicCardName, graphicCardBrand, graphicCardFrequency);
+				graphicCardDAO.add(graphicCard);
+			} else {
+				graphicCard = new GraphicCard(Integer.parseInt(req.getParameter("graphicCardSelect")), "", "", 0.0f);
+			}
+
+			// add computer
+			String brand = req.getParameter("brand");
+			String model = req.getParameter("model");
+			int memorySize = Integer.parseInt(req.getParameter("memorySize"));
+			boolean isLaptop = req.getParameter("isLaptop").equals("true");
+			int screenSize = Integer.parseInt(req.getParameter("screenSize"));
+			String date = req.getParameter("purchaseDate");
+			String renewalDate = req.getParameter("renewalDate");
+
+			params = new HashMap<String, Object>();
+			params.put("brand", brand);
+			params.put("model", model);
+			params.put("memorySize", memorySize);
+			params.put("isLaptop", isLaptop);
+			params.put("screenSize", screenSize);
+			params.put("purchaseDate", date);
+			params.put("renewalDate", renewalDate);
+			params.put("processorId", processor.getId());
+			params.put("graphicCardId", graphicCard.getId());
+
+			Computer computer = new Computer(id, name, available, imageURL, canBeLoaned, brand, model, serialNumber,
+					memorySize, isLaptop, screenSize, date, renewalDate, processor, graphicCard);
+			computerDAO.update(computer, params);
+		} else if (category.equals("computerAccessory")) {
+			ComputerAccessory computerAccessory = new ComputerAccessory(id, name, available, imageURL, canBeLoaned);
+			ComputerAccessoryDAO caDAO = new ComputerAccessoryDAO();
+			params = new HashMap<String, Object>();
+			caDAO.update(computerAccessory, params);
+		} else if (category.equals("vehicleAccessory")) {
+			VehicleAccessory vehicleAccessory = new VehicleAccessory(id, name, available, imageURL, canBeLoaned);
+			VehicleAccessoryDAO vaDAO = new VehicleAccessoryDAO();
+			params = new HashMap<String, Object>();
+			vaDAO.update(vehicleAccessory, params);
+		}
+
+		String pageName = "/welcome";
+
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 		try {
 			rd.forward(req, resp);

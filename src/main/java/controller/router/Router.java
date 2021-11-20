@@ -9,12 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class Router {
-  public static void redirect(String route, HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public static void redirect(String route, HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		RequestDispatcher rd = servlet.getServletContext().getRequestDispatcher(route);
-    if(rd == null) {
-      //bad redirection
-      rd = servlet.getServletContext().getRequestDispatcher("/error");
-    }
+		if (rd == null) {
+			// bad redirection
+			rd = servlet.getServletContext().getRequestDispatcher("/error");
+		}
 		try {
 			rd.forward(req, resp);
 		} catch (ServletException e) {
@@ -22,5 +23,5 @@ public class Router {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-  }
+	}
 }

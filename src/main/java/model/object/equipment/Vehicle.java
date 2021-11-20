@@ -1,101 +1,101 @@
 package model.object.equipment;
 
-public class Vehicle extends Equipment{
-  protected int kilometers;
-  protected String brand;
-  protected String state;
-  protected int maxSpeed;
-  protected int numberOfSpeeds;
-  protected String model;
-  protected int power;
-  protected String registrationNumber;
-  protected int renewalKilometers;
-  
-  public Vehicle(int id, String name, boolean available, String imageUrl, boolean canBeLoaned, int kilometers, String brand, String state,
-      int maxSpeed, int numberOfSpeeds, String model, int power, String registrationNumber, int renewalKilometers) {
-    super(id, name, available, imageUrl, canBeLoaned);
-    this.kilometers = kilometers;
-    this.brand = brand;
-    this.state = state;
-    this.maxSpeed = maxSpeed;
-    this.numberOfSpeeds = numberOfSpeeds;
-    this.model = model;
-    this.power = power;
-    this.registrationNumber = registrationNumber;
-    this.renewalKilometers = renewalKilometers;
-  }
+public class Vehicle extends Equipment {
+	protected int kilometers;
+	protected String brand;
+	protected String state;
+	protected int maxSpeed;
+	protected int numberOfSpeeds;
+	protected String model;
+	protected int power;
+	protected String registrationNumber;
+	protected int renewalKilometers;
 
-  public int getKilometers() {
-    return kilometers;
-  }
+	public Vehicle(int id, String name, boolean available, String imageUrl, boolean canBeLoaned, int kilometers,
+			String brand, String state, int maxSpeed, int numberOfSpeeds, String model, int power,
+			String registrationNumber, int renewalKilometers) {
+		super(id, name, available, imageUrl, canBeLoaned);
+		this.kilometers = kilometers;
+		this.brand = brand;
+		this.state = state;
+		this.maxSpeed = maxSpeed;
+		this.numberOfSpeeds = numberOfSpeeds;
+		this.model = model;
+		this.power = power;
+		this.registrationNumber = registrationNumber;
+		this.renewalKilometers = renewalKilometers;
+	}
 
-  public void setKilometers(int kilometers) {
-    this.kilometers = kilometers;
-  }
+	public int getKilometers() {
+		return kilometers;
+	}
 
-  public String getBrand() {
-    return brand;
-  }
+	public void setKilometers(int kilometers) {
+		this.kilometers = kilometers;
+	}
 
-  public void setBrand(String brand) {
-    this.brand = brand;
-  }
+	public String getBrand() {
+		return brand;
+	}
 
-  public String getState() {
-    return state;
-  }
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
 
-  public void setState(String state) {
-    this.state = state;
-  }
+	public String getState() {
+		return state;
+	}
 
-  public int getMaxSpeed() {
-    return maxSpeed;
-  }
+	public void setState(String state) {
+		this.state = state;
+	}
 
-  public void setMaxSpeed(int maxSpeed) {
-    this.maxSpeed = maxSpeed;
-  }
+	public int getMaxSpeed() {
+		return maxSpeed;
+	}
 
-  public int getNumberOfSpeeds() {
-    return numberOfSpeeds;
-  }
+	public void setMaxSpeed(int maxSpeed) {
+		this.maxSpeed = maxSpeed;
+	}
 
-  public void setNumberOfSpeeds(int numberOfSpeeds) {
-    this.numberOfSpeeds = numberOfSpeeds;
-  }
+	public int getNumberOfSpeeds() {
+		return numberOfSpeeds;
+	}
 
-  public String getModel() {
-    return model;
-  }
+	public void setNumberOfSpeeds(int numberOfSpeeds) {
+		this.numberOfSpeeds = numberOfSpeeds;
+	}
 
-  public void setModel(String model) {
-    this.model = model;
-  }
+	public String getModel() {
+		return model;
+	}
 
-  public int getPower() {
-    return power;
-  }
+	public void setModel(String model) {
+		this.model = model;
+	}
 
-  public void setPower(int power) {
-    this.power = power;
-  }
+	public int getPower() {
+		return power;
+	}
 
-  public String getRegistrationNumber() {
-    return registrationNumber;
-  }
+	public void setPower(int power) {
+		this.power = power;
+	}
 
-  public void setRegistrationNumber(String registrationNumber) {
-    this.registrationNumber = registrationNumber;
-  }
+	public String getRegistrationNumber() {
+		return registrationNumber;
+	}
 
-  public int getRenewalKilometers() {
-    return renewalKilometers;
-  }
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
+	}
 
-  public void setRenewalKilometers(int renewalKilometers) {
-    this.renewalKilometers = renewalKilometers;
-  }
+	public int getRenewalKilometers() {
+		return renewalKilometers;
+	}
 
-  
+	public void setRenewalKilometers(int renewalKilometers) {
+		this.renewalKilometers = renewalKilometers;
+	}
+
 }
