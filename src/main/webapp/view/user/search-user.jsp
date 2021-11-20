@@ -25,9 +25,15 @@ else {
 <html>
   <head>
     <title>Kiloutou</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/view/user/css/search-user.css" />
   </head>
   <body>
     <div id="search">
+      <h3 id="searchLabel" >Rechercher par adresse mail : </h3>
+      <label class="switch" >
+          <input type="checkbox" id="searchType">
+          <span onclick="sliderClick()" class="slider round" ></span>
+      </label>
       <input type="text" id="searchBar" onkeyup="searchUsers()" placeholder="Search for users..">
       <ul id="listUsers">
         <%
@@ -44,18 +50,51 @@ else {
     
   </body>
   <script>
-    children = [];
-    document.getElementById("listUsers").childNodes.forEach(child => {
-      if(child.tagName === "LI") {
-        children.push(child.childNodes[0].innerHTML)
+
+    var userEmails = [];
+    var userNames = [];
+    var userFirstnames = [];
+    <%
+      for(User user : users) {
+        if(user.isReal()) {
+          %>
+            userEmails.push('<%= user.getMail()%>');
+            userNames.push('<%= user.getName()%>');
+            userFirstnames.push('<%= user.getFirstname()%>');
+          <%
+        }
       }
-    });
+    %>
+
+   
+
+
+    var children = [];
+    
     function searchUsers() {
+      
+      if(children.length === 0) {
+        document.getElementById("listUsers").childNodes.forEach(child => {
+        if(child.tagName === "LI") {
+          children.push(child.childNodes[0].innerHTML)
+        }
+       });
+      }
+      
+
       let list = document.getElementById("listUsers");
       list.innerHTML = "";
       let value = document.getElementById("searchBar").value;
       children.forEach(child => {
-        if(child.startsWith(value)) {
+        //name and firstname ?
+        let name = '';
+        let firstname = '';
+        if(child.indexOf(' ') > 0) {
+          name = child.substring(child.indexOf(' ') +1);
+          firstname = child.substring(0, child.indexOf(' '));
+        }
+
+        if(child.startsWith(value) || name.startsWith(value) || firstname.startsWith(value)) {
           let a = document.createElement('a');
           a.href = "/Kiloutou/user/info?mail=" + child;
           a.innerHTML = child;
@@ -78,6 +117,27 @@ else {
           document.getElementById('search').removeChild(noResult);
         }
       }
+    }
+
+    function sliderClick() {
+      let searchType = document.getElementById('searchType');
+      let listUsers = document.getElementById('listUsers');
+      listUsers.innerHTML = '';
+
+      if (searchType.checked) {
+        // search by mail
+        for(let i = 0 ; i < userEmails.length ; i++ ) {
+          listUsers.innerHTML += '<li class="userItem"><a href="/Kiloutou/user/info?mail=' + userEmails[i] +'">' + userEmails[i] + '</a></li>'
+        }
+      }
+      else {
+        // search by name and fistname
+        for(let i = 0 ; i < userEmails.length ; i++ ) {
+          listUsers.innerHTML += '<li class="userItem"><a href="/Kiloutou/user/info?mail=' + userEmails[i] +'">' + userFirstnames[i] + ' ' + userNames[i] +'</a></li>';
+        }
+      }
+      children = [];
+
     }
   </script>
 
