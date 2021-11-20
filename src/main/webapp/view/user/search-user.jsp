@@ -122,16 +122,19 @@ else {
     function sliderClick() {
       let searchType = document.getElementById('searchType');
       let listUsers = document.getElementById('listUsers');
+      let label = document.getElementById('searchLabel');
       listUsers.innerHTML = '';
 
       if (searchType.checked) {
         // search by mail
+        label.innerText = 'Rechercher par adresse mail : ';
         for(let i = 0 ; i < userEmails.length ; i++ ) {
           listUsers.innerHTML += '<li class="userItem"><a href="/Kiloutou/user/info?mail=' + userEmails[i] +'">' + userEmails[i] + '</a></li>'
         }
       }
       else {
         // search by name and fistname
+        label.innerText = 'Rechercher par nom / prénom : ';
         for(let i = 0 ; i < userEmails.length ; i++ ) {
           listUsers.innerHTML += '<li class="userItem"><a href="/Kiloutou/user/info?mail=' + userEmails[i] +'">' + userFirstnames[i] + ' ' + userNames[i] +'</a></li>';
         }

@@ -124,6 +124,26 @@ public class LoanDAO implements Dao<Loan> {
 		return result;
 	}
 
+  public ArrayList<Loan> listByUser(User user) {
+    ArrayList<Loan> result = new ArrayList<Loan>();
+		try {
+			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM "+this.table + " WHERE userMail = ?;");
+      statement.setString(1, user.getMail());
+			ResultSet rs = statement.executeQuery();
+      EquipmentDAO equipmentDAO = new EquipmentDAO();
+			while (rs.next()) {
+            int id = rs.getInt("id");	        
+		        Equipment equipment = equipmentDAO.get(rs.getInt("equipmentId"));
+		        UserDAO userDAO = new UserDAO();
+
+				result.add(new Loan(id, equipment, user, this.mysqlDateToJavaDate(rs.getString("beginningDate")), this.mysqlDateToJavaDate(rs.getString("endDate")), rs.getBoolean("isBorrowed")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+  }
+
   public void update(Loan object, HashMap<String, Object> parameters) {
     String changes = "";
 

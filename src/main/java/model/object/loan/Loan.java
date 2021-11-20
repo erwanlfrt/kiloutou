@@ -84,5 +84,17 @@ public class Loan {
 	  return formattedDate;
   }
 
+  public boolean isLate() {
+    return LocalDate.now().isAfter(this.endDate) && this.isBorrowed;
+  }
+
+  public boolean hasNotStarted() {
+    return LocalDate.now().isBefore(this.beginningDate);
+  }
+
+  public boolean isCurrentlyLoaned() {
+    return LocalDate.now().isAfter(this.beginningDate) && LocalDate.now().isBefore(this.endDate) && this.isBorrowed;
+  }
+
   
 }
