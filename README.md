@@ -24,7 +24,7 @@ Depuis la racine :  ```git update-index --assume-unchanged src/main/java/config.
  ### Fonctionnalité
   - ~~Page de statistique~~
   - Vérifier l'authentification de l'utilisateur dans chaque page et vérifier son profil
-  - Page d'erreur à compléter (afficher un message d'erreur correspondant à l'erreur produite + redirection vers l'accueil)
+  - ~~Page d'erreur à compléter (afficher un message d'erreur correspondant à l'erreur produite + redirection vers l'accueil)~~
   - ~~Modifier un emprunt (date de début et de fin si pas commencé ou date de fin uniquement si l'emprunt a déjà commencé)~~
   - ~~Déconnexion (supprimer le user et l'employee de la session et rediriger vers la page login)~~
   - ~~Rechercher un utilisateur par son nom et prénom (recherche par @ mail pour l'instant)~~
