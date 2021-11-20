@@ -25,6 +25,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Connection;
 
 import model.DBManager;
@@ -36,7 +38,7 @@ public class GetComputerController extends HttpServlet {
 
 	public GetComputerController() {
     this.connection = DBManager.getInstance().getConnection();
-		this.computerDAO = new VehicleDAO();
+		this.computerDAO = new ComputerDAO();
 		this.gson = new Gson();
 	}
 
@@ -48,17 +50,21 @@ public class GetComputerController extends HttpServlet {
 		Computer computer = this.computerDAO.get(Integer.parseInt(req.getParameter("id")));
 
     // add already loaned periods
-    PreparedStatement dateStatement= this.connection.prepareStatement("SELECT beginningDate, endDate FROM Loan WHERE equipmentId = ?");
-    dateStatement.setInt(1, vehicle.getId());
-    ResultSet rsDates = dateStatement.executeQuery();
+    PreparedStatement dateStatement;
+	try {
+		dateStatement = this.connection.prepareStatement("SELECT beginningDate, endDate FROM Loan WHERE equipmentId = ?");
+		dateStatement.setInt(1, computer.getId());
+	    ResultSet rsDates = dateStatement.executeQuery();
+	    while(rsDates.next()) {
+	        computer.addPeriod(rsDates.getString("beginningDate"), rsDates.getString("endDate"));
+	    } 
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
     
-    while(rsDates.next()) {
-      computer.addPeriod(rsDates.getString("beginningDate"), rsDates.getString("endDate"));
-    } 
-
-
-		resp.setContentType("application/json");
-		PrintWriter out = resp.getWriter();
+	resp.setContentType("application/json");
+	PrintWriter out = resp.getWriter();
 
     String computerJson = this.gson.toJson(computer);
 

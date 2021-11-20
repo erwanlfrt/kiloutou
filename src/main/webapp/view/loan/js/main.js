@@ -211,7 +211,7 @@ function setDatePickers(isInit) {
   }
   if(isInit) {
     $('#beginningDate').datepicker({
-      format: 'dd/m/yyyy',
+      format: 'dd/mm/yyyy',
       maxViewMode: 1,
       datesDisabled: dates,
       startDate : "today"
@@ -244,7 +244,7 @@ function setDatePickers(isInit) {
     }
 
     $('#endDate').datepicker({
-      format: 'dd/m/yyyy',
+      format: 'dd/mm/yyyy',
       maxViewMode: 1,
       datesDisabled: dates,
       startDate: chosenBeginning,

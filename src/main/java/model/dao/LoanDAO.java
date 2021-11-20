@@ -177,7 +177,7 @@ public class LoanDAO implements Dao<Loan> {
     }
   }
 
-  private String javaDateToMysqlDate(LocalDate date) {
+  public String javaDateToMysqlDate(LocalDate date) {
 	  DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	  String formattedDate = date.format(myFormatObj);
 	  return formattedDate;

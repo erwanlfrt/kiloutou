@@ -65,3 +65,5 @@ INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed)
 INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (5, 4, "user4@gmail.com", "2021-12-15", "2021-12-17", false);
 INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (6, 4, "user4@gmail.com", "2022-11-30", "2022-12-15", false);
 INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (7, 1, "root@gmail.com", "2021-10-10", "2021-10-30", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (8, 1, "root@gmail.com", "2022-01-10", "2022-01-25", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (9, 1, "root@gmail.com", "2022-02-22", "2022-03-09", false);

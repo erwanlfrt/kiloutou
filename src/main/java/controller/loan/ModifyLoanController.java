@@ -14,14 +14,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.router.Router;
+
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
-public class InfoLoanController extends HttpServlet {
+public class ModifyLoanController extends HttpServlet {
   private LoanDAO loanDAO;
   private Loan loan;
 
-  public InfoLoanController() {
+  public ModifyLoanController() {
     super();
     this.loanDAO = new LoanDAO();
   }
@@ -46,7 +49,7 @@ public class InfoLoanController extends HttpServlet {
 
     if(loan != null) {
       req.setAttribute("loan", loan);
-      pageName="/view/loan/info-loan.jsp";
+      pageName="/view/loan/modify-loan.jsp";
     }
     else {
       pageName="/error";
@@ -56,12 +59,27 @@ public class InfoLoanController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    if(this.loan != null && req.getParameter("updateLoan")!= null) {
-      HashMap<String, Object> params = new HashMap<String, Object>();
-      params.put("isBorrowed", req.getParameter("updateLoan").equals("signaler comme rendu"));
-      loanDAO.update(loan, params);
+    String beginningDateString = req.getParameter("beginningDate");
+    String endDateString = req.getParameter("endDate");
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+    HashMap<String, Object> params = new HashMap<String, Object>();
+
+    if(beginningDateString != null) {
+      LocalDate beginningDate = LocalDate.parse(beginningDateString, formatter);
+      String finalBeginningDate = this.loanDAO.javaDateToMysqlDate(beginningDate);
+      params.put("beginningDate", finalBeginningDate);
     }
-    this.doGet(req,resp);
+
+    if(endDateString != null) {
+      LocalDate endDate = LocalDate.parse(endDateString, formatter);
+      String finalEndDate = this.loanDAO.javaDateToMysqlDate(endDate);
+      params.put("endDate", finalEndDate);
+    }
+
+    this.loanDAO.update(this.loan, params);
+
+    Router.redirect("/loan/info?id=" + this.loan.getId(), this, req, resp);
 	}
   
 
