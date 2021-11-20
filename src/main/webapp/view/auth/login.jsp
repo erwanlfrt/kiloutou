@@ -1,8 +1,16 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@page import="javax.servlet.http.HttpSession"%>
+
 <% 
   String error = (String)request.getAttribute("error");
   if(error == null) {
     error = "";
+  }
+
+  // invalidate session if exist
+  HttpSession currentSession = request.getSession();
+  if(currentSession != null) {
+    currentSession.invalidate();
   }
 %>
 <html>

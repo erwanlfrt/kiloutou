@@ -149,7 +149,7 @@ else {
 				
 				<div class="deconnexion-item">
 					<img src="images?name=power-off.png" alt="Déconnexion" width="auto" height="20px" >
-					<a href="#">Se déconnecter</a>
+					<a href="logout">Se déconnecter</a>
 				</div>
 				
 			</div>
