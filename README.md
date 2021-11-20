@@ -26,7 +26,8 @@ Depuis la racine :  ```git update-index --assume-unchanged src/main/java/config.
   - Vérifier l'authentification de l'utilisateur dans chaque page et vérifier son profil
   - Page d'erreur à compléter (afficher un message d'erreur correspondant à l'erreur produite + redirection vers l'accueil)
   - Déconnexion (supprimer le user et l'employee de la session et rediriger vers la page login)
-  - Rechercher un utilisateur par son nom et prénom (recherche par @ mail pour l'instant)
+  - ~~Rechercher un utilisateur par son nom et prénom (recherche par @ mail pour l'instant)~~
+  - Retourner un emprunt avec l'interface décrite dans l'énoncé
   - ~~Ajout d'un matériel : si on ajoute un ordinateur, il faut pouvoir choisir un processeur et une carte graphique parmi les processeurs et carte graphique déjà existants ou alors créer une nouvelle carte graphique et un nouveau processeur~~
 
 ### Problème
