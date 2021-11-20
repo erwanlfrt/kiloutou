@@ -7,6 +7,7 @@ String login = "";
 Profil profile = null;
 
 if(user == null || employee == null) {
+  request.setAttribute("message", "Vous n'êtes pas autorisé à accéder à cette page.");
 	RequestDispatcher rd = getServletContext().getRequestDispatcher("/error");
 	try {
 		rd.forward(request,response);
