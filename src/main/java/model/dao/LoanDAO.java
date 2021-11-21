@@ -1,28 +1,22 @@
 package model.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import model.DBManager;
+import model.Model;
 import model.object.equipment.Equipment;
-import model.object.user.User;
 import model.object.loan.Loan;
+import model.object.user.User;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-public class LoanDAO implements Dao<Loan> {
-	Connection connection;
-	String table;
+public class LoanDAO extends Model implements Dao<Loan> {
 
 	public LoanDAO() {
 		connection = DBManager.getInstance().getConnection();
@@ -44,6 +38,7 @@ public class LoanDAO implements Dao<Loan> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -56,6 +51,7 @@ public class LoanDAO implements Dao<Loan> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -77,6 +73,8 @@ public class LoanDAO implements Dao<Loan> {
 			if (rs.next()) {
 				res = rs.getInt("maxId") + 1;
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -101,6 +99,8 @@ public class LoanDAO implements Dao<Loan> {
 							this.mysqlDateToJavaDate(rs.getString("beginningDate")),
 							this.mysqlDateToJavaDate(rs.getString("endDate")), rs.getBoolean("isBorrowed"));
 				}
+				rs.close();
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -123,6 +123,8 @@ public class LoanDAO implements Dao<Loan> {
 				result.add(new Loan(id, equipment, user, this.mysqlDateToJavaDate(rs.getString("beginningDate")),
 						this.mysqlDateToJavaDate(rs.getString("endDate")), rs.getBoolean("isBorrowed")));
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -145,6 +147,8 @@ public class LoanDAO implements Dao<Loan> {
 				result.add(new Loan(id, equipment, user, this.mysqlDateToJavaDate(rs.getString("beginningDate")),
 						this.mysqlDateToJavaDate(rs.getString("endDate")), rs.getBoolean("isBorrowed")));
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -177,6 +181,7 @@ public class LoanDAO implements Dao<Loan> {
 			try {
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -203,6 +208,7 @@ public class LoanDAO implements Dao<Loan> {
 			statement.setString(1, user.getMail());
 			statement.setString(2, mail);
 			statement.executeUpdate();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,5 @@
 package model.dao;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,13 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.DBManager;
+import model.Model;
 import model.object.equipment.SuitableVehicle;
 import model.object.equipment.Vehicle;
 import model.object.equipment.VehicleAccessory;
 
-public class SuitableVehicleDAO implements Dao<SuitableVehicle> {
-	Connection connection;
-	String table;
+public class SuitableVehicleDAO extends Model implements Dao<SuitableVehicle> {
 
 	public SuitableVehicleDAO() {
 		connection = DBManager.getInstance().getConnection();
@@ -31,6 +29,7 @@ public class SuitableVehicleDAO implements Dao<SuitableVehicle> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -45,6 +44,7 @@ public class SuitableVehicleDAO implements Dao<SuitableVehicle> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -72,6 +72,8 @@ public class SuitableVehicleDAO implements Dao<SuitableVehicle> {
 					VehicleAccessory vehicleAccessory = vehicleAccessoryDAO.get(rs.getInt("accessoryId"));
 					result = new SuitableVehicle(vehicle, vehicleAccessory);
 				}
+				rs.close();
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -92,6 +94,8 @@ public class SuitableVehicleDAO implements Dao<SuitableVehicle> {
 
 				result.add(new SuitableVehicle(vehicle, vehicleAccessory));
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -128,6 +132,7 @@ public class SuitableVehicleDAO implements Dao<SuitableVehicle> {
 			try {
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

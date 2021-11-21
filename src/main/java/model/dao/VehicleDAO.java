@@ -1,6 +1,5 @@
 package model.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,12 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.DBManager;
-import model.object.equipment.Vehicle;
+import model.Model;
 import model.object.equipment.Equipment;
+import model.object.equipment.Vehicle;
 
-public class VehicleDAO implements Dao<Vehicle> {
-	Connection connection;
-	String table;
+public class VehicleDAO extends Model implements Dao<Vehicle> {
 
 	public VehicleDAO() {
 		connection = DBManager.getInstance().getConnection();
@@ -42,6 +40,7 @@ public class VehicleDAO implements Dao<Vehicle> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -54,6 +53,7 @@ public class VehicleDAO implements Dao<Vehicle> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -83,6 +83,8 @@ public class VehicleDAO implements Dao<Vehicle> {
 							rs.getInt("numberOfSpeeds"), rs.getString("model"), rs.getInt("power"),
 							rs.getString("registrationNumber"), rs.getInt("renewalKilometers"));
 				}
+				rs.close();
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -104,6 +106,8 @@ public class VehicleDAO implements Dao<Vehicle> {
 						rs.getInt("numberOfSpeeds"), rs.getString("model"), rs.getInt("power"),
 						rs.getString("registrationNumber"), rs.getInt("renewalKilometers")));
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -123,6 +127,8 @@ public class VehicleDAO implements Dao<Vehicle> {
 					result.add(e);
 				}
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -157,6 +163,7 @@ public class VehicleDAO implements Dao<Vehicle> {
 			try {
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

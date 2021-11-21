@@ -51,9 +51,11 @@ public class AddEquipmentController extends HttpServlet {
 		ArrayList<GraphicCard> graphicCards = gcDAO.listAll();
 
 		req.setAttribute("processors", processors);
-		req.setAttribute("graphicCards", graphicCards);
+		req.setAttribute("graphicCards", graphicCards);                 
 
 		this.doProcess(req, resp);
+		processorDAO.destroy();
+		gcDAO.destroy();
 	}
 
 	@Override
@@ -82,6 +84,8 @@ public class AddEquipmentController extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		equipmentDAO.destroy();
 
 		// if vehicle is chosen
 		String registrationNumber = req.getParameter("registrationNumber");
@@ -100,6 +104,7 @@ public class AddEquipmentController extends HttpServlet {
 					maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
 			VehicleDAO vehicleDAO = new VehicleDAO();
 			vehicleDAO.add(vehicle);
+			vehicleDAO.destroy();
 
 			String numberOfSeatsString = req.getParameter("numberOfSeats");
 			String numberOfCylindersString = req.getParameter("numberOfCylinders");
@@ -110,12 +115,14 @@ public class AddEquipmentController extends HttpServlet {
 						numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfSeats);
 				CarDAO carDAO = new CarDAO();
 				carDAO.add(car);
+				carDAO.destroy();
 			} else if (numberOfCylindersString != null) {
 				int numberOfCylinders = Integer.parseInt(numberOfCylindersString);
 				Bike bike = new Bike(id, name, available, imageURL, canBeLoaned, kilometers, brand, state, maxSpeed,
 						numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
 				BikeDAO bikeDAO = new BikeDAO();
 				bikeDAO.add(bike);
+				bikeDAO.destroy();
 			}
 
 		}
@@ -140,6 +147,7 @@ public class AddEquipmentController extends HttpServlet {
 				processor = new Processor(processorId, processorName, processorBrand, numberOfCores,
 						processorFrequency);
 				processorDAO.add(processor);
+				processorDAO.destroy();
 			} else {
 				processor = new Processor(Integer.parseInt(req.getParameter("processorSelect")), "", "", 0, 0.0f);
 			}
@@ -152,6 +160,7 @@ public class AddEquipmentController extends HttpServlet {
 				float graphicCardFrequency = Float.parseFloat(req.getParameter("graphicCardFrequency"));
 				graphicCard = new GraphicCard(graphicCardId, graphicCardName, graphicCardBrand, graphicCardFrequency);
 				graphicCardDAO.add(graphicCard);
+				graphicCardDAO.destroy();
 			} else {
 				graphicCard = new GraphicCard(Integer.parseInt(req.getParameter("graphicCardSelect")), "", "", 0.0f);
 			}
@@ -168,14 +177,17 @@ public class AddEquipmentController extends HttpServlet {
 			Computer computer = new Computer(id, name, available, imageURL, canBeLoaned, brand, model, serialNumber,
 					memorySize, isLaptop, screenSize, date, renewalDate, processor, graphicCard);
 			computerDAO.add(computer);
+			computerDAO.destroy();
 		} else if (category.equals("computerAccessory")) {
 			ComputerAccessory computerAccessory = new ComputerAccessory(id, name, available, imageURL, canBeLoaned);
 			ComputerAccessoryDAO caDAO = new ComputerAccessoryDAO();
 			caDAO.add(computerAccessory);
+			caDAO.destroy();
 		} else if (category.equals("vehicleAccessory")) {
 			VehicleAccessory vehicleAccessory = new VehicleAccessory(id, name, available, imageURL, canBeLoaned);
 			VehicleAccessoryDAO vaDAO = new VehicleAccessoryDAO();
 			vaDAO.add(vehicleAccessory);
+			vaDAO.destroy();
 		}
 	}
 }

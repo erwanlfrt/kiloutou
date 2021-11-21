@@ -15,4 +15,6 @@ public interface Dao<T> {
 	public ArrayList<T> listAll();
 
 	public void update(T object, HashMap<String, Object> params);
+	
+	public void destroy();
 }

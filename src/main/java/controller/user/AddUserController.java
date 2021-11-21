@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.auth.Csrf;
+
 public class AddUserController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
 		String pageName = "/view/user/add-user.jsp";
@@ -45,6 +47,11 @@ public class AddUserController extends HttpServlet {
 		String email = req.getParameter("email");
 		String address = req.getParameter("address");
 		String phoneNumber = req.getParameter("phoneNumber");
+		String csrfToken = req.getParameter("_token");
+		
+		if (Csrf.validateRequest(req, csrfToken)) {
+			
+		}
 
 		User user = new User(name, firstname, address, phoneNumber, email, login, password);
 

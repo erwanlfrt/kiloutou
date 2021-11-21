@@ -1,6 +1,5 @@
 package model.dao;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,12 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.DBManager;
+import model.Model;
 import model.object.equipment.ComputerAccessory;
 import model.object.equipment.Equipment;
 
-public class ComputerAccessoryDAO implements Dao<ComputerAccessory> {
-	Connection connection;
-	String table;
+public class ComputerAccessoryDAO extends Model implements Dao<ComputerAccessory> {
 
 	public ComputerAccessoryDAO() {
 		connection = DBManager.getInstance().getConnection();

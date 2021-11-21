@@ -1,6 +1,5 @@
 package model.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,14 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.DBManager;
+import model.Model;
 import model.object.equipment.Computer;
 import model.object.equipment.Equipment;
-import model.object.equipment.Processor;
 import model.object.equipment.GraphicCard;
+import model.object.equipment.Processor;
 
-public class ComputerDAO implements Dao<Computer> {
-	Connection connection;
-	String table;
+public class ComputerDAO extends Model implements Dao<Computer> {
 
 	public ComputerDAO() {
 		connection = DBManager.getInstance().getConnection();
@@ -46,6 +44,7 @@ public class ComputerDAO implements Dao<Computer> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -58,6 +57,7 @@ public class ComputerDAO implements Dao<Computer> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -91,6 +91,8 @@ public class ComputerDAO implements Dao<Computer> {
 							rs.getBoolean("isLaptop"), rs.getInt("screenSize"), rs.getString("purchaseDate"),
 							rs.getString("renewalDate"), processor, graphicCard);
 				}
+				rs.close();
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -107,6 +109,8 @@ public class ComputerDAO implements Dao<Computer> {
 			if (rs.next()) {
 				res = rs.getInt("maxId") + 1;
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -131,6 +135,8 @@ public class ComputerDAO implements Dao<Computer> {
 						rs.getInt("screenSize"), rs.getString("purchaseDate"), rs.getString("renewalDate"), processor,
 						graphicCard));
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -150,6 +156,8 @@ public class ComputerDAO implements Dao<Computer> {
 					result.add(e);
 				}
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -172,6 +180,8 @@ public class ComputerDAO implements Dao<Computer> {
 						rs.getInt("screenSize"), rs.getString("purchaseDate"), rs.getString("renewalDate"), processor,
 						graphicCard));
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -206,6 +216,7 @@ public class ComputerDAO implements Dao<Computer> {
 			try {
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

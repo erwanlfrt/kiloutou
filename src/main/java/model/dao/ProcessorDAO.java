@@ -1,6 +1,5 @@
 package model.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,12 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.DBManager;
+import model.Model;
 import model.object.equipment.Processor;
 
-public class ProcessorDAO implements Dao<Processor> {
-	Connection connection;
-	String table;
-
+public class ProcessorDAO extends Model implements Dao<Processor> {
+	
 	public ProcessorDAO() {
 		connection = DBManager.getInstance().getConnection();
 		table = "Processor";
@@ -33,6 +31,7 @@ public class ProcessorDAO implements Dao<Processor> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -45,6 +44,7 @@ public class ProcessorDAO implements Dao<Processor> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -69,6 +69,8 @@ public class ProcessorDAO implements Dao<Processor> {
 					result = new Processor(rs.getInt("id"), rs.getString("name"), rs.getString("brand"),
 							rs.getInt("numberOfCores"), rs.getFloat("frequency"));
 				}
+				rs.close();
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -85,6 +87,8 @@ public class ProcessorDAO implements Dao<Processor> {
 			if (rs.next()) {
 				res = rs.getInt("maxId") + 1;
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -100,6 +104,8 @@ public class ProcessorDAO implements Dao<Processor> {
 				result.add(new Processor(rs.getInt("id"), rs.getString("name"), rs.getString("brand"),
 						rs.getInt("numberOfCores"), rs.getFloat("frequency")));
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -134,6 +140,7 @@ public class ProcessorDAO implements Dao<Processor> {
 			try {
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

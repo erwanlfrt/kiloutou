@@ -1,6 +1,5 @@
 package model.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,12 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.DBManager;
+import model.Model;
 import model.object.equipment.GraphicCard;
 
-public class GraphicCardDAO implements Dao<GraphicCard> {
-	Connection connection;
-	String table;
-
+public class GraphicCardDAO extends Model implements Dao<GraphicCard> {
+	
 	public GraphicCardDAO() {
 		connection = DBManager.getInstance().getConnection();
 		table = "GraphicCard";
@@ -32,6 +30,7 @@ public class GraphicCardDAO implements Dao<GraphicCard> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -44,6 +43,7 @@ public class GraphicCardDAO implements Dao<GraphicCard> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -68,6 +68,8 @@ public class GraphicCardDAO implements Dao<GraphicCard> {
 					result = new GraphicCard(rs.getInt("id"), rs.getString("name"), rs.getString("brand"),
 							rs.getFloat("frequency"));
 				}
+				rs.close();
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -84,6 +86,8 @@ public class GraphicCardDAO implements Dao<GraphicCard> {
 			if (rs.next()) {
 				res = rs.getInt("maxId") + 1;
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -99,6 +103,8 @@ public class GraphicCardDAO implements Dao<GraphicCard> {
 				result.add(new GraphicCard(rs.getInt("id"), rs.getString("name"), rs.getString("brand"),
 						rs.getFloat("frequency")));
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -133,6 +139,7 @@ public class GraphicCardDAO implements Dao<GraphicCard> {
 			try {
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

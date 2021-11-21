@@ -2,6 +2,7 @@
 <%@page import="model.object.user.* , java.io.IOException"%>
 <%
   Employee employee = (Employee)request.getAttribute("employee");
+  String csrf = (String) request.getSession().getAttribute("csrf");
 %>
 <%
 User user = (User) request.getAttribute("user");
@@ -32,6 +33,7 @@ else {
   <body>
     <div>
       <form id="addForm" method="POST" name="addForm" style="display : flex ; flex-direction: column; align-items: flex-start">
+      	<input type="hidden" value="<%= csrf %>" name="_token">
         <label for="name"><b>Nom : </b></label>
         <input type="text" value="<%= user.getName()%>" name="name" required>
 
