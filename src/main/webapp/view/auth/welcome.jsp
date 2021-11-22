@@ -29,21 +29,21 @@ if (user == null || employee == null) {
 <body>
 	<header>
 		<div>
-			<img src="images?name=logo.png" width="auto" height="30px" alt="KILOUPRESQUETOUT" >
+			<img src="${pageContext.request.contextPath}/images?name=logo.png" width="auto" height="30px" alt="KILOUPRESQUETOUT" >
 		</div>
 		<nav class="nav-desktop">
-			<a href="#" class="active">Accueil</a>
+			<a href="${pageContext.request.contextPath}/welcome" class="active">Accueil</a>
 			<div class="dropdown">
 				<a href="#">Emprunts</a>
 				<div class="dropdown-list">
 					<div class="dropdown-item">
-						<img src="images?name=add.png" alt="add" width="auto" height="18px" >
-						<a href="loan/add">Ajouter</a>
+						<img src="${pageContext.request.contextPath}/images?name=add.png" alt="add" width="auto" height="18px" >
+						<a href="${pageContext.request.contextPath}/loan/add">Ajouter</a>
 					</div>
 					<hr>
 					<div class="dropdown-item">
-						<img src="images?name=search.png" alt="search" width="auto" height="18px" >
-						<a href="loan/search">Chercher</a>
+						<img src="${pageContext.request.contextPath}/images?name=search.png" alt="search" width="auto" height="18px" >
+						<a href="${pageContext.request.contextPath}/loan/search">Chercher</a>
 					</div>
 				</div>
 			</div>
@@ -51,13 +51,13 @@ if (user == null || employee == null) {
 				<a href="#">Matériels</a>
 				<div class="dropdown-list">
 					<div class="dropdown-item">
-						<img src="images?name=add.png" alt="add" width="auto" height="18px" >
-						<a href="equipment/add">Ajouter</a>
+						<img src="${pageContext.request.contextPath}/images?name=add.png" alt="add" width="auto" height="18px" >
+						<a href="${pageContext.request.contextPath}/equipment/add">Ajouter</a>
 					</div>
 					<hr>
 					<div class="dropdown-item">
-						<img src="images?name=search.png" alt="search" width="auto" height="18px" >
-						<a href="equipment/search">Chercher</a>
+						<img src="${pageContext.request.contextPath}/images?name=search.png" alt="search" width="auto" height="18px" >
+						<a href="${pageContext.request.contextPath}/equipment/search">Chercher</a>
 					</div>
 				</div>
 			</div>
@@ -65,26 +65,26 @@ if (user == null || employee == null) {
 				<a href="#">Utilisateurs</a>
 				<div class="dropdown-list">
 					<div class="dropdown-item">
-						<img src="images?name=add.png" alt="add" width="auto" height="18px" >
-						<a href="user/add">Ajouter</a>
+						<img src="${pageContext.request.contextPath}/images?name=add.png" alt="add" width="auto" height="18px" >
+						<a href="${pageContext.request.contextPath}/user/add">Ajouter</a>
 					</div>
 					<hr>
 					<div class="dropdown-item">
-						<img src="images?name=search.png" alt="search" width="auto" height="18px" >
-						<a href="user/search">Chercher</a>
+						<img src="${pageContext.request.contextPath}/images?name=search.png" alt="search" width="auto" height="18px" >
+						<a href="${pageContext.request.contextPath}/user/search">Chercher</a>
 					</div>
 				</div>
 			</div>
 		</nav>
 		<div class="disconnect nav-desktop">
-			<img src="images?name=power-off.png" alt="Déconnexion" width="auto" height="20px" >
-			<a href="#">Se déconnecter</a>
+			<img src="${pageContext.request.contextPath}/images?name=power-off.png" alt="Déconnexion" width="auto" height="20px" >
+			<a href="${pageContext.request.contextPath}/logout">Se déconnecter</a>
 		</div>
 		<div class="nav-mobile">
-			<img id="burger" src="images?name=menu.png" alt="Menu" width="30px" height="auto">
+			<img id="burger" src="${pageContext.request.contextPath}/images?name=menu.png" alt="Menu" width="30px" height="auto">
 			<div id="burger-dropdown" class="nav-dropdown">
 				<div class="accueil-item">
-					<a href="/" class="active">Accueil</a>
+					<a href="${pageContext.request.contextPath}/welcome" class="active">Accueil</a>
 				</div>
 				
 				<hr>
@@ -95,13 +95,13 @@ if (user == null || employee == null) {
 					<a href="#">Emprunts</a>
 					<div class="dropdown-list">
 						<div class="dropdown-item">
-							<img src="images?name=add.png" alt="add" width="auto" height="18px" >
-							<a href="loan/add">Ajouter</a>
+							<img src="${pageContext.request.contextPath}/images?name=add.png" alt="add" width="auto" height="18px" >
+							<a href="${pageContext.request.contextPath}/loan/add">Ajouter</a>
 						</div>
 						<hr>
 						<div class="dropdown-item">
-							<img src="images?name=search.png" alt="search" width="auto" height="18px" >
-							<a href="loan/search">Chercher</a>
+							<img src="${pageContext.request.contextPath}/images?name=search.png" alt="search" width="auto" height="18px" >
+							<a href="${pageContext.request.contextPath}/loan/search">Chercher</a>
 						</div>
 					</div>
 				</div>
@@ -114,13 +114,13 @@ if (user == null || employee == null) {
 					<a href="#">Matériels</a>
 					<div class="dropdown-list">
 						<div class="dropdown-item">
-							<img src="images?name=add.png" alt="add" width="auto" height="18px" >
-							<a href="equipment/add">Ajouter</a>
+							<img src="${pageContext.request.contextPath}/images?name=add.png" alt="add" width="auto" height="18px" >
+							<a href="${pageContext.request.contextPath}/equipment/add">Ajouter</a>
 						</div>
 						<hr>
 						<div class="dropdown-item">
-							<img src="images?name=search.png" alt="search" width="auto" height="18px" >
-							<a href="equipment/search">Chercher</a>
+							<img src="${pageContext.request.contextPath}/images?name=search.png" alt="search" width="auto" height="18px" >
+							<a href="${pageContext.request.contextPath}/equipment/search">Chercher</a>
 						</div>
 					</div>
 				</div>
@@ -132,13 +132,13 @@ if (user == null || employee == null) {
 					<a href="#">Utilisateurs</a>
 					<div class="dropdown-list">
 						<div class="dropdown-item">
-							<img src="images?name=add.png" alt="add" width="auto" height="18px" >
-							<a href="user/add">Ajouter</a>
+							<img src="${pageContext.request.contextPath}/images?name=add.png" alt="add" width="auto" height="18px" >
+							<a href="${pageContext.request.contextPath}/user/add">Ajouter</a>
 						</div>
 						<hr>
 						<div class="dropdown-item">
-							<img src="images?name=search.png" alt="search" width="auto" height="18px" >
-							<a href="user/search">Chercher</a>
+							<img src="${pageContext.request.contextPath}/images?name=search.png" alt="search" width="auto" height="18px" >
+							<a href="${pageContext.request.contextPath}/user/search">Chercher</a>
 						</div>
 					</div>
 				</div>
@@ -148,8 +148,8 @@ if (user == null || employee == null) {
 				<hr>
 				
 				<div class="deconnexion-item">
-					<img src="images?name=power-off.png" alt="Déconnexion" width="auto" height="20px" >
-					<a href="logout">Se déconnecter</a>
+					<img src="${pageContext.request.contextPath}/images?name=power-off.png" alt="Déconnexion" width="auto" height="20px" >
+					<a href="${pageContext.request.contextPath}/logout">Se déconnecter</a>
 				</div>
 				
 			</div>
@@ -165,7 +165,7 @@ if (user == null || employee == null) {
         	<div class="section-nav-item">
         		<h2>NOUVEL EMPRUNT</h2>
         		<p>Un nouvel emprunt à faire ?</p>
-        		<a href="loan/add">Emprunter</a>
+        		<a href="${pageContext.request.contextPath}/loan/add">Emprunter</a>
         	</div>
         	
         <% } %>
@@ -174,7 +174,7 @@ if (user == null || employee == null) {
         	<div class="section-nav-item">
         		<h2>NOUVEL UTILISATEUR</h2>
         		<p>Un nouvel utilisateur à créer ?</p>
-        		<a href="user/add">Créer</a>
+        		<a href="${pageContext.request.contextPath}/user/add">Créer</a>
         	</div>
         	
         <% } %>
@@ -183,22 +183,18 @@ if (user == null || employee == null) {
         	<div class="section-nav-item">
         		<h2>NOUVEAU MAT&Eacute;RIEL</h2>
         		<p>Un ou plusieurs matériels à saisir</p>
-        		<a href="equipment/add">Saisir</a>
+        		<a href="${pageContext.request.contextPath}/equipment/add">Saisir</a>
         	</div>
         	
         <% } %>
         	
         </section>
-        <img src="images?name=tracteur.png" alt="Image de trois tracto-pelles" width="80%" height="auto" >
+        <img src="${pageContext.request.contextPath}/images?name=tracteur.png" alt="Image de trois tracto-pelles" width="80%" height="auto" >
 	</main>
 	
 	<script>
 		document.getElementById("burger").addEventListener('click', function(ev) {
-			if(document.getElementById("burger-dropdown").className.includes("active")) {
-				document.getElementById("burger-dropdown").classList.remove('active');
-			} else {
-				document.getElementById("burger-dropdown").classList.add('active');
-			}
+  			document.getElementById("burger-dropdown").classList.toggle('active');
 		});
 	</script>
 </body>

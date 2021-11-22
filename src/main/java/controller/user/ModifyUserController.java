@@ -100,7 +100,8 @@ public class ModifyUserController extends HttpServlet {
 			}
 
 		}
-
-		Router.redirect("/view/auth/welcome.jsp", this, req, resp);
+		
+		Router.redirect("/welcome", this, req, resp);
+		//resp.sendRedirect(req.getContextPath() + "/welcome");
 	}
 }

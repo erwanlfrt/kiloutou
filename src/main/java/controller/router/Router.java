@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 public class Router {
 	public static void redirect(String route, HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		RequestDispatcher rd = servlet.getServletContext().getRequestDispatcher(route);
+		resp.sendRedirect(req.getContextPath() + route);
+		/*RequestDispatcher rd = servlet.getServletContext().getRequestDispatcher(route);
 		if (rd == null) {
 			// bad redirection
 			rd = servlet.getServletContext().getRequestDispatcher("/error");
@@ -22,6 +23,6 @@ public class Router {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 }

@@ -30,26 +30,37 @@ else {
     <title>Info user</title>
   </head>
   <body>
-    <div id="info">
-      <p><b>Adresse mail : </b><%= user.getMail()%></p>
-      <p><b>Nom : </b> <%= user.getName()%></p>
-      <p><b>Prénom : </b> <%= user.getFirstname()%></p>
-      <p><b>Login : </b> <%= user.getLogin()%></p>
-      <p><b>Adresse : </b> <%= user.getAddress()%></p>
-      <p><b>n° tel. : </b> <%= user.getPhoneNumber()%></p>
-
-      <%
-        if(employee != null) {
-          %>
-            <p><b>Fonction : </b><%= employee.getFunction()%></p>
-            <p><b>Service : </b><%= employee.getService()%></p>
-            <p><b>n° bureau : </b><%= employee.getDeskNumber()%></p>
-            <p><b>Profil : </b><%= employee.getProfil().name()%></p>
-          <%
-        }
-      %>
-    </div>
-
+  	<main>
+  		<h1>UTILISATEUR</h1>
+  		<section>
+  			<div class="user">
+  				<div>
+  					<img src="${pageContext.request.contextPath}/images?name=profil.png" alt="User" width="50px" height="50px">
+  					<div>
+  						<h2><%= user.getFirstname() %> <%= user.getName() %></h2>
+  						<p><%= employee.getFunction() %></p>
+  					</div>
+  					<div>
+  						<img class="user-edit" src="${pageContext.request.contextPath}/images?name=edit.png" alt="Modifier" width="20px" height="20px" onclick="window.location.replace('${pageContext.request.contextPath}/user/modify?mail=<%= user.getMail() %>')" />
+           				<img class="user-bin" src="${pageContext.request.contextPath}/images?name=bin.png" alt="Supprimer" width="20px" height="20px" onclick="deleteUser('<%= user.getMail() %>')"/>
+  					</div>
+  				</div>
+  				<div>
+  					<p>Login : <%= user.getLogin() %></p>
+  					<p>Adresse : <%= user.getAddress() %></p>
+  					<p>Téléphone : <%= user.getPhoneNumber() %></p>
+  					<p>Mail : <%= user.getMail() %></p>
+  					<p>N° Bureau : <%= employee.getDeskNumber() %></p>
+  					<p>Profil : <%= employee.getProfil().name() %></p>
+  					<p>Service : <%= employee.getService() %></p>
+  				</div>
+  			</div>
+  			<div class="loan">
+  			
+  			</div>
+  		</section>
+  	</main>
+  
     <div>
       <a href="modify?mail=<%= user.getMail()%>">
         <button>Modifier</button>
@@ -97,7 +108,7 @@ else {
           mail : '<%= user.getMail()%>'
         }
         $.ajax({
-          url: "/Kiloutou/user/delete",
+          url: "/kiloutou/user/delete",
           method: "POST",
           contentType: "application/json", // NOT dataType!
           data: JSON.stringify(data),
@@ -120,7 +131,7 @@ else {
               id : checkboxes[i].value
             };
             $.ajax({
-              url: "/Kiloutou/user/info",
+              url: "/kiloutou/user/info",
               method: "POST",
               contentType: "application/json",
               data: JSON.stringify(data),

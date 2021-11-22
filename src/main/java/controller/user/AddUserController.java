@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.router.Router;
+
 public class AddUserController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
 		String pageName = "/view/user/add-user.jsp";
@@ -36,7 +38,6 @@ public class AddUserController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		this.doProcess(req, resp);
 
 		String name = req.getParameter("name");
 		String firstname = req.getParameter("firstname");
@@ -65,6 +66,6 @@ public class AddUserController extends HttpServlet {
 			employeeDAO.add(employee);
 
 		}
-
+		Router.redirect("/user/search", this, req, resp);
 	}
 }

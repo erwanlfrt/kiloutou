@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.object.user.User;
+
 public class ErrorController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
 		String pageName = "/view/auth/error.jsp";
@@ -24,6 +26,8 @@ public class ErrorController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		User user = new User("", "", "", "", "", "", "");
+		req.setAttribute("user", user);
 		this.doProcess(req, resp);
 	}
 

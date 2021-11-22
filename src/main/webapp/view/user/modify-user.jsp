@@ -28,7 +28,7 @@ if (user == null || employee == null) {
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Add user</title>
+    <title>Modify user</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/view/user/css/modify-user.css" />
   </head>
   <body>
@@ -39,7 +39,7 @@ if (user == null || employee == null) {
   	
   	<main>
   		<section>
-  			<h1>NOUVEL UTILISATEUR</h1>
+  			<h1>MODIFIER UTILISATEUR</h1>
   			<form id="addForm" method="POST" name="addForm">
   				<p><i>Les champs marqués par * sont obligatoires.</i></p>
 				<div class="form-item input-group">
