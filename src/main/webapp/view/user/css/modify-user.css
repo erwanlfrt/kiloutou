@@ -317,13 +317,6 @@ main section form {
 	margin-left: 40px;
 }
 
-#employeeForm {
-	display: none;
-}
-
-#employeeForm.active {
-	display: block;
-}
 
 @media screen and (max-width: 1100px) {
 	main section {

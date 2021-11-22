@@ -354,7 +354,7 @@
   
   <servlet-mapping>
      <servlet-name>ImageServlet</servlet-name>
-     <url-pattern>/images/*</url-pattern>
+     <url-pattern>/images</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>

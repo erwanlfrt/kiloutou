@@ -20,7 +20,7 @@ import controller.router.Router;
 
 public class ModifyUserController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
-		String pageName = "/view/user/add-user.jsp";
+		String pageName = "/view/user/modify-user.jsp";
 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 		try {
