@@ -43,6 +43,7 @@ public class InfoEquipmentController extends HttpServlet {
 
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		Equipment equipment = equipmentDAO.get(id);
+		equipmentDAO.closeConn();
 
 		if (equipment != null) {
 			req.setAttribute("equipment", equipment);
@@ -50,6 +51,7 @@ public class InfoEquipmentController extends HttpServlet {
 			// check if equipment is a vehicle
 			VehicleDAO vehicleDAO = new VehicleDAO();
 			Vehicle vehicle = vehicleDAO.get(id);
+			vehicleDAO.closeConn();
 
 			if (vehicle != null) {
 				req.setAttribute("vehicle", vehicle);
@@ -57,6 +59,7 @@ public class InfoEquipmentController extends HttpServlet {
 				// check if equipment is a car
 				CarDAO carDAO = new CarDAO();
 				Car car = carDAO.get(id);
+				carDAO.closeConn();
 
 				if (car != null) {
 					req.setAttribute("car", car);
@@ -64,6 +67,7 @@ public class InfoEquipmentController extends HttpServlet {
 					// check if equipment is a bike
 					BikeDAO bikeDAO = new BikeDAO();
 					Bike bike = bikeDAO.get(id);
+					bikeDAO.closeConn();
 
 					if (bike != null) {
 						req.setAttribute("bike", bike);
@@ -73,6 +77,7 @@ public class InfoEquipmentController extends HttpServlet {
 				// check if equipment is a computer
 				ComputerDAO computerDAO = new ComputerDAO();
 				Computer computer = computerDAO.get(id);
+				computerDAO.closeConn();
 
 				if (computer != null) {
 					req.setAttribute("computer", computer);
@@ -80,6 +85,7 @@ public class InfoEquipmentController extends HttpServlet {
 					// check if equipment is a computer accessory
 					ComputerAccessoryDAO computerAccessoryDAO = new ComputerAccessoryDAO();
 					ComputerAccessory computerAccessory = computerAccessoryDAO.get(id);
+					computerAccessoryDAO.closeConn();
 
 					if (computerAccessory != null) {
 						req.setAttribute("computerAccessory", computerAccessory);
@@ -87,6 +93,7 @@ public class InfoEquipmentController extends HttpServlet {
 						// check if equipment is a vheicle accessory
 						VehicleAccessoryDAO vehicleAccessoryDAO = new VehicleAccessoryDAO();
 						VehicleAccessory vehicleAccessory = vehicleAccessoryDAO.get(id);
+						vehicleAccessoryDAO.closeConn();
 
 						if (vehicleAccessory != null) {
 							req.setAttribute("vehicleAccessory", vehicleAccessory);

@@ -1,6 +1,5 @@
 package model.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,14 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.DBManager;
+import model.Model;
 import model.object.user.Employee;
 import model.object.user.Profil;
 import model.object.user.User;
 
-public class EmployeeDAO implements Dao<Employee> {
-	Connection connection;
-	String table;
-
+public class EmployeeDAO extends Model implements Dao<Employee> {
+	
 	public EmployeeDAO() {
 		connection = DBManager.getInstance().getConnection();
 		table = "Employee";
@@ -37,6 +35,7 @@ public class EmployeeDAO implements Dao<Employee> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -49,6 +48,7 @@ public class EmployeeDAO implements Dao<Employee> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -80,6 +80,8 @@ public class EmployeeDAO implements Dao<Employee> {
 							Profil.valueOf(rs.getString("profil")));
 					result.setReal(false);
 				}
+				rs.close();
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -103,6 +105,8 @@ public class EmployeeDAO implements Dao<Employee> {
 				result.add(employee);
 
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -137,6 +141,7 @@ public class EmployeeDAO implements Dao<Employee> {
 			try {
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

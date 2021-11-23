@@ -1,7 +1,5 @@
 package model.dao;
 
-import java.sql.Connection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,17 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.UUID;
 
 import model.DBManager;
+import model.Model;
 import model.object.user.User;
 
-import java.nio.charset.*;
-
-public class UserDAO implements Dao<User> {
-	Connection connection;
-	String table;
+public class UserDAO extends Model implements Dao<User> {
+	
 
 	public UserDAO() {
 		connection = DBManager.getInstance().getConnection();
@@ -44,6 +39,7 @@ public class UserDAO implements Dao<User> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -56,6 +52,7 @@ public class UserDAO implements Dao<User> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -82,6 +79,8 @@ public class UserDAO implements Dao<User> {
 							rs.getString("password"));
 					result.setReal(rs.getBoolean("isReal"));
 				}
+				rs.close();
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -103,6 +102,8 @@ public class UserDAO implements Dao<User> {
 					result.add(user);
 				}
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -148,6 +149,8 @@ public class UserDAO implements Dao<User> {
 						login = login.replace("-", "");
 					}
 				}
+				rs.close();
+				statement.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -176,6 +179,8 @@ public class UserDAO implements Dao<User> {
 						email = email.replace("-", "") + "@unknown.com";
 					}
 				}
+				rs.close();
+				statement.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -216,6 +221,7 @@ public class UserDAO implements Dao<User> {
 			try {
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
