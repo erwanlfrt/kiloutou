@@ -35,7 +35,8 @@ public class GetOtherController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Equipment equipment = this.equipmentDAO.get(Integer.parseInt(req.getParameter("id")));
-
+		this.equipmentDAO.closeConn();
+		
 		// add already loaned periods
 		PreparedStatement dateStatement;
 		try {
@@ -47,6 +48,8 @@ public class GetOtherController extends HttpServlet {
 			while (rsDates.next()) {
 				equipment.addPeriod(rsDates.getString("beginningDate"), rsDates.getString("endDate"));
 			}
+			rsDates.close();
+			dateStatement.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

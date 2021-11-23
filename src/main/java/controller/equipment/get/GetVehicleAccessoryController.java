@@ -34,7 +34,8 @@ public class GetVehicleAccessoryController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		VehicleAccessory vehicleAccessory = this.vehicleAccessoryDAO.get(Integer.parseInt(req.getParameter("id")));
-
+		this.vehicleAccessoryDAO.closeConn();
+		
 		// add already loaned periods
 		PreparedStatement dateStatement;
 		try {
@@ -46,6 +47,8 @@ public class GetVehicleAccessoryController extends HttpServlet {
 			while (rsDates.next()) {
 				vehicleAccessory.addPeriod(rsDates.getString("beginningDate"), rsDates.getString("endDate"));
 			}
+			rsDates.close();
+			dateStatement.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
