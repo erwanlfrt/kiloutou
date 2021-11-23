@@ -30,6 +30,7 @@ public class ListComputersController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ArrayList<Equipment> listComputers = this.computerDAO.listAllIdAndName();
+		this.computerDAO.closeConn();
 		resp.setContentType("application/json");
 		PrintWriter out = resp.getWriter();
 		String computersJson = this.gson.toJson(listComputers);

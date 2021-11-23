@@ -22,7 +22,6 @@ public class Welcome extends HttpServlet {
 
 	public Welcome() {
 		super();
-		System.out.println("Welcome.java");
 		this.userDAO = new UserDAO();
 		this.employeeDAO = new EmployeeDAO();
 	}
