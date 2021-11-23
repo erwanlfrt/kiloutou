@@ -31,6 +31,7 @@ public class SearchUserController extends HttpServlet {
 		UserDAO userDAO = new UserDAO();
 		ArrayList<User> users = userDAO.listAll();
 		req.setAttribute("users", users);
+		userDAO.closeConn();
 		this.doProcess(req, resp);
 	}
 

@@ -66,6 +66,10 @@ public class InfoUserController extends HttpServlet {
 		req.setAttribute("user", user);
 		req.setAttribute("employee", employee);
 		req.setAttribute("loans", loans);
+		
+		userDAO.closeConn();
+		employeeDAO.closeConn();
+		loanDAO.closeConn();
 
 		this.doProcess(req, resp);
 
@@ -80,5 +84,6 @@ public class InfoUserController extends HttpServlet {
 		params.put("isOver", false);
 		Loan loan = loanDAO.get(Integer.parseInt(id));
 		loanDAO.update(loan, params);
+		loanDAO.closeConn();
 	}
 }

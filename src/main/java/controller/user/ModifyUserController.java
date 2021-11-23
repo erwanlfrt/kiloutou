@@ -50,6 +50,9 @@ public class ModifyUserController extends HttpServlet {
 		if (employee != null) {
 			req.setAttribute("employee", employee);
 		}
+		
+		employeeDAO.closeConn();
+		userDAO.closeConn();
 
 		this.doProcess(req, resp);
 
@@ -98,8 +101,12 @@ public class ModifyUserController extends HttpServlet {
 			} else {
 				employeeDAO.add(employee);
 			}
+			
+			employeeDAO.closeConn();
 
 		}
+		
+		userDAO.closeConn();
 		
 		Router.redirect("/welcome", this, req, resp);
 		//resp.sendRedirect(req.getContextPath() + "/welcome");

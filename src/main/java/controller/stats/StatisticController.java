@@ -67,11 +67,25 @@ public class StatisticController extends HttpServlet {
 		HashMap<String, Integer> loanDistribution = this.getLoanDistribution();
 		int[] loanDistributionPerMonth = this.getLoanDistributionPerMonth();
 
+
 		req.setAttribute("equipmentDistribution", equipmentDistribution);
 		req.setAttribute("mostLoanedEquipments", mostLoanedEquipments);
 		req.setAttribute("bestLoaners", bestLoaners);
 		req.setAttribute("loanDistribution", loanDistribution);
 		req.setAttribute("loanDistributionPerMonth", loanDistributionPerMonth);
+		
+		this.eDAO.closeConn();
+		this.vehicleDAO.closeConn();
+		this.vehicleAccessoryDAO.closeConn();
+		this.computerDAO.closeConn();
+		this.computerAccessoryDAO.closeConn();
+		
+		try {
+			this.connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		this.doProcess(req, resp);
 	}
@@ -144,6 +158,8 @@ public class StatisticController extends HttpServlet {
 			while (rs.next()) {
 				results.put(rs.getString("name"), rs.getInt("count_id"));
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -162,6 +178,8 @@ public class StatisticController extends HttpServlet {
 			while (rs.next()) {
 				results.put((rs.getString("firstname") + rs.getString("name")), rs.getInt("count_loan"));
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -194,6 +212,8 @@ public class StatisticController extends HttpServlet {
 			while (rs.next()) {
 				results.put("Emprunts terminés", rs.getInt("done"));
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -223,6 +243,8 @@ public class StatisticController extends HttpServlet {
 				while (rs.next()) {
 					results[i - 2] = rs.getInt("count_month");
 				}
+				rs.close();
+				statement.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
