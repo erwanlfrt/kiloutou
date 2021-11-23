@@ -29,12 +29,12 @@ public class LoanDAO extends Model implements Dao<Loan> {
 		String userMail = object.getUser().getMail();
 		LocalDate beginningDate = object.getBeginningDate();
 		LocalDate endDate = object.getEndDate();
-		boolean isBorrowed = object.isBorrowed();
+		boolean isOver = object.isOver();
 
 		String query = "INSERT INTO " + this.table
-				+ " (id, equipmentId, userMail, beginningDate, endDate, isBorrowed ) VALUES (" + id + ", " + equipmentId
+				+ " (id, equipmentId, userMail, beginningDate, endDate, isOver ) VALUES (" + id + ", " + equipmentId
 				+ ", \'" + userMail + "\', \'" + this.javaDateToMysqlDate(beginningDate) + "\', \'"
-				+ this.javaDateToMysqlDate(endDate) + "\', " + isBorrowed + ");";
+				+ this.javaDateToMysqlDate(endDate) + "\', " + isOver + ");";
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
@@ -97,7 +97,7 @@ public class LoanDAO extends Model implements Dao<Loan> {
 
 					result = new Loan((int) id, equipment, user,
 							this.mysqlDateToJavaDate(rs.getString("beginningDate")),
-							this.mysqlDateToJavaDate(rs.getString("endDate")), rs.getBoolean("isBorrowed"));
+							this.mysqlDateToJavaDate(rs.getString("endDate")), rs.getBoolean("isOver"));
 				}
 				rs.close();
 				statement.close();
@@ -121,7 +121,7 @@ public class LoanDAO extends Model implements Dao<Loan> {
 				User user = userDAO.get(rs.getString("userMail"));
 
 				result.add(new Loan(id, equipment, user, this.mysqlDateToJavaDate(rs.getString("beginningDate")),
-						this.mysqlDateToJavaDate(rs.getString("endDate")), rs.getBoolean("isBorrowed")));
+						this.mysqlDateToJavaDate(rs.getString("endDate")), rs.getBoolean("isOver")));
 			}
 			rs.close();
 			statement.close();
@@ -145,7 +145,7 @@ public class LoanDAO extends Model implements Dao<Loan> {
 				UserDAO userDAO = new UserDAO();
 
 				result.add(new Loan(id, equipment, user, this.mysqlDateToJavaDate(rs.getString("beginningDate")),
-						this.mysqlDateToJavaDate(rs.getString("endDate")), rs.getBoolean("isBorrowed")));
+						this.mysqlDateToJavaDate(rs.getString("endDate")), rs.getBoolean("isOver")));
 			}
 			rs.close();
 			statement.close();

@@ -12,16 +12,16 @@ public class Loan {
 	private User user;
 	private LocalDate beginningDate;
 	private LocalDate endDate;
-	private boolean isBorrowed;
+	private boolean isOver;
 
 	public Loan(int id, Equipment equipment, User user, LocalDate beginningDate, LocalDate endDate,
-			boolean isBorrowed) {
+			boolean isOver) {
 		this.id = id;
 		this.equipment = equipment;
 		this.user = user;
 		this.beginningDate = beginningDate;
 		this.endDate = endDate;
-		this.isBorrowed = isBorrowed;
+		this.isOver = isOver;
 	}
 
 	public int getId() {
@@ -63,12 +63,12 @@ public class Loan {
 
 	}
 
-	public boolean isBorrowed() {
-		return isBorrowed;
+	public boolean isOver() {
+		return isOver;
 	}
 
-	public void setBorrowed(boolean isBorrowed) {
-		this.isBorrowed = isBorrowed;
+	public void setBorrowed(boolean isOver) {
+		this.isOver = isOver;
 	}
 
 	public String getStringBeginningDate() {
@@ -84,7 +84,7 @@ public class Loan {
 	}
 
 	public boolean isLate() {
-		return LocalDate.now().isAfter(this.endDate) && this.isBorrowed;
+		return LocalDate.now().isAfter(this.endDate) && this.isOver;
 	}
 
 	public boolean hasNotStarted() {
@@ -92,7 +92,7 @@ public class Loan {
 	}
 
 	public boolean isCurrentlyLoaned() {
-		return LocalDate.now().isAfter(this.beginningDate) && LocalDate.now().isBefore(this.endDate) && this.isBorrowed;
+		return LocalDate.now().isAfter(this.beginningDate) && LocalDate.now().isBefore(this.endDate) && this.isOver;
 	}
 
 }

@@ -59,30 +59,30 @@ INSERT INTO Computer (id, brand, model, serialNumber, memorySize, isLaptop, scre
 INSERT INTO Computer (id, brand, model, serialNumber, memorySize, isLaptop, screenSize, purchaseDate, renewalDate, processorId, graphicCardId) VALUES (8, "HP", "EliteBook H5", "ax8000xa", 500, true, 13, '2021-05-15', '2025-05-15', 1, 1);
 
 
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (0, 1, "angela.merkel@gmail.com", "2021-11-16", "2021-11-29", false);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (1, 2, "angela.merkel@gmail.com", "2021-12-14", "2021-12-19", false);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (2, 3, "angela.merkel@gmail.com", "2021-10-12", "2021-11-02", false);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (3, 4, "angela.merkel@gmail.com", "2022-10-12", "2022-11-02", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (0, 1, "angela.merkel@gmail.com", "2021-11-16", "2021-11-29", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (1, 2, "angela.merkel@gmail.com", "2021-12-14", "2021-12-19", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (2, 3, "angela.merkel@gmail.com", "2021-10-12", "2021-11-02", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (3, 4, "angela.merkel@gmail.com", "2022-10-12", "2022-11-02", false);
 
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (4, 1, "root@gmail.com", "2022-01-14", "2022-01-16", false);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (5, 2, "root@gmail.com", "2021-11-30", "2021-12-03", false);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (6, 3, "root@gmail.com", "2021-11-30", "2021-12-15", false);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (7, 4, "root@gmail.com", "2022-11-30", "2022-12-15", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (4, 1, "root@gmail.com", "2022-01-14", "2022-01-16", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (5, 2, "root@gmail.com", "2021-11-30", "2021-12-03", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (6, 3, "root@gmail.com", "2021-11-30", "2021-12-15", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (7, 4, "root@gmail.com", "2022-11-30", "2022-12-15", false);
 
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (8, 1, "vladimir.putin@gmail.com", "2022-03-02", "2022-03-13", false);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (9, 5, "vladimir.putin@gmail.com", "2022-06-03", "2022-06-15", false);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (10, 6, "vladimir.putin@gmail.com", "2021-10-10", "2021-10-30", true);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (8, 1, "vladimir.putin@gmail.com", "2022-03-02", "2022-03-13", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (9, 5, "vladimir.putin@gmail.com", "2022-06-03", "2022-06-15", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (10, 6, "vladimir.putin@gmail.com", "2021-10-10", "2021-10-30", true);
 
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (11, 1, "emmanuel.macron@gmail.com", "2021-10-15", "2021-10-17", true);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (12, 5, "emmanuel.macron@gmail.com", "2022-02-22", "2022-03-09", false);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (13, 5, "emmanuel.macron@gmail.com", "2022-03-10", "2022-04-25", false);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (14, 6, "emmanuel.macron@gmail.com", "2022-02-22", "2022-03-09", false);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (15, 7, "emmanuel.macron@gmail.com", "2022-01-10", "2022-01-25", false);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (16, 8, "emmanuel.macron@gmail.com", "2021-02-24", "2021-04-08", true);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (17, 9, "emmanuel.macron@gmail.com", "2021-11-23", "2021-11-28", false);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (18, 10, "emmanuel.macron@gmail.com", "2021-09-05", "2021-09-06", true);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (11, 1, "emmanuel.macron@gmail.com", "2021-10-15", "2021-10-17", true);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (12, 5, "emmanuel.macron@gmail.com", "2022-02-22", "2022-03-09", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (13, 5, "emmanuel.macron@gmail.com", "2022-03-10", "2022-04-25", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (14, 6, "emmanuel.macron@gmail.com", "2022-02-22", "2022-03-09", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (15, 7, "emmanuel.macron@gmail.com", "2022-01-10", "2022-01-25", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (16, 8, "emmanuel.macron@gmail.com", "2021-02-24", "2021-04-08", true);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (17, 9, "emmanuel.macron@gmail.com", "2021-11-23", "2021-11-28", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (18, 10, "emmanuel.macron@gmail.com", "2021-09-05", "2021-09-06", true);
 
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (19, 1, "justin.trudeau@gmail.com", "2021-06-10", "2021-06-25", true);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (20, 11, "justin.trudeau@gmail.com", "2021-06-01", "2021-06-09", true);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (21, 12, "justin.trudeau@gmail.com", "2021-06-13", "2021-06-16", true);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isBorrowed) VALUES (22, 13, "justin.trudeau@gmail.com", "2021-06-22", "2021-06-27", true);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (19, 1, "justin.trudeau@gmail.com", "2021-06-10", "2021-06-25", true);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (20, 11, "justin.trudeau@gmail.com", "2021-06-01", "2021-06-09", true);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (21, 12, "justin.trudeau@gmail.com", "2021-06-13", "2021-06-16", true);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (22, 13, "justin.trudeau@gmail.com", "2021-06-22", "2021-06-27", true);

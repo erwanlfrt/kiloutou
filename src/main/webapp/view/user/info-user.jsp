@@ -78,7 +78,7 @@ if (user == null || employee == null) {
   				<div class="list-loan">
   				<% if(loans.size() > 0) { %>
   					<% for(Loan loan : loans) { %>
-              			<% if(loan.isBorrowed() && !loan.hasNotStarted()) { %>
+              			<% if(loan.isOver() && !loan.hasNotStarted()) { %>
   							<div class="list-loan-item">
   								<p>
   								<%= loan.getEquipment().getName() %>

@@ -55,7 +55,7 @@ public class InfoUserController extends HttpServlet {
 		ArrayList<Loan> initialLoans = loanDAO.listByUser(user);
 		ArrayList<Loan> loans = new ArrayList<Loan>();
 		for (Loan loan : initialLoans) {
-			if (loan.isBorrowed() && !loan.hasNotStarted()) {
+			if (loan.isOver() && !loan.hasNotStarted()) {
 				loans.add(loan);
 			}
 		}
@@ -77,7 +77,7 @@ public class InfoUserController extends HttpServlet {
 		String id = data.get("id").getAsString();
 		LoanDAO loanDAO = new LoanDAO();
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("isBorrowed", false);
+		params.put("isOver", false);
 		Loan loan = loanDAO.get(Integer.parseInt(id));
 		loanDAO.update(loan, params);
 	}

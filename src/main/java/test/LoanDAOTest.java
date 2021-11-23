@@ -25,7 +25,7 @@ public class LoanDAOTest {
 		String beginningDateString = "2021-11-12";
 		LocalDate beginningDate = LocalDate.of(2021, 11, 12);
 		String endDate = "2021-11-30";
-		boolean isBorrowed = false;
+		boolean isOver = false;
 
 		LoanDAO loanDAO = new LoanDAO();
 
@@ -38,7 +38,7 @@ public class LoanDAOTest {
 		assertEquals(loan.getUser().getMail(), userMail);
 		assertEquals(loan.getStringBeginningDate(), beginningDateString);
 		assertEquals(loan.getStringEndDate(), endDate);
-		assertEquals(loan.isBorrowed(), isBorrowed);
+		assertEquals(loan.isOver(), isOver);
 
 	}
 
@@ -51,7 +51,7 @@ public class LoanDAOTest {
 		String beginningDateString = "2022-11-12";
 		LocalDate endDate = LocalDate.of(2027, 11, 30);
 		String endDateString = "2027-11-30";
-		boolean isBorrowed = false;
+		boolean isOver = false;
 
 		LoanDAO loanDAO = new LoanDAO();
 
@@ -65,7 +65,7 @@ public class LoanDAOTest {
 		UserDAO userDAO = new UserDAO();
 		User user = userDAO.get(userMail);
 
-		Loan loan = new Loan(id, equipment, user, beginningDate, endDate, isBorrowed);
+		Loan loan = new Loan(id, equipment, user, beginningDate, endDate, isOver);
 
 		loanDAO.add(loan);
 
@@ -76,7 +76,7 @@ public class LoanDAOTest {
 		assertEquals(loan.getUser().getMail(), userMail);
 		assertEquals(loan.getStringBeginningDate(), beginningDateString);
 		assertEquals(loan.getStringEndDate(), endDateString);
-		assertEquals(loan.isBorrowed(), isBorrowed);
+		assertEquals(loan.isOver(), isOver);
 
 		loanDAO.deleteById(id);
 	}
@@ -88,7 +88,7 @@ public class LoanDAOTest {
 		String userMail = "root@gmail.com";
 		LocalDate beginningDate = LocalDate.of(2022, 11, 12);
 		LocalDate endDate = LocalDate.of(2027, 11, 30);
-		boolean isBorrowed = false;
+		boolean isOver = false;
 
 		LoanDAO loanDAO = new LoanDAO();
 
@@ -98,7 +98,7 @@ public class LoanDAOTest {
 		UserDAO userDAO = new UserDAO();
 		User user = userDAO.get(userMail);
 
-		Loan loan = new Loan(id, equipment, user, beginningDate, endDate, isBorrowed);
+		Loan loan = new Loan(id, equipment, user, beginningDate, endDate, isOver);
 
 		if (loanDAO.get(id) == null) {
 
@@ -119,7 +119,7 @@ public class LoanDAOTest {
 		String userMail = "root@gmail.com";
 		LocalDate beginningDate = LocalDate.of(2022, 11, 12);
 		LocalDate endDate = LocalDate.of(2027, 11, 30);
-		boolean isBorrowed = false;
+		boolean isOver = false;
 
 		LoanDAO loanDAO = new LoanDAO();
 
@@ -129,7 +129,7 @@ public class LoanDAOTest {
 		UserDAO userDAO = new UserDAO();
 		User user = userDAO.get(userMail);
 
-		Loan loan = new Loan(id, equipment, user, beginningDate, endDate, isBorrowed);
+		Loan loan = new Loan(id, equipment, user, beginningDate, endDate, isOver);
 
 		if (loanDAO.get(id) == null) {
 
@@ -154,9 +154,9 @@ public class LoanDAOTest {
 	public void update() {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		String newEndDateString = "2030-11-30";
-		boolean newIsBorrowed = true;
+		boolean newisOver = true;
 		params.put("endDate", newEndDateString);
-		params.put("isBorrowed", newIsBorrowed);
+		params.put("isOver", newisOver);
 
 		int id = 0;
 		int equipmentId = 1;
@@ -164,7 +164,7 @@ public class LoanDAOTest {
 		LocalDate beginningDate = LocalDate.of(2022, 11, 12);
 		String beginningDateString = "2022-11-12";
 		LocalDate endDate = LocalDate.of(2027, 11, 30);
-		boolean isBorrowed = false;
+		boolean isOver = false;
 
 		LoanDAO loanDAO = new LoanDAO();
 
@@ -178,7 +178,7 @@ public class LoanDAOTest {
 		UserDAO userDAO = new UserDAO();
 		User user = userDAO.get(userMail);
 
-		Loan loan = new Loan(id, equipment, user, beginningDate, endDate, isBorrowed);
+		Loan loan = new Loan(id, equipment, user, beginningDate, endDate, isOver);
 
 		loanDAO.add(loan);
 
@@ -191,7 +191,7 @@ public class LoanDAOTest {
 		assertEquals(loan.getUser().getMail(), userMail);
 		assertEquals(loan.getStringBeginningDate(), beginningDateString);
 		assertEquals(loan.getStringEndDate(), newEndDateString);
-		assertEquals(loan.isBorrowed(), newIsBorrowed);
+		assertEquals(loan.isOver(), newisOver);
 
 		loanDAO.deleteById(id);
 

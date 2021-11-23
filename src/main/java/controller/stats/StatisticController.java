@@ -173,8 +173,8 @@ public class StatisticController extends HttpServlet {
 	private HashMap<String, Integer> getLoanDistribution() {
 		HashMap<String, Integer> results = new HashMap<String, Integer>();
 		String loansToCome = "SELECT COUNT(*) AS loans_to_come FROM Loan WHERE beginningDate > CURDATE();";
-		String current = " SELECT COUNT(*) AS current FROM Loan WHERE beginningDate < CURDATE() AND isBorrowed=0;";
-		String done = "SELECT COUNT(*) AS done FROM Loan WHERE endDate < CURDATE() AND isBorrowed=1;";
+		String current = " SELECT COUNT(*) AS current FROM Loan WHERE beginningDate < CURDATE() AND isOver=0;";
+		String done = "SELECT COUNT(*) AS done FROM Loan WHERE endDate < CURDATE() AND isOver=1;";
 
 		PreparedStatement statement;
 		try {

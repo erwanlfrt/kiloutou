@@ -38,12 +38,12 @@
     <a href="/Kiloutou/loan/modify?id=<%=loan.getId()%>">Modifier</a>
     
     <form method="POST">
-      <% if(loan.isBorrowed()) {
+      <% if(loan.isOver()) {
         %>
         <input type="submit" value="signaler comme non rendu" name="updateLoan">
         <%
       }
-      else if(!loan.isBorrowed() && loan.getBeginningDate().isBefore(LocalDate.now())){
+      else if(!loan.isOver() && loan.getBeginningDate().isBefore(LocalDate.now())){
     	  %>
         <input type="submit" value="signaler comme rendu" name="updateLoan">
         <%

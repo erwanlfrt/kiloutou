@@ -52,7 +52,7 @@ public class InfoLoanController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if (this.loan != null && req.getParameter("updateLoan") != null) {
 			HashMap<String, Object> params = new HashMap<String, Object>();
-			params.put("isBorrowed", req.getParameter("updateLoan").equals("signaler comme rendu"));
+			params.put("isOver", req.getParameter("updateLoan").equals("signaler comme rendu"));
 			loanDAO.update(loan, params);
 		}
 		this.doGet(req, resp);

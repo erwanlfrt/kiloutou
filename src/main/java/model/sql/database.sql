@@ -133,7 +133,7 @@ CREATE TABLE Loan (
   userMail VARCHAR(100) NOT NULL,
   beginningDate DATE NOT NULL,
   endDate DATE NOT NULL,
-  isBorrowed BOOLEAN NOT NULL,
+  isOver BOOLEAN NOT NULL,
   FOREIGN KEY (equipmentId) REFERENCES Equipment(id),
   FOREIGN KEY (userMail) REFERENCES User(mail) 
 );
