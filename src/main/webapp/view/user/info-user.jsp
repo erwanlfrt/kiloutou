@@ -12,7 +12,7 @@ Employee loggedEmployee = (Employee) request.getSession().getAttribute("employee
 String login = "";
 Profil profile = null;
 
-if (user == null || employee == null) {
+if (user == null) {
 	request.setAttribute("message", "Vous n'êtes pas autorisé à accéder à cette page.");
 	RequestDispatcher rd = getServletContext().getRequestDispatcher("/error");
 	try {
@@ -81,22 +81,40 @@ if (user == null || employee == null) {
   				if(loans.size() > 0) { 
             
             %>
-  					<% for(Loan loan : loans) { %>
-              			<% if(!loan.isOver() && !loan.hasNotStarted()) { %>
-  							<div class="list-loan-item">
-  								<p>
-  								<%= loan.getEquipment().getName() %>
-  								<% if(loan.isLate()) { %>
-                      count++;
-  									<span> - En retard</span>
-  								<% } %>
-  								</p>
-  								<a href="" onClick="returnEquipments('<%= loan.getId() %>')">Restituer</a>
-  							</div>
-  						<% } %>
-  					<% } %>
-  				<% } 
-          		if(loans.size() <=0 || count == 0) { %>
+            <%-- Display only the current loans, loans to come and the outdated loans --%>
+  					<% for(Loan loan : loans) { 
+                if (loan.isLate() || loan.isCurrentlyLoaned() || loan.hasNotStarted() ) {
+                  count++;
+            %>
+                  <div class="list-loan-item">
+                  <p><%= loan.getEquipment().getName() %>
+            <% 
+                  if (loan.isLate()) {   
+            %>
+                    <span class="redSpan"> - En retard</span>
+            <%
+                  } else if (loan.isCurrentlyLoaned()) {
+            %>
+                    <span id="greenSpan"> - En cours</span>
+            <%
+                  } else if (loan.hasNotStarted()) {
+            %>
+                    <span id="blueSpan"> - À venir</span>
+            <%
+                  }
+                  if(!loan.isOver() && !loan.hasNotStarted()) {
+            %>
+                    <a href="" onClick="returnEquipments('<%= loan.getId() %>')">Restituer</a>
+            <%
+                  }
+            %>
+                  </p>
+                  </div>
+            <%
+                }
+              }
+          } 
+          if(loans.size() <=0 || count == 0) { %>
   					<p class="no-loan">Cet utilisateur n'a pas d'emprunt.</p>
   				<% } %>
   				</div>
