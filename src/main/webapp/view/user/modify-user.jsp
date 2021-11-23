@@ -3,8 +3,9 @@
 	import="model.object.user.* , javax.servlet.* , java.io.IOException"%>
 <%
 User logged = (User) request.getSession().getAttribute("user");
-User user = (User) request.getAttribute("user");
+Employee loggedEmployee = (Employee) request.getSession().getAttribute("employee");
 
+User user = (User) request.getAttribute("user");
 Employee employee = (Employee) request.getAttribute("employee");
 
 String login = "";
@@ -22,7 +23,7 @@ if (user == null || employee == null) {
 	}
 } else {
 	login = user.getLogin();
-	profile = employee.getProfil();
+	profile = loggedEmployee.getProfil();
 }
 %>
 <html>
@@ -107,15 +108,27 @@ if (user == null || employee == null) {
                   		<label>Profil : </label>
 						<div>
 							<div>
-                    			<input type="radio" value="ADMIN" name="profile" checked>
+                    			<input type="radio" value="ADMIN" name="profile" 
+                    			<% if(employee.getProfil().equals(Profil.ADMIN)) { %>
+                    				checked
+                    			<% } %>
+                    			>
 								<label for="profile">administrateur</label>
 							</div>
 							<div>
-                    			<input type="radio" value="EQUIPMENT_ADMIN" name="profile">
+                    			<input type="radio" value="EQUIPMENT_ADMIN" name="profile" 
+                    			<% if(employee.getProfil().equals(Profil.EQUIPMENT_ADMIN)) { %>
+                    				checked
+                    			<% } %>
+                    			>
                     			<label for="profile">responsable équipement</label>
 							</div>
 							<div>
-                    			<input type="radio" value="LOAN_ADMIN" name="profile">
+                    			<input type="radio" value="LOAN_ADMIN" name="profile" 
+                    			<% if(employee.getProfil().equals(Profil.LOAN_ADMIN)) { %>
+                    				checked
+                    			<% } %>
+                    			>
                     			<label for="profile">responsable emprunt</label>
                     		</div>
 						</div>

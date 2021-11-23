@@ -90,6 +90,8 @@ if (user == null || employee == null) {
   							</div>
   						<% } %>
   					<% } %>
+  				<% } else { %>
+  					<p class="no-loan">Cet utilisateur n'a pas d'emprunts.</p>
   				<% } %>
   				</div>
   			</div>
