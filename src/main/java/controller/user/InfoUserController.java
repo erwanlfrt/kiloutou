@@ -52,13 +52,7 @@ public class InfoUserController extends HttpServlet {
 		Employee employee = employeeDAO.get(mail);
 
 		LoanDAO loanDAO = new LoanDAO();
-		ArrayList<Loan> initialLoans = loanDAO.listByUser(user);
-		ArrayList<Loan> loans = new ArrayList<Loan>();
-		for (Loan loan : initialLoans) {
-			if (loan.isOver() && !loan.hasNotStarted()) {
-				loans.add(loan);
-			}
-		}
+		ArrayList<Loan> loans = loanDAO.listByUser(user);
 
 		if (user == null) {
 			user = new User("", "", "", "", "", "", "");
@@ -66,6 +60,10 @@ public class InfoUserController extends HttpServlet {
 		req.setAttribute("user", user);
 		req.setAttribute("employee", employee);
 		req.setAttribute("loans", loans);
+		
+		userDAO.closeConn();
+		employeeDAO.closeConn();
+		loanDAO.closeConn();
 
 		this.doProcess(req, resp);
 
@@ -77,8 +75,9 @@ public class InfoUserController extends HttpServlet {
 		String id = data.get("id").getAsString();
 		LoanDAO loanDAO = new LoanDAO();
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("isOver", false);
+		params.put("isOver", true);
 		Loan loan = loanDAO.get(Integer.parseInt(id));
 		loanDAO.update(loan, params);
+		loanDAO.closeConn();
 	}
 }

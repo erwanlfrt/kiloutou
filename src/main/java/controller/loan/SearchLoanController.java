@@ -29,21 +29,16 @@ public class SearchLoanController extends HttpServlet {
 		loanDAO.closeConn();
 
 		for (Loan loan : loans) {
-			// current loans = now < enddate && now >= beginningDate && not borrowed
-			if (LocalDate.now().isAfter(loan.getBeginningDate()) && LocalDate.now().isBefore(loan.getEndDate())
-					&& !loan.isOver()) {
-				currentLoans.add(loan);
-			}
-			// outdated loans = now > enddate && not borrowed
-			else if (LocalDate.now().isAfter(loan.getEndDate()) && !loan.isOver()) {
+      if(loan.isCurrentlyLoaned()) {
+        currentLoans.add(loan);
+      }
+			else if (loan.isLate()) {
 				outdatedLoans.add(loan);
 			}
-			// old loans = now > endddate && borrowed
-			else if (LocalDate.now().isAfter(loan.getEndDate()) && loan.isOver()) {
+			else if (loan.isOver()) {
 				oldLoans.add(loan);
 			}
-			// loansTo Come = now < beginning date
-			else if (LocalDate.now().isBefore(loan.getBeginningDate()) && !loan.isOver()) {
+			else if (loan.hasNotStarted()) {
 				loansToCome.add(loan);
 			}
 		}

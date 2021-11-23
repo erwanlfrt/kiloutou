@@ -39,7 +39,7 @@ INSERT INTO VehicleAccessory (id) VALUES (13);
 INSERT INTO VehicleAccessory (id) VALUES (14);
 
 INSERT INTO Vehicle (id, kilometers, renewalKilometers, brand, model, registrationNumber, state, maxSpeed, numberOfSpeeds, power) VALUES (2, 1000, 6000, "Fiat", "500", "AA-000-AA", "GOOD", 180, 5, 80);
-INSERT INTO Vehicle (id, kilometers, renewalKilometers, brand, model, registrationNumber, state, maxSpeed, numberOfSpeeds, power) VALUES (3, 1000, 6000, "Opel", "Corsa", "AA-0X0-AA", "GOOD", 500, 5, 1200);
+INSERT INTO Vehicle (id, kilometers, renewalKilometers, brand, model, registrationNumber, state, maxSpeed, numberOfSpeeds, power) VALUES (3, 1000, 6000, "Peugeot", "Partner", "BB-047-BC", "GOOD", 500, 5, 1200);
 INSERT INTO Vehicle (id, kilometers, renewalKilometers, brand, model, registrationNumber, state, maxSpeed, numberOfSpeeds, power) VALUES (4, 1000, 6000, "Harley Davidson", "Sportser S", "AA-BX0-AA", "GOOD", 500, 5, 1200);
 INSERT INTO Vehicle (id, kilometers, renewalKilometers, brand, model, registrationNumber, state, maxSpeed, numberOfSpeeds, power) VALUES (5, 1000, 6000, "Yamaha", "MT07", "AE-0X0-AA", "GOOD", 500, 5, 1200);
 INSERT INTO Vehicle (id, kilometers, renewalKilometers, brand, model, registrationNumber, state, maxSpeed, numberOfSpeeds, power) VALUES (15, 1000, 6000, "Caterpillar", "MT07", "AE-0X0-AA", "GOOD", 500, 5, 1200);
@@ -79,7 +79,7 @@ INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VAL
 INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (14, 6, "emmanuel.macron@gmail.com", "2022-02-22", "2022-03-09", false);
 INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (15, 7, "emmanuel.macron@gmail.com", "2022-01-10", "2022-01-25", false);
 INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (16, 8, "emmanuel.macron@gmail.com", "2021-02-24", "2021-04-08", true);
-INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (17, 9, "emmanuel.macron@gmail.com", "2021-11-23", "2021-11-28", false);
+INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (17, 9, "emmanuel.macron@gmail.com", "2021-11-21", "2021-11-28", false);
 INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (18, 10, "emmanuel.macron@gmail.com", "2021-09-05", "2021-09-06", true);
 
 INSERT INTO Loan (id, equipmentId, userMail, beginningDate, endDate, isOver) VALUES (19, 1, "justin.trudeau@gmail.com", "2021-06-10", "2021-06-25", true);

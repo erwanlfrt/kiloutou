@@ -25,7 +25,7 @@ if (user == null || employee == null) {
 %>
 <html>
   <head>
-    <title>Kiloutou</title>
+    <title>kiloutou</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/view/user/css/search-user.css" />
   </head>
   <body>

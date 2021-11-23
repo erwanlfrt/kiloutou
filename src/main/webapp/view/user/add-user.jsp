@@ -150,7 +150,7 @@ if (user == null || employee == null) {
         mail : '<%= user.getMail()%>'
       }
       $.ajax({
-        url: "/Kiloutou/user/resetPassword",
+        url: "/kiloutou/user/resetPassword",
         method: "POST",
         contentType: "application/json", // NOT dataType!
         data: JSON.stringify(data),

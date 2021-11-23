@@ -353,3 +353,15 @@ p.no-loan {
 		width: 100%;
 	}
 }
+
+.redSpan {
+  color: var(--red-color);
+}
+
+.greenSpan {
+  color: var(--green-color);
+}
+
+.blueSpan {
+  color : var(--secondary-color);
+}

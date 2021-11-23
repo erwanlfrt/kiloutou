@@ -62,8 +62,12 @@ public class DeleteUserController extends HttpServlet {
 			LoanDAO loanDAO = new LoanDAO();
 			loanDAO.replaceUser(mail, substitute);
 			userDAO.deleteById(mail);
+			loanDAO.closeConn();
+			employeeDAO.closeConn();
 
 		}
+		
+		userDAO.closeConn();
 		this.doProcess(req, resp);
 	}
 }

@@ -40,6 +40,7 @@ else {
   		<jsp:param name="profile" value="<%= profile %>" />
   	</jsp:include>
 
+<<<<<<< HEAD
 	<main>
 		<div>
 			<h1>équipements</h1>
@@ -84,7 +85,6 @@ else {
         <% } %>
 		</section>
 	</main>
-
   </body>
   
   <script src="${pageContext.request.contextPath}/view/equipment/js/search-equipment.js"></script>
