@@ -7,7 +7,7 @@ public abstract class Model {
 	protected Connection connection;
 	protected String table;
 	
-	public void destroy() {
+	public void closeConn() {
 		DBManager.getInstance().cleanup(connection, null, null);
 	}
 }

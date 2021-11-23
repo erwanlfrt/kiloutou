@@ -76,7 +76,7 @@ public class Welcome extends HttpServlet {
 	}
 	
 	private void close() {
-		this.userDAO.destroy();
-		this.employeeDAO.destroy();
+		this.userDAO.closeConn();
+		this.employeeDAO.closeConn();
 	}
 }
