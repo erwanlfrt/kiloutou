@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+	--main-color: #FFC800;
+	--secondary-color: #009CD7;
+	--red-color: #FF2121;
+	--green-color: #00D72F;
+}
+
+body, main {
+	margin: 0;
+	font-family: 'Roboto', sans-serif !important;
+}
+
+/**
+ * Header style
+ **/
+header {
+	display: flex;
+	align-items: center;
+	box-shadow: 0px -2px 14px #000000;
+}
+
+header a {
+	text-decoration: none;
+	color: black;
+}
+
+header>div {
+	margin: 22px 55px;
+	display: flex;
+	align-items: center;
+}
+
+header div:hover {
+	cursor: pointer;
+}
+
+header nav {
+	margin-right: auto;
+}
+
+header nav a {
+	margin: 0 16px;
+	color: #505050;
+}
+
+header nav a:hover, header nav a.active {
+	color: black;
+}
+
+header div img {
+	margin: 0 10px;
+}
+
+div.disconnect:hover>img {
+	-webkit-filter: invert(14%) sepia(72%) saturate(4825%)
+		hue-rotate(355deg) brightness(109%) contrast(126%);
+	filter: invert(14%) sepia(72%) saturate(4825%) hue-rotate(355deg)
+		brightness(109%) contrast(126%);
+}
+
+.disconnect:hover a {
+	color: red;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+	margin: 0;
+	padding: 20px 0;
+}
+
+.dropdown-list {
+	display: none;
+	position: absolute;
+	min-width: 160px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	z-index: 1;
+	margin: 10px;
+	background-color: white;
+}
+
+.dropdown-list .dropdown-item {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+}
+
+.dropdown-list .dropdown-item img {
+	margin-right: 15px;
+}
+
+.dropdown:hover .dropdown-list {
+	display: block;
+}
+
+.dropdown .dropdown-list .dropdown-item:hover img {
+	filter: invert(70%) sepia(94%) saturate(853%) hue-rotate(358deg)
+		brightness(102%) contrast(103%);
+}
+
+.dropdown hr {
+	width: 60px;
+	margin-left: 20px;
+	border-color: #C4C4C4;
+}
+
+#burger-dropdown.active {
+	display: flex !important;
+	flex-direction: column;
+}
+
+.nav-dropdown, .nav-mobile {
+	display: none;
+}
+
+.nav-dropdown {
+	position: absolute;
+	background-color: white;
+	padding: 25px;
+	right: 0;
+	box-shadow: 0px 4px 4px rgb(0 0 0/ 25%);
+}
+
+.nav-dropdown hr {
+	width: 90%;
+	margin: 5px 0;
+	border-color: #E4E4E4;
+}
+
+.nav-dropdown .dropdown-list {
+	top: 0;
+	right: 130;
+}
+
+.nav-dropdown .dropdown, .accueil-item {
+	padding: 10px 0 10px 30px;
+}
+
+.nav-dropdown .dropdown::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	display: block;
+	border-left: 5px solid black;
+	border-top: 5px solid black;
+	width: 5px;
+	height: 5px;
+	float: left;
+	transform: translate(50%, -50%) rotate(-45deg);
+}
+
+.nav-dropdown .dropdown:hover::before {
+	filter: invert(70%) sepia(94%) saturate(853%) hue-rotate(358deg)
+		brightness(102%) contrast(103%);
+}
+
+.deconnexion-item {
+	display: flex;
+	align-items: center;
+}
+
+.deconnexion-item:hover {
+	-webkit-filter: invert(14%) sepia(72%) saturate(4825%)
+		hue-rotate(355deg) brightness(109%) contrast(126%);
+	filter: invert(14%) sepia(72%) saturate(4825%) hue-rotate(355deg)
+		brightness(109%) contrast(126%);
+}
+
+.deconnexion-item img {
+	margin: 0 10px 0 0;
+	padding: 10px 0;
+}
+
+@media screen and (max-width: 1100px) {
+	.nav-mobile {
+		display: block;
+	}
+	.nav-desktop {
+		display: none;
+	}
+	header {
+		justify-content: space-between;
+	}
+}
+
+/**
+ * Header style
+ **/
+main {
+	padding: 66px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+main > div {
+	width: 50%;
+}
+
+main h1 {
+	font-style: normal;
+	font-weight: 900;
+	font-size: 36px;
+	line-height: 42px;
+	font-variant: small-caps;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #C4C4C4;
+}
+
+main section {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+main .user {
+ 	padding: 50px 100px;
+ 	width: 40%;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);	
+}
+
+main .user div:first-child {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+main .user > div:first-child {
+	border-bottom: 1px solid #C4C4C4;
+	padding-bottom: 15px;
+}
+
+.user-name > *:nth-child(2) {
+	margin: 0 30px;
+}
+
+.user-name + div  {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.user-name + div > img {
+	margin: 10px 15px;
+}
+
+.user-name h2 {
+	font-style: normal;
+	font-weight: normal;
+	font-size: 24px;
+	line-height: 28px;
+	margin: 5px 0;
+}
+
+.user-name p {
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: 300;
+	font-size: 18px;
+	line-height: 21px;
+	margin: 5px 0;
+	color: #535353;
+}
+
+.user-bin {
+	margin-left: 30px;
+}
+
+.user-bin:hover {
+	-moz-filter: invert(24%) sepia(35%) saturate(7335%) hue-rotate(348deg) brightness(101%) contrast(106%);
+	filter: invert(24%) sepia(35%) saturate(7335%) hue-rotate(348deg) brightness(101%) contrast(106%);
+	cursor: pointer;
+}
+
+.user-edit:hover {
+	-moz-filter: invert(49%) sepia(68%) saturate(4424%) hue-rotate(169deg) brightness(97%) contrast(103%);
+	filter: invert(49%) sepia(68%) saturate(4424%) hue-rotate(169deg) brightness(97%) contrast(103%);
+	cursor: pointer;
+}
+
+main .user div:nth-child(2) {
+	padding-top: 15px;
+}
+
+main .user div:nth-child(2) p {
+	font-style: normal;
+	font-weight: 300;
+	font-size: 18px;
+	line-height: 21px;
+}
+
+@media screen and (max-width: 1100px) {
+	main .user {
+		padding: 50px;
+		width: 100%;
+	}
+}
+
+
+/**
+ * Loan style
+ **/
+
+.loan {
+	padding: 50px 0;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	width: 32%;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);	
+}
+
+.list-loan {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.list-loan-item {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 50px;
+}
+
+.list-loan:nth-child(even) {
+	background-color: rgba(255, 180, 180, 0.24);
+}
+
+.list-loan-item p {
+	font-weight: 300;
+}
+
+.list-loan-item p span {
+	color: var(--red-color);
+}
+
+.list-loan-item a {
+	color: #3A3A3A;
+}
+
+@media screen and (max-width: 1100px) {
+	.loan {
+		width: 100%;
+	}
+}
