@@ -1,6 +1,5 @@
 package model.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,12 +13,11 @@ import java.util.Map;
 // import java.util.Date;
 
 import model.DBManager;
+import model.Model;
 import model.object.equipment.Equipment;
 
-public class EquipmentDAO implements Dao<Equipment> {
-	Connection connection;
-	String table;
-
+public class EquipmentDAO extends Model implements Dao<Equipment> {
+	
 	public EquipmentDAO() {
 		connection = DBManager.getInstance().getConnection();
 		table = "Equipment";
@@ -36,6 +34,7 @@ public class EquipmentDAO implements Dao<Equipment> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -48,6 +47,7 @@ public class EquipmentDAO implements Dao<Equipment> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -72,6 +72,8 @@ public class EquipmentDAO implements Dao<Equipment> {
 					result = new Equipment(rs.getInt("id"), rs.getString("name"), rs.getBoolean("available"),
 							rs.getString("imageUrl"), rs.getBoolean("canBeLoaned"));
 				}
+				rs.close();
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -88,6 +90,8 @@ public class EquipmentDAO implements Dao<Equipment> {
 			if (rs.next()) {
 				res = rs.getInt("maxId") + 1;
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -114,6 +118,8 @@ public class EquipmentDAO implements Dao<Equipment> {
 
 				result.add(e);
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -132,6 +138,8 @@ public class EquipmentDAO implements Dao<Equipment> {
 					result.add(e);
 				}
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -166,6 +174,7 @@ public class EquipmentDAO implements Dao<Equipment> {
 			try {
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

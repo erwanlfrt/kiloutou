@@ -49,12 +49,15 @@ public class ModifyEquipmentController extends HttpServlet {
 
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		Equipment equipment = equipmentDAO.get(id);
+		equipmentDAO.closeConn();
 
 		ProcessorDAO processorDAO = new ProcessorDAO();
 		ArrayList<Processor> processors = processorDAO.listAll();
+		processorDAO.closeConn();
 
 		GraphicCardDAO gcDAO = new GraphicCardDAO();
 		ArrayList<GraphicCard> graphicCards = gcDAO.listAll();
+		gcDAO.closeConn();
 
 		req.setAttribute("processors", processors);
 		req.setAttribute("graphicCards", graphicCards);
@@ -65,6 +68,7 @@ public class ModifyEquipmentController extends HttpServlet {
 			// check if equipment is a vehicle
 			VehicleDAO vehicleDAO = new VehicleDAO();
 			Vehicle vehicle = vehicleDAO.get(id);
+			vehicleDAO.closeConn();
 
 			if (vehicle != null) {
 				req.setAttribute("vehicle", vehicle);
@@ -72,6 +76,7 @@ public class ModifyEquipmentController extends HttpServlet {
 				// check if equipment is a car
 				CarDAO carDAO = new CarDAO();
 				Car car = carDAO.get(id);
+				carDAO.closeConn();
 
 				if (car != null) {
 					req.setAttribute("car", car);
@@ -79,6 +84,7 @@ public class ModifyEquipmentController extends HttpServlet {
 					// check if equipment is a bike
 					BikeDAO bikeDAO = new BikeDAO();
 					Bike bike = bikeDAO.get(id);
+					bikeDAO.closeConn();
 
 					if (bike != null) {
 						req.setAttribute("bike", bike);
@@ -88,6 +94,7 @@ public class ModifyEquipmentController extends HttpServlet {
 				// check if equipment is a computer
 				ComputerDAO computerDAO = new ComputerDAO();
 				Computer computer = computerDAO.get(id);
+				computerDAO.closeConn();
 
 				if (computer != null) {
 					req.setAttribute("computer", computer);
@@ -95,6 +102,7 @@ public class ModifyEquipmentController extends HttpServlet {
 					// check if equipment is a computer accessory
 					ComputerAccessoryDAO computerAccessoryDAO = new ComputerAccessoryDAO();
 					ComputerAccessory computerAccessory = computerAccessoryDAO.get(id);
+					computerAccessoryDAO.closeConn();
 
 					if (computerAccessory != null) {
 						req.setAttribute("computerAccessory", computerAccessory);
@@ -102,7 +110,8 @@ public class ModifyEquipmentController extends HttpServlet {
 						// check if equipment is a vheicle accessory
 						VehicleAccessoryDAO vehicleAccessoryDAO = new VehicleAccessoryDAO();
 						VehicleAccessory vehicleAccessory = vehicleAccessoryDAO.get(id);
-
+						vehicleAccessoryDAO.closeConn();
+						
 						if (vehicleAccessory != null) {
 							req.setAttribute("vehicleAccessory", vehicleAccessory);
 						}
@@ -147,6 +156,7 @@ public class ModifyEquipmentController extends HttpServlet {
 		Equipment equipment = new Equipment(id, name, available, imageURL, canBeLoaned);
 
 		equipmentDAO.update(equipment, params);
+		equipmentDAO.closeConn();
 
 		String registrationNumber = req.getParameter("registrationNumber");
 		String serialNumber = req.getParameter("serialNumber");
@@ -176,6 +186,7 @@ public class ModifyEquipmentController extends HttpServlet {
 					maxSpeed, numberOfSpeeds, model, power, registrationNumber, renewalKilometers);
 			VehicleDAO vehicleDAO = new VehicleDAO();
 			vehicleDAO.update(vehicle, params);
+			vehicleDAO.closeConn();
 
 			String numberOfSeatsString = req.getParameter("numberOfSeats");
 			String numberOfCylindersString = req.getParameter("numberOfCylinders");
@@ -189,6 +200,7 @@ public class ModifyEquipmentController extends HttpServlet {
 						numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfSeats);
 				CarDAO carDAO = new CarDAO();
 				carDAO.update(car, params);
+				carDAO.closeConn();
 			} else if (numberOfCylindersString != null) {
 				int numberOfCylinders = Integer.parseInt(numberOfCylindersString);
 				params = new HashMap<String, Object>();
@@ -197,6 +209,7 @@ public class ModifyEquipmentController extends HttpServlet {
 						numberOfSpeeds, model, power, registrationNumber, renewalKilometers, numberOfCylinders);
 				BikeDAO bikeDAO = new BikeDAO();
 				bikeDAO.update(bike, params);
+				bikeDAO.closeConn();
 			}
 
 		}
@@ -221,6 +234,7 @@ public class ModifyEquipmentController extends HttpServlet {
 				processor = new Processor(processorId, processorName, processorBrand, numberOfCores,
 						processorFrequency);
 				processorDAO.add(processor);
+				processorDAO.closeConn();
 			} else {
 				processor = new Processor(Integer.parseInt(req.getParameter("processorSelect")), "", "", 0, 0.0f);
 			}
@@ -233,6 +247,7 @@ public class ModifyEquipmentController extends HttpServlet {
 				float graphicCardFrequency = Float.parseFloat(req.getParameter("graphicCardFrequency"));
 				graphicCard = new GraphicCard(graphicCardId, graphicCardName, graphicCardBrand, graphicCardFrequency);
 				graphicCardDAO.add(graphicCard);
+				graphicCardDAO.closeConn();
 			} else {
 				graphicCard = new GraphicCard(Integer.parseInt(req.getParameter("graphicCardSelect")), "", "", 0.0f);
 			}
@@ -260,16 +275,19 @@ public class ModifyEquipmentController extends HttpServlet {
 			Computer computer = new Computer(id, name, available, imageURL, canBeLoaned, brand, model, serialNumber,
 					memorySize, isLaptop, screenSize, date, renewalDate, processor, graphicCard);
 			computerDAO.update(computer, params);
+			computerDAO.closeConn();
 		} else if (category.equals("computerAccessory")) {
 			ComputerAccessory computerAccessory = new ComputerAccessory(id, name, available, imageURL, canBeLoaned);
 			ComputerAccessoryDAO caDAO = new ComputerAccessoryDAO();
 			params = new HashMap<String, Object>();
 			caDAO.update(computerAccessory, params);
+			caDAO.closeConn();
 		} else if (category.equals("vehicleAccessory")) {
 			VehicleAccessory vehicleAccessory = new VehicleAccessory(id, name, available, imageURL, canBeLoaned);
 			VehicleAccessoryDAO vaDAO = new VehicleAccessoryDAO();
 			params = new HashMap<String, Object>();
 			vaDAO.update(vehicleAccessory, params);
+			vaDAO.closeConn();
 		}
 
 		String pageName = "/welcome";

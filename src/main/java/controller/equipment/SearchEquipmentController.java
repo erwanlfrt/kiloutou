@@ -123,6 +123,14 @@ public class SearchEquipmentController extends HttpServlet {
 		lists.put("Autre", equipments);
 
 		req.setAttribute("lists", lists);
+		
+		equipmentDAO.closeConn();
+		vehicleDAO.closeConn();
+		bikeDAO.closeConn();
+		carDAO.closeConn();
+		vehicleAccessoryDAO.closeConn();
+		computerDAO.closeConn();
+		computerAccessoryDAO.closeConn();
 
 		this.doProcess(req, resp);
 	}

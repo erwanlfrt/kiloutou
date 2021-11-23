@@ -1,6 +1,5 @@
 package model.dao;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,13 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.DBManager;
+import model.Model;
 import model.object.equipment.Car;
 import model.object.equipment.Equipment;
 import model.object.equipment.Vehicle;
 
-public class CarDAO implements Dao<Car> {
-	Connection connection;
-	String table;
+public class CarDAO extends Model implements Dao<Car> {
 
 	public CarDAO() {
 		connection = DBManager.getInstance().getConnection();
@@ -31,6 +29,7 @@ public class CarDAO implements Dao<Car> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -43,6 +42,7 @@ public class CarDAO implements Dao<Car> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -71,6 +71,8 @@ public class CarDAO implements Dao<Car> {
 							vehicle.getRegistrationNumber(), vehicle.getRenewalKilometers(),
 							rs.getInt("numberOfSeats"));
 				}
+				rs.close();
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -91,6 +93,8 @@ public class CarDAO implements Dao<Car> {
 						vehicle.getMaxSpeed(), vehicle.getNumberOfSpeeds(), vehicle.getModel(), vehicle.getPower(),
 						vehicle.getRegistrationNumber(), vehicle.getRenewalKilometers(), rs.getInt("numberOfSeats")));
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -110,6 +114,8 @@ public class CarDAO implements Dao<Car> {
 					result.add(e);
 				}
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -144,6 +150,7 @@ public class CarDAO implements Dao<Car> {
 			try {
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

@@ -1,7 +1,6 @@
 package controller.auth;
 
-import java.nio.charset.Charset;
-import java.util.Random;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +16,8 @@ public class Csrf {
 		} else {
 			this.csrfToken = (String) csrf; 
 		}
+		
+		// System.out.println("CSRF TOKEN :" + this.csrfToken);
 	}
 	
 	public String getCsrfToken() {
@@ -35,8 +36,9 @@ public class Csrf {
 	}
 	
 	private void generateToken() {
-		byte[] array = new byte[32];
+		/*byte[] array = new byte[32 * 8];
 	    new Random().nextBytes(array);
-	    this.csrfToken = new String(array, Charset.forName("UTF-8"));
+	    this.csrfToken = new String(array, Charset.forName("UTF-8"));*/
+		this.csrfToken = UUID.randomUUID().toString();
 	}
 }

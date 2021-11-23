@@ -10,12 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.DBManager;
-import model.object.equipment.VehicleAccessory;
+import model.Model;
 import model.object.equipment.Equipment;
+import model.object.equipment.VehicleAccessory;
 
-public class VehicleAccessoryDAO implements Dao<VehicleAccessory> {
-	Connection connection;
-	String table;
+public class VehicleAccessoryDAO extends Model implements Dao<VehicleAccessory> {
 
 	public VehicleAccessoryDAO() {
 		connection = DBManager.getInstance().getConnection();
@@ -29,6 +28,7 @@ public class VehicleAccessoryDAO implements Dao<VehicleAccessory> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -41,6 +41,7 @@ public class VehicleAccessoryDAO implements Dao<VehicleAccessory> {
 		try {
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -67,6 +68,8 @@ public class VehicleAccessoryDAO implements Dao<VehicleAccessory> {
 					result = new VehicleAccessory(equipment.getId(), equipment.getName(), equipment.isAvailable(),
 							equipment.getImageUrl(), equipment.canBeLoaned());
 				}
+				rs.close();
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -85,6 +88,8 @@ public class VehicleAccessoryDAO implements Dao<VehicleAccessory> {
 				result.add(new VehicleAccessory(equipment.getId(), equipment.getName(), equipment.isAvailable(),
 						equipment.getImageUrl(), equipment.canBeLoaned()));
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -106,6 +111,8 @@ public class VehicleAccessoryDAO implements Dao<VehicleAccessory> {
 					}
 				}
 			}
+			rs.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -140,6 +147,7 @@ public class VehicleAccessoryDAO implements Dao<VehicleAccessory> {
 			try {
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
+				statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
