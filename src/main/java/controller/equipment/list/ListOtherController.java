@@ -79,6 +79,13 @@ public class ListOtherController extends HttpServlet {
 			}
 
 		}
+		
+		
+		this.eDAO.closeConn();
+		this.vehicleDAO.closeConn();
+		this.vehicleAccessoryDAO.closeConn();
+		this.computerDAO.closeConn();
+		this.computerAccessoryDAO.closeConn();
 
 		resp.setContentType("application/json");
 		PrintWriter out = resp.getWriter();

@@ -27,6 +27,7 @@ public class ListVehiclesController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ArrayList<Equipment> listVehicle = this.vehicleDAO.listAllIdAndName();
+		this.vehicleDAO.closeConn();
 
 		resp.setContentType("application/json");
 		PrintWriter out = resp.getWriter();
