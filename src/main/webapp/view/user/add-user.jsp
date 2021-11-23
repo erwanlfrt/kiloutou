@@ -1,28 +1,28 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@page import="model.object.user.* , java.io.IOException"%>
+<%@page
+	import="model.object.user.* , javax.servlet.* , java.io.IOException"%>
 <%
-  Employee employee = (Employee)request.getAttribute("employee");
-  String csrf = (String) request.getSession().getAttribute("csrf");
-%>
-<%
-User user = (User) request.getAttribute("user");
-User logged = (User) request.getSession().getAttribute("user");
-String login = "";
 
-if(logged == null) {
+User user = (User) request.getSession().getAttribute("user");
+Employee employee = (Employee) request.getSession().getAttribute("employee");
+
+String login = "";
+Profil profile = null;
+
+if (user == null || employee == null) {
+	request.setAttribute("message", "Vous n'êtes pas autorisé à accéder à cette page.");
 	RequestDispatcher rd = getServletContext().getRequestDispatcher("/error");
 	try {
-		rd.forward(request,response);
+		rd.forward(request, response);
 	} catch (ServletException e) {
 		e.printStackTrace();
 	} catch (IOException e) {
 		e.printStackTrace();
 	}
+} else {
+	login = user.getLogin();
+	profile = employee.getProfil();
 }
-else {
-	 login = logged.getLogin();
-}
-
 %>
 <html>
   <head>
@@ -31,141 +31,118 @@ else {
     <link rel="stylesheet" href="${pageContext.request.contextPath}/view/user/css/add-user.css" />
   </head>
   <body>
-    <div>
-      <form id="addForm" method="POST" name="addForm" style="display : flex ; flex-direction: column; align-items: flex-start">
-      	<input type="hidden" value="<%= csrf %>" name="_token">
-        <label for="name"><b>Nom : </b></label>
-        <input type="text" value="<%= user.getName()%>" name="name" required>
-
-        <label for="firstname"><b>Prénom : </b></label>
-        <input type="text" value="<%= user.getFirstname() %>" name="firstname" required>
-        
-        <label for="login"><b>Login : </b></label>
-        <input type="text" value="<%= user.getLogin() %>" name="login" required>
-
-        <% 
-          if(logged.getMail().equals(user.getMail())) {
-            %>
-            <label for="password"><b>Mot de passe: </b></label>
-            <input type="password" value="" name="password" required>
-            <%
-          }
-          else {
-            %>
-            <button type="button" id="resetPasswordButton" onClick="resetPassword()">Regénérer un mot de passe</button>
-            <%
-          }
-        %>
-
-        
-
-        <label for="email"><b>Addresse mail : </b></label>
-        <%
-          if(user.getMail().equals("")) {
-            %>
-            <input type="text" value="<%= user.getMail()%>" name="email" required>
-            <%
-          }
-          else {
-            %>
-            <input type="text" value="<%= user.getMail()%>" name="email" readonly>
-            <%
-          }
-        %>
-        <label for="address"><b>Adresse : </b></label>
-        <input type="text" value="<%= user.getAddress()%>" name="address" required>
-
-        <label for="phoneNumber"><b>Numéro de téléphone: </b></label>
-        <input type="text" value="<%= user.getPhoneNumber()%>" name="phoneNumber" required>
-        <%
-          if (employee == null) {
-            %>
-            <div id="employeeZone">
-              <p>S'agit-il d'un employé ? ?</p>
-              <label for="isEmployee"><b>Oui</b></label>
-              <input type="radio" value="true" name="isEmployee" onClick="handleEmployeeZone(this)">
-
-              <label for="isEmployee"><b>Non</b></label>
-              <input type="radio" value="false" name="isEmployee" onClick="handleEmployeeZone(this)" checked>
-            </div>
-            <%
-          }
-          else {
-            %>
-            <div id="employeeForm" style="display : flex ; flex-direction: column; align-items: flex-start">
-              <div style="display : flex ; flex-direction: column; align-items: flex-start">
-                <label for="employeeFunction"><b>Fonction : </b></label>
-                <input type="text" value="<%= employee.getFunction() %>" name="employeeFunction">
-
-                <label for="service"><b>Service : </b></label>
-                <input type="text" value="<%= employee.getService() %>" name="employeeService">
-
-                <label for="deskNumber"><b>Numéro bureau : </b></label>
-                <input type="text" value="<%= employee.getDeskNumber() %>" name="deskNumber">
-                <div>
-                  <label><b>Profil : </b></label>
-
-                    <label for="profile"><b>administrateur</b></label>
-                    <input type="radio" value="ADMIN" name="profile">
-
-                    <label for="profile"><b>responsable équipement</b></label>
-                    <input type="radio" value="EQUIPMENT_ADMIN" name="profile">
-
-                    <label for="profile"><b>responsable emprunt</b></label>
-                    <input type="radio" value="LOAN_ADMIN" name="profile">
-                  
-                </div>
-              </div>
-            </div>
-            <%
-          }
-        %>
-
-        <input type="submit" value="submit">
-      </form>
-    </div>
+  
+  	<jsp:include page="header-user.jsp">
+  		<jsp:param name="profile" value="<%= profile %>" />
+  	</jsp:include>
+  	
+  	<main>
+  		<section>
+  			<h1>NOUVEL UTILISATEUR</h1>
+  			<form id="addForm" method="POST" name="addForm">
+  				<p><i>Les champs marqués par * sont obligatoires.</i></p>
+				<div class="form-item input-group">
+					<input type="text" name="name" required>
+					<label for="name">Nom</label>
+					<span class="bar"></span>
+				</div>
+				<div class="form-item input-group">
+        			<input type="text" name="firstname" required>
+					<label for="firstname">Prénom</label>
+       	 		</div>
+       	 		<div class="form-item input-group">
+        			<input type="text" name="login" required>
+					<label for="login">Login</label>
+       	 		</div>
+       	 		<div class="form-item input-group">
+            		<input type="password" name="password" required>
+            		<label for="password">Mot de passe</label>
+       	 		</div>
+       	 		<div class="form-item input-group">
+            		<input type="text" name="email" required>
+					<label for="email">Addresse mail</label>
+       	 		</div>
+       	 		<div class="form-item input-group">
+        			<input type="text" name="address" required>
+       	 			<label for="address">Adresse</label>
+				</div>
+				<div class="form-item input-group">
+        			<input type="text" name="phoneNumber" required>
+        			<label for="phoneNumber">Numéro de téléphone</label>
+       	 		</div>
+       	 		<div class="form-item employee-item" id="employeeZone">
+              		<p>S'agit-il d'un employé ?</p>
+              		<div>
+              			<label for="isEmployee">Oui</label>
+              			<input type="radio" value="true" name="isEmployee" onClick="handleEmployeeZone(this)">
+			
+              			<label for="isEmployee">Non</label>
+              			<input type="radio" value="false" name="isEmployee" onClick="handleEmployeeZone(this)" checked>
+              		</div>
+            	</div>
+            	<div id="employeeForm">
+            		<div class="form-item input-group">
+                		<input type="text" name="employeeFunction" required>
+                		<label for="employeeFunction">Fonction</label>
+					</div>
+					<div class="form-item input-group">
+                		<input type="text" name="employeeService">
+                		<label for="service">Service</label>
+					</div>
+					<div class="form-item input-group">
+                		<input type="text" name="deskNumber">
+                		<label for="deskNumber">Numéro bureau</label>
+                	</div>
+                	
+                	<div class="form-item profil-item">
+                  		<label>Profil : </label>
+						<div>
+							<div>
+                    			<input type="radio" value="ADMIN" name="profile" checked>
+								<label for="profile">administrateur</label>
+							</div>
+							<div>
+                    			<input type="radio" value="EQUIPMENT_ADMIN" name="profile">
+                    			<label for="profile">responsable équipement</label>
+							</div>
+							<div>
+                    			<input type="radio" value="LOAN_ADMIN" name="profile">
+                    			<label for="profile">responsable emprunt</label>
+                    		</div>
+						</div>
+                   </div>
+				</div>
+       	 		
+				<div class="form-buttons">
+  					<button type="button" id="button-cancel" class="cancel">Annuler</button>
+  					<button type="submit" value="submit" class="validate">Confirmer</button>
+  				</div>
+  			</form>
+  		</section>
+  	</main>
+     
   </body>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script>
-
+  	
+  	document.getElementById("button-cancel").addEventListener('click', function() {
+  		location.href = "/kiloutou/welcome";
+  	});
+  
+  	document.getElementById("burger").addEventListener('click', function(ev) {
+  		document.getElementById("burger-dropdown").classList.toggle('active');
+	});
+  
     function handleEmployeeZone(radio) {
-      let isEmployee = radio.value === "true";
-      if(isEmployee) {
-        document.getElementById("employeeZone").innerHTML += `
-                                                            <div id="employeeForm" style="display : flex ; flex-direction: column; align-items: flex-start">
-                                                              <div style="display : flex ; flex-direction: column; align-items: flex-start">
-                                                                <label for="employeeFunction"><b>Fonction : </b></label>
-                                                                <input type="text" value="" name="employeeFunction">
-
-                                                                <label for="service"><b>Service : </b></label>
-                                                                <input type="text" value="" name="employeeService">
-
-                                                                <label for="deskNumber"><b>Numéro bureau : </b></label>
-                                                                <input type="text" value="" name="deskNumber">
-                                                                <div>
-                                                                    <label><b>Profil : </b></label>
-
-                                                                      <label for="profile"><b>administrateur</b></label>
-                                                                      <input type="radio" value="ADMIN" name="profile">
-
-                                                                      <label for="profile"><b>responsable équipment</b></label>
-                                                                      <input type="radio" value="EQUIPMENT_ADMIN" name="profile">
-
-                                                                      <label for="profile"><b>responsable emprunt</b></label>
-                                                                      <input type="radio" value="LOAN_ADMIN" name="profile">
-                                                                    
-                                                                </div>
-                                                              </div>
-                                                            </div>
-                                  `;
-        document.addForm.isEmployee[0].checked = true;
-      } else {
-        let employeeForm = document.getElementById("employeeForm")
-        if(employeeForm !== null) {
-          employeeForm.innerHTML = "";
-          document.getElementById("employeeZone").removeChild(employeeForm);
-        }
-      }
+    	document.getElementById("employeeForm").classList.toggle('active');
+      	let inputs = document.getElementById("employeeForm").getElementsByTagName('input');
+      	for(let i = 0 ; i < inputs.length ; i++) { // On désactive/réactive les champs cachés/visibles
+			if(radio.value === "true") {
+      			inputs[i].disabled = false;
+      		} else {
+      			inputs[i].disabled = true;
+      		}
+      	}
     }
 
     function resetPassword() {
