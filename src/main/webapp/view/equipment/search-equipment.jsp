@@ -55,7 +55,7 @@ else {
                   for(Equipment e : list) {
                     if(e.canBeLoaned()) {
               %>
-                      <li><a href="/Kiloutou/equipment/info?id=<%=e.getId()%>"><%= e.getName()%></a></li>
+                      <li><a href="/kiloutou/equipment/info?id=<%=e.getId()%>"><%= e.getName()%></a></li>
                     <%
                     }
                   }

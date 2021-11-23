@@ -76,13 +76,18 @@ if (user == null || employee == null) {
   			<div class="loan">
   				<h2>Emprunts</h2>
   				<div class="list-loan">
-  				<% if(loans.size() > 0) { %>
+  				<%
+  				int count = 0;
+  				if(loans.size() > 0) { 
+            
+            %>
   					<% for(Loan loan : loans) { %>
-              			<% if(loan.isOver() && !loan.hasNotStarted()) { %>
+              			<% if(!loan.isOver() && !loan.hasNotStarted()) { %>
   							<div class="list-loan-item">
   								<p>
   								<%= loan.getEquipment().getName() %>
   								<% if(loan.isLate()) { %>
+                      count++;
   									<span> - En retard</span>
   								<% } %>
   								</p>
@@ -90,8 +95,9 @@ if (user == null || employee == null) {
   							</div>
   						<% } %>
   					<% } %>
-  				<% } else { %>
-  					<p class="no-loan">Cet utilisateur n'a pas d'emprunts.</p>
+  				<% } 
+          		if(loans.size() <=0 || count == 0) { %>
+  					<p class="no-loan">Cet utilisateur n'a pas d'emprunt.</p>
   				<% } %>
   				</div>
   			</div>

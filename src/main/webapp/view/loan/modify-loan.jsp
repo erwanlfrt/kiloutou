@@ -178,7 +178,7 @@
     function loadInfoEquipment() {
       $.ajax({
         //L'URL de la requête 
-        url: "/Kiloutou/loan/get/others?id=<%= loan.getEquipment().getId()%>",
+        url: "/kiloutou/loan/get/others?id=<%= loan.getEquipment().getId()%>",
 
         //La méthode d'envoi (type de requête)
         method: "GET",

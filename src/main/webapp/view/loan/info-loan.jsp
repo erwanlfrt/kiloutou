@@ -35,7 +35,7 @@
       <img src="<%= equipment.getImageUrl()%>" style="width : 300px ; height : 300px">
     </div>
 
-    <a href="/Kiloutou/loan/modify?id=<%=loan.getId()%>">Modifier</a>
+    <a href="/kiloutou/loan/modify?id=<%=loan.getId()%>">Modifier</a>
     
     <form method="POST">
       <% if(loan.isOver()) {

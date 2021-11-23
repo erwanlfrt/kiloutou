@@ -67,7 +67,7 @@ public class Loan {
 		return isOver;
 	}
 
-	public void setBorrowed(boolean isOver) {
+	public void setOver(boolean isOver) {
 		this.isOver = isOver;
 	}
 
@@ -84,7 +84,7 @@ public class Loan {
 	}
 
 	public boolean isLate() {
-		return LocalDate.now().isAfter(this.endDate) && this.isOver;
+		return LocalDate.now().isAfter(this.endDate) && !this.isOver;
 	}
 
 	public boolean hasNotStarted() {
@@ -92,7 +92,7 @@ public class Loan {
 	}
 
 	public boolean isCurrentlyLoaned() {
-		return LocalDate.now().isAfter(this.beginningDate) && LocalDate.now().isBefore(this.endDate) && this.isOver;
+		return LocalDate.now().isAfter(this.beginningDate) && LocalDate.now().isBefore(this.endDate) && !this.isOver;
 	}
 
 }

@@ -159,7 +159,7 @@ function selectUser(row) {
 function loadListEquipment(filter) {
   $.ajax({
     //L'URL de la requête 
-    url: "/Kiloutou/loan/list/" + filter,
+    url: "/kiloutou/loan/list/" + filter,
 
     //La méthode d'envoi (type de requête)
     method: "GET",
@@ -180,7 +180,7 @@ function loadListEquipment(filter) {
 function loadInfoEquipment() {
   $.ajax({
     //L'URL de la requête 
-    url: "/Kiloutou/loan/get/" + document.getElementById("liste1").value + "?id=" + document.getElementById("liste2").value,
+    url: "/kiloutou/loan/get/" + document.getElementById("liste1").value + "?id=" + document.getElementById("liste2").value,
 
     //La méthode d'envoi (type de requête)
     method: "GET",
