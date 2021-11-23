@@ -38,6 +38,7 @@ public class InfoLoanController extends HttpServlet {
 		String pageName;
 		int id = Integer.valueOf(req.getParameter("id"));
 		this.loan = this.loanDAO.get(id);
+		this.loanDAO.closeConn();
 
 		if (loan != null) {
 			req.setAttribute("loan", loan);

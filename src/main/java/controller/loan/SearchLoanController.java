@@ -25,6 +25,8 @@ public class SearchLoanController extends HttpServlet {
 		ArrayList<Loan> currentLoans = new ArrayList<Loan>();
 		ArrayList<Loan> loansToCome = new ArrayList<Loan>();
 		ArrayList<Loan> oldLoans = new ArrayList<Loan>();
+		
+		loanDAO.closeConn();
 
 		for (Loan loan : loans) {
 			// current loans = now < enddate && now >= beginningDate && not borrowed

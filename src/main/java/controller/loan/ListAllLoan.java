@@ -44,6 +44,12 @@ public class ListAllLoan extends HttpServlet {
 		ArrayList<Equipment> listComputer = this.castArrayList(this.computerDAO.listAll());
 		ArrayList<Equipment> listComputerAccessory = this.castArrayList(this.computerAccessoryDAO.listAll());
 		ArrayList<Equipment> other = new ArrayList<Equipment>();
+		
+		this.eDAO.closeConn();
+		this.vehicleDAO.closeConn();
+		this.vehicleAccessoryDAO.closeConn();
+		this.computerDAO.closeConn();
+		this.computerAccessoryDAO.closeConn();
 
 		// list other equipments, TO IMPROVE
 		for (Equipment equipment : allEquipments) {
