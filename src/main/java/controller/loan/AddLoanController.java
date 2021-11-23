@@ -49,6 +49,7 @@ public class AddLoanController extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		this.closeConn();
 	}
 
 	@Override
@@ -74,6 +75,12 @@ public class AddLoanController extends HttpServlet {
 		Loan loan = new Loan(0, equipment, user, beginningDate, endDate, false);
 
 		this.loanDAO.add(loan);
+		this.closeConn();
 	}
 
+	private void closeConn() {
+		this.eDAO.closeConn();
+		this.userDAO.closeConn();
+		this.loanDAO.closeConn();
+	}
 }

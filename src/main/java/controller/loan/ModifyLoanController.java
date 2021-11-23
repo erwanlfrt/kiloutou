@@ -43,6 +43,7 @@ public class ModifyLoanController extends HttpServlet {
 		String pageName;
 		int id = Integer.valueOf(req.getParameter("id"));
 		this.loan = this.loanDAO.get(id);
+		this.loanDAO.closeConn();
 
 		if (loan != null) {
 			req.setAttribute("loan", loan);
@@ -74,7 +75,8 @@ public class ModifyLoanController extends HttpServlet {
 		}
 
 		this.loanDAO.update(this.loan, params);
-
+		this.loanDAO.closeConn();
+		
 		Router.redirect("/loan/info?id=" + this.loan.getId(), this, req, resp);
 	}
 
