@@ -20,6 +20,7 @@ public class ResetPassword extends HttpServlet {
 		if (mail != null) {
 			UserDAO userDAO = new UserDAO();
 			userDAO.generateRandomPwd(mail);
+			userDAO.closeConn();
 		}
 	}
 }

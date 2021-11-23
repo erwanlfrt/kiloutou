@@ -58,6 +58,8 @@ public class AddUserController extends HttpServlet {
 
 		UserDAO userDAO = new UserDAO();
 		userDAO.add(user);
+		userDAO.closeConn();
+		
 
 		if (req.getParameter("isEmployee").equals("true")) {
 			String employeeService = req.getParameter("employeeService");
@@ -71,6 +73,7 @@ public class AddUserController extends HttpServlet {
 			EmployeeDAO employeeDAO = new EmployeeDAO();
 
 			employeeDAO.add(employee);
+			employeeDAO.closeConn();
 
 		}
 		Router.redirect("/user/search", this, req, resp);
