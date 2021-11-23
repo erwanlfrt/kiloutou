@@ -30,7 +30,7 @@
             <tr>
               <td><%= loan.getUser().getMail()%></td>
               <td><%= loan.getEquipment().getName()%></td>
-              <td><a href="/Kiloutou/loan/info?id=<%=loan.getId()%>">Modifier</a></td>
+              <td><a href="/Kiloutou/loan/info?id=<%=loan.getId()%>">Infos</a></td>
             </tr>
             <%
             }
