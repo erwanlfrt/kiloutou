@@ -19,7 +19,7 @@ Depuis la racine :  ```git update-index --assume-unchanged src/main/java/config.
   - Page d'erreur
   - Page de statistiques
   - Emprunt (ajouter, lister, info)
-  - Utilisateur (ajouter, lister, info)
+  - Utilisateur (~~ajouter~~, lister, info)
   - Matériels (ajouter, lister, info)
  ### Fonctionnalité
   - ~~Page de statistique~~

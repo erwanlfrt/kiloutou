@@ -61,6 +61,7 @@ public class Welcome extends HttpServlet {
 			if (DigestUtils.sha1Hex(password).equals(user.getPassword())) {
 				session.setAttribute("user", user);
 				session.setAttribute("employee", employee);
+				session.setAttribute("csrf", new Csrf(req).getCsrfToken());
 			} else {
 				req.setAttribute("error", "Adresse mail ou mot de passe incorrect");
 			}

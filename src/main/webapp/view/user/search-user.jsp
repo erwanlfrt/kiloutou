@@ -1,26 +1,27 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@page import="model.object.user.* , java.util.ArrayList , java.io.IOException "%>
 <%
-  ArrayList<User> users = (ArrayList<User>)request.getAttribute("users");
-%>
-<%
-User logged = (User) request.getSession().getAttribute("user");
-String login = "";
+ArrayList<User> users = (ArrayList<User>) request.getAttribute("users");
 
-if(logged == null) {
+User user = (User) request.getSession().getAttribute("user");
+Employee employee = (Employee) request.getSession().getAttribute("employee");
+
+String login = "";
+Profil profile = null;
+
+if (user == null || employee == null) {
 	RequestDispatcher rd = getServletContext().getRequestDispatcher("/error");
 	try {
-		rd.forward(request,response);
+		rd.forward(request, response);
 	} catch (ServletException e) {
 		e.printStackTrace();
 	} catch (IOException e) {
 		e.printStackTrace();
 	}
+} else {
+	login = user.getLogin();
+	profile = employee.getProfil();
 }
-else {
-	 login = logged.getLogin();
-}
-
 %>
 <html>
   <head>
@@ -28,120 +29,50 @@ else {
     <link rel="stylesheet" href="${pageContext.request.contextPath}/view/user/css/search-user.css" />
   </head>
   <body>
-    <div id="search">
-      <h3 id="searchLabel" >Rechercher par adresse mail : </h3>
-      <label class="switch" >
-          <input type="checkbox" id="searchType">
-          <span onclick="sliderClick()" class="slider round" ></span>
-      </label>
-      <input type="text" id="searchBar" onkeyup="searchUsers()" placeholder="Search for users..">
-      <ul id="listUsers">
-        <%
-          for(User user : users) {
-            if(user.isReal()) {
-              %>
-                <li class="userItem"><a href="/Kiloutou/user/info?mail=<%=user.getMail()%>"><%=user.getMail()%></a></li>
-              <%
-            }
-          }
-        %>
-      </ul>
-    </div>
+  
+  	<jsp:include page="header-user.jsp">
+  		<jsp:param name="profile" value="<%= profile %>" />
+  	</jsp:include>
+  	
+  	<main>
+  		<div>
+  			<h1>UTILISATEURS</h1>
+  		</div>
+  		<section class="search-section">
+  			<div class="search-icon">
+  				<img src="${pageContext.request.contextPath}/images?name=search_user.png" alt="Chercher un utilisateur" width="30px" height="30px" />
+  			</div>
+  			<div class="search-input">
+  				<input type="text" id="searchBar" name="searchBar" />
+  				<label for="searchBar">Prénom et/ou Nom</label>
+  			</div>
+  			<div class="search-slider">
+  				<label class="switch" >
+          			<input type="checkbox" id="searchType">
+          			<span id="sliderClick" class="slider round" ></span>
+      			</label>
+  			</div>
+  		</section>
+  		<section>
+  			<div id="listUsers">
+        	<% for(User usr : users) { %>
+           		<% if(usr.isReal()) { %>
+           		<div class="user-item">
+           			<img src="${pageContext.request.contextPath}/images?name=user.png" alt="Utilisateur" width="20px" height="20px" />
+                	<p class="userItem active"><a href="/kiloutou/user/info?mail=<%=usr.getMail()%>"><%= usr.getMail() %></a></p>
+                	<p class="userItem"><a href="/kiloutou/user/info?mail=<%=usr.getMail()%>"><%= usr.getFirstname() %> <%= usr.getName() %></a></p>
+           			<img class="user-edit" src="${pageContext.request.contextPath}/images?name=edit.png" alt="Modifier" width="20px" height="20px" onclick="window.location.replace('${pageContext.request.contextPath}/user/modify?mail=<%= usr.getMail() %>')" />
+           			<img class="user-bin" src="${pageContext.request.contextPath}/images?name=bin.png" alt="Supprimer" width="20px" height="20px" onclick="deleteUser('<%= usr.getMail() %>')"/>
+           		</div>
+           		<% } %>
+        	<% } %>
+      		</div>
+  		</section>
+  	</main>
     
   </body>
-  <script>
-
-    var userEmails = [];
-    var userNames = [];
-    var userFirstnames = [];
-    <%
-      for(User user : users) {
-        if(user.isReal()) {
-          %>
-            userEmails.push('<%= user.getMail()%>');
-            userNames.push('<%= user.getName()%>');
-            userFirstnames.push('<%= user.getFirstname()%>');
-          <%
-        }
-      }
-    %>
-
-   
-
-
-    var children = [];
-    
-    function searchUsers() {
-      
-      if(children.length === 0) {
-        document.getElementById("listUsers").childNodes.forEach(child => {
-        if(child.tagName === "LI") {
-          children.push(child.childNodes[0].innerHTML)
-        }
-       });
-      }
-      
-
-      let list = document.getElementById("listUsers");
-      list.innerHTML = "";
-      let value = document.getElementById("searchBar").value;
-      children.forEach(child => {
-        //name and firstname ?
-        let name = '';
-        let firstname = '';
-        if(child.indexOf(' ') > 0) {
-          name = child.substring(child.indexOf(' ') +1);
-          firstname = child.substring(0, child.indexOf(' '));
-        }
-
-        if(child.startsWith(value) || name.startsWith(value) || firstname.startsWith(value)) {
-          let a = document.createElement('a');
-          a.href = "/Kiloutou/user/info?mail=" + child;
-          a.innerHTML = child;
-          let element = document.createElement('li');
-          element.className = "userItem";
-          element.appendChild(a);
-          list.appendChild(element);
-        } 
-      });
-      if(list.childNodes.length === 0) {
-        if( document.getElementById("noResult") === null) {
-          let noResult = document.createElement("p");
-          noResult.innerText = "Aucun résultat ne correspond à votre recherche";
-          noResult.id = "noResult";
-          document.getElementById('search').appendChild(noResult);
-        }
-      } else {
-        let noResult = document.getElementById("noResult");
-        if(noResult !== null) {
-          document.getElementById('search').removeChild(noResult);
-        }
-      }
-    }
-
-    function sliderClick() {
-      let searchType = document.getElementById('searchType');
-      let listUsers = document.getElementById('listUsers');
-      let label = document.getElementById('searchLabel');
-      listUsers.innerHTML = '';
-
-      if (searchType.checked) {
-        // search by mail
-        label.innerText = 'Rechercher par adresse mail : ';
-        for(let i = 0 ; i < userEmails.length ; i++ ) {
-          listUsers.innerHTML += '<li class="userItem"><a href="/Kiloutou/user/info?mail=' + userEmails[i] +'">' + userEmails[i] + '</a></li>'
-        }
-      }
-      else {
-        // search by name and fistname
-        label.innerText = 'Rechercher par nom / prénom : ';
-        for(let i = 0 ; i < userEmails.length ; i++ ) {
-          listUsers.innerHTML += '<li class="userItem"><a href="/Kiloutou/user/info?mail=' + userEmails[i] +'">' + userFirstnames[i] + ' ' + userNames[i] +'</a></li>';
-        }
-      }
-      children = [];
-
-    }
-  </script>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="${pageContext.request.contextPath}/view/user/js/search-user.js"></script>
 
 </html>
