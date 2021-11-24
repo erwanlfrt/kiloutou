@@ -176,5 +176,10 @@ if (!(user == null || employee == null)) {
       	<h3><%= message != null ? message : ""%></h3>
   	</section>
   	<footer></footer>  
+  	<script>
+		document.getElementById("burger").addEventListener('click', function(ev) {
+  			document.getElementById("burger-dropdown").classList.toggle('active');
+		});
+	</script>
   </body>
 </html>

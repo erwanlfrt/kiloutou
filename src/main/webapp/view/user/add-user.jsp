@@ -123,15 +123,12 @@ if (user == null || employee == null) {
      
   </body>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="${pageContext.request.contextPath}/view/user/js/header.js"></script>
   <script>
   	
   	document.getElementById("button-cancel").addEventListener('click', function() {
   		location.href = "/kiloutou/welcome";
   	});
-  
-  	document.getElementById("burger").addEventListener('click', function(ev) {
-  		document.getElementById("burger-dropdown").classList.toggle('active');
-	});
   
     function handleEmployeeZone(radio) {
     	document.getElementById("employeeForm").classList.toggle('active');

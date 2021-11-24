@@ -28,23 +28,23 @@ public class Welcome extends HttpServlet {
 	}
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
-    String pageName;
+		String pageName;
 		if (request.getAttribute("error") == null) {
 			pageName = "/view/auth/welcome.jsp";
-      Router.forward(pageName, this, request, response);
+			Router.forward(pageName, this, request, response);
 		} else {
 			pageName = "/login";
-      Router.redirect(pageName, this, request, response);
+			Router.redirect(pageName, this, request, response);
 		}
-
-    
 
 		this.destroy();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		this.doProcess(req, resp);
+		if (Role.can(this, req, resp)) {
+			this.doProcess(req, resp);
+		}
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class Welcome extends HttpServlet {
 		}
 		this.doProcess(req, resp);
 	}
-	
+
 	private void close() {
 		this.userDAO.closeConn();
 		this.employeeDAO.closeConn();

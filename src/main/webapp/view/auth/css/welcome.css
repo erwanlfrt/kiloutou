@@ -106,6 +106,7 @@ div.disconnect:hover > img {
 #burger-dropdown.active {
 	display: flex !important;
 	flex-direction: column;
+	z-index: 10;
 }
 
 .nav-dropdown, .nav-mobile {

@@ -1,3 +1,6 @@
+<%@page import="model.object.user.Profil"%>
+<%@page import="model.object.user.Employee"%>
+<%@page import="model.object.user.User"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@page import="model.object.equipment.* , java.io.IOException"%>
 <%
@@ -22,67 +25,103 @@
       state = "Mauvais état";
     }
   }
+  
+  User logged = (User) request.getSession().getAttribute("user");
+  Employee loggedEmployee = (Employee) request.getSession().getAttribute("employee");
+
+  String login = "";
+  Profil profile = null;
+
+  if(logged == null || loggedEmployee == null) {
+  	RequestDispatcher rd = getServletContext().getRequestDispatcher("/error");
+  	try {
+  		rd.forward(request,response);
+  	} catch (ServletException e) {
+  		e.printStackTrace();
+  	} catch (IOException e) {
+  		e.printStackTrace();
+  	}
+  }
+  else {
+  	 login = logged.getLogin();
+  	 profile = loggedEmployee.getProfil();
+  }
 %>
 <html>
   <head>
-    <title>Info equipment</title>
+    <title>Information équipement</title>
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/view/equipment/css/info-equipment.css" />
   </head>
   <body>
-    <div>
-      <h2>Equipment<%= vehicle != null ? "/Véhicule" : "" %><%= car != null ? "/Voiture" : ""%><%= bike != null ? "/Moto" : ""%><%=computerAccessory != null ? "/Accessoire Informatique" : ""%><%= vehicleAccessory != null ? "/Accessoire automobile" : ""%><%= computer != null ? "/Ordinateur" : ""%></h2>
-      <p><b>Nom : </b><%= equipment.getName() %></p>
-      <p><b>Disponibilité </b><%= equipment.isAvailable() ? "disponible" : "pas disponible" %></p>
-      <p><b>illustration</b></p>
-      <img src="<%= equipment.getImageUrl()%>" style="width : 300px ; height : 300px">
-
-      <%  
-        if(vehicle != null) {
-          %>
-          <p><b>Kilométrage : </b><%= vehicle.getKilometers()%></p>
-          <p><b>Kilométrage de renouvellement : </b><%= vehicle.getRenewalKilometers() %></p>
-          <p><b>Marque : </b><%= vehicle.getBrand() %></p>
-          <p><b>Modèle : </b><%= vehicle.getModel() %></p>
-          <p><b>Immatriculation : </b><%= vehicle.getRegistrationNumber() %></p>
-          <p><b>État : </b><%= state %></p>
-          <p><b>Vitesse maximale : </b><%= vehicle.getMaxSpeed() %></p>
-          <p><b>Puissance : </b><%= vehicle.getPower() %></p>
-          <%
-          if(car != null) {
-            %>
-            <p><b>Nombre de places : </b><%= car.getNumberOfSeats()%></p>
-            <%
-          }
-          else if( bike != null ){
-            %>
-            <p><b>Nombre de cylindres : </b><%= bike.getNumberOfCylinders()%></p>
-            <%
-          }
-        }
-        else if(computer != null) {
-          %>
-          <p><b>Marque : </b><%= computer.getBrand()%></p>
-          <p><b>Modèle : </b><%= computer.getModel()%></p>
-          <p><b>N° de série : </b><%= computer.getSerialNumber()%></p>
-          <p><b>Taille de la mémoire : </b><%= computer.getMemorySize()%></p>
-          <p><b>Portable ? </b><%= computer.isLaptop() ? "oui" : "non"%></p>
-          <p><b>Taille de l'écran : </b><%= computer.getScreenSize()%></p>
-          <p><b>Date d'achat : </b><%= computer.getPurchaseDate()%></p>
-          <p><b>Date de renouvellement : </b><%= computer.getRenewalDate()%></p>
-          <div id="processor">
-            <p><b>Marque : </b><%= computer.getProcessor().getBrand()%></p>
-            <p><b>Nom : </b><%= computer.getProcessor().getName()%></p>
-            <p><b>Nombre de coeurs : </b><%= computer.getProcessor().getNumberOfCores()%></p>
-            <p><b>Fréquence : </b><%= computer.getProcessor().getFrequency()%></p>
-          </div>
-          <div id="graphicCard">
-            <p><b>Marque : </b><%= computer.getGraphicCard().getBrand()%></p>
-            <p><b>Nom : </b><%= computer.getGraphicCard().getName()%></p>
-            <p><b>Fréquence : </b><%= computer.getGraphicCard().getFrequency()%></p>
-          </div>
-          <%
-        } 
-      %>
-    </div>
-    
+  
+  	<jsp:include page="header-equipment.jsp">
+  		<jsp:param name="profile" value="<%= profile %>" />
+  	</jsp:include>
+  	
+  	
+  	<main>
+  		<div>
+  			<h1>Equipment<%= vehicle != null ? "/Véhicule" : "" %><%= car != null ? "/Voiture" : ""%><%= bike != null ? "/Moto" : ""%><%=computerAccessory != null ? "/Accessoire Informatique" : ""%><%= vehicleAccessory != null ? "/Accessoire automobile" : ""%><%= computer != null ? "/Ordinateur" : ""%></h1>
+  		</div>
+  		<section>
+  			<div class="equipment">
+  				<div class="equipment-name">
+  					<img src="<%= equipment.getImageUrl() %>" alt="Equipement" width="100px" height="100px">
+  					<div>
+  						<h2><%= equipment.getName() %></h2>
+  						<div class="<%= equipment.isAvailable() ? "disponible" : "indisponible" %>">
+  							<div></div>
+  							<p><%= equipment.isAvailable() ? "Disponible" : "Indisponible" %></p>
+  						</div>
+  					</div>
+  				</div>
+  				<div>
+  				<% if (vehicle != null) { %>
+					<p>Kilométrage : <%= vehicle.getKilometers()%></p>
+          			<p>Kilométrage de renouvellement : <%= vehicle.getRenewalKilometers() %></p>
+          			<p>Marque : <%= vehicle.getBrand() %></p>
+          			<p>Modèle : <%= vehicle.getModel() %></p>
+          			<p>Immatriculation : <%= vehicle.getRegistrationNumber() %></p>
+          			<p>État : <%= state %></p>
+          			<p>Vitesse maximale : <%= vehicle.getMaxSpeed() %></p>
+          			<p>Puissance : <%= vehicle.getPower() %></p>
+          			<% if (car != null) { %>
+          				<p>Nombre de places : <%= car.getNumberOfSeats()%></p>
+          			<% } else if (bike != null) { %>
+          				<p>Nombre de cylindres : <%= bike.getNumberOfCylinders()%></p>
+          			<% } %>
+          		<% } else if (computer != null) { %>
+          			<p>Marque : <%= computer.getBrand() %></p>
+         			<p>Modèle : <%= computer.getModel() %></p>
+          			<p>N° de série : <%= computer.getSerialNumber() %></p>
+          			<p>Taille de la mémoire : <%= computer.getMemorySize() %></p>
+          			<p>Portable : <%= computer.isLaptop() ? "oui" : "non" %></p>
+          			<p>Taille de l'écran : <%= computer.getScreenSize() %></p>
+          			<p>Date d'achat : <%= computer.getPurchaseDate() %></p>
+          			<p>Date de renouvellement : <%= computer.getRenewalDate() %></p>
+          			<div>
+          				<h3>Accessoire lié</h3>
+          				<div class="accessory">
+          					<div id="processor">
+          						<h3>Processeur</h3>
+            					<p>Marque : <%= computer.getProcessor().getBrand() %></p>
+            					<p>Nom : <%= computer.getProcessor().getName() %></p>
+            					<p>Nombre de coeurs : <%= computer.getProcessor().getNumberOfCores() %></p>
+            					<p>Fréquence : <%= computer.getProcessor().getFrequency() %></p>
+          					</div>
+          					<div id="graphicCard">
+          						<h3>Carte graphique</h3>
+            					<p>Marque : <%= computer.getGraphicCard().getBrand() %></p>
+            					<p>Nom : <%= computer.getGraphicCard().getName() %></p>
+            					<p>Fréquence : <%= computer.getGraphicCard().getFrequency() %></p>
+          					</div>
+          				</div>
+          			</div>
+          		<% } %>
+  				</div>
+  			</div>
+  		</section>
+  	</main>
+  	<script src="${pageContext.request.contextPath}/view/equipment/js/header.js"></script>
   </body>
 </html>
