@@ -25,6 +25,13 @@ public class Csrf {
 	}
 	
 	public static Boolean validateRequest(HttpServletRequest request, String token) {
+		
+		//String csrfToken = req.getParameter("_token");
+		
+				//if (Csrf.validateRequest(req, csrfToken)) {
+					
+				//}
+		
 		Boolean pass = true;
 		Object csrf = request.getSession().getAttribute("csrf");
 		

@@ -46,5 +46,15 @@ public class Employee extends User {
 	public void setProfil(Profil profil) {
 		this.profil = profil;
 	}
+	
+	public Boolean hasRole(Profil role) {
+		Boolean pass = false;
+		
+		if (this.profil != null && role == this.profil) {
+			pass = true;
+		}
+		
+		return pass;
+	}
 
 }
