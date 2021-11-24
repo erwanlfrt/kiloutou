@@ -109,6 +109,7 @@ div.disconnect:hover>img {
 #burger-dropdown.active {
 	display: flex !important;
 	flex-direction: column;
+	z-index: 10;
 }
 
 .nav-dropdown, .nav-mobile {
@@ -214,6 +215,7 @@ main section {
 	display: flex;
 	justify-content: space-around;
 	flex-wrap: wrap;
+	margin-top: 30px;
 }
 
 main .user {

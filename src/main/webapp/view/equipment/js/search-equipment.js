@@ -31,6 +31,8 @@ function filterByCategory(filter) {
 			list[i].style.display = "block";
 			list[i + 1].style.display = "flex";
 		} else {
+			console.log(filter.toLowerCase());
+			console.log(list[i + 1].id.toLowerCase());
 			if(list[i + 1].id.toLowerCase().includes(filter.toLowerCase())) {
 				list[i].style.display = "block";
 				list[i + 1].style.display = "flex";

@@ -30,7 +30,6 @@ else {
 %>
 <html>
   <head>
-  	<meta charset="UTF-8" />
     <title>Chercher un équipement</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/view/equipment/css/search-equipment.css" />
   </head>
@@ -40,7 +39,6 @@ else {
   		<jsp:param name="profile" value="<%= profile %>" />
   	</jsp:include>
 
-<<<<<<< HEAD
 	<main>
 		<div>
 			<h1>équipements</h1>
@@ -55,7 +53,7 @@ else {
 				<label for="searchBar">Nom équipement</label>
 			</div>
 			<div class="search-type">
-				<select name="categories" id="categories" onchange="searchEquipments()">
+				<select name="categories" id="categories">
 					<option value="all">Tout afficher</option>
 					<option value="Véhicules">Véhicules</option>
 					<option value="Voitures">Voitures</option>
@@ -86,7 +84,7 @@ else {
 		</section>
 	</main>
   </body>
-  
+  <script src="${pageContext.request.contextPath}/view/equipment/js/header.js"></script>
   <script src="${pageContext.request.contextPath}/view/equipment/js/search-equipment.js"></script>
   
 </html>
