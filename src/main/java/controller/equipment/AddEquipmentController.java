@@ -22,24 +22,19 @@ import model.object.equipment.VehicleAccessory;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
+import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.router.Router;
+
 public class AddEquipmentController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
 		String pageName = "/view/equipment/add-equipment.jsp";
 
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
-		try {
-			rd.forward(request, response);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Router.forward(pageName, this, request, response);
 	}
 
 	@Override
@@ -76,14 +71,7 @@ public class AddEquipmentController extends HttpServlet {
 
 		String pageName = "/welcome";
 
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
-		try {
-			rd.forward(req, resp);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Router.redirect(pageName, this, req, resp);
 		
 		equipmentDAO.closeConn();
 

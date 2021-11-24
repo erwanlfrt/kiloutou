@@ -6,7 +6,7 @@ import model.object.loan.Loan;
 import java.io.IOException;
 import java.util.HashMap;
 
-import javax.servlet.RequestDispatcher;
+import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,32 +21,20 @@ public class InfoLoanController extends HttpServlet {
 		this.loanDAO = new LoanDAO();
 	}
 
-	private void doProcess(HttpServletRequest request, HttpServletResponse response, String pageName) {
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
-
-		try {
-			rd.forward(request, response);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String pageName;
 		int id = Integer.valueOf(req.getParameter("id"));
 		this.loan = this.loanDAO.get(id);
-		this.loanDAO.closeConn();
 
 		if (loan != null) {
 			req.setAttribute("loan", loan);
 			pageName = "/view/loan/info-loan.jsp";
+      Router.forward(pageName, this, req, resp);
 		} else {
 			pageName = "/error";
+      Router.redirect(pageName, this, req, resp);
 		}
-		this.doProcess(req, resp, pageName);
 	}
 
 	@Override
@@ -57,6 +45,7 @@ public class InfoLoanController extends HttpServlet {
 			loanDAO.update(loan, params);
 		}
 		this.doGet(req, resp);
+    this.loanDAO.closeConn();
 	}
 
 }

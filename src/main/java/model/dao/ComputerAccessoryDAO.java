@@ -24,6 +24,7 @@ public class ComputerAccessoryDAO extends Model implements Dao<ComputerAccessory
 
 		String query = "INSERT INTO " + this.table + " (id) VALUES (" + id + ");";
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 		} catch (SQLException e) {
@@ -36,6 +37,7 @@ public class ComputerAccessoryDAO extends Model implements Dao<ComputerAccessory
 		String query = "DELETE FROM " + this.table + " WHERE id = " + id + ";";
 
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 		} catch (SQLException e) {
@@ -55,6 +57,7 @@ public class ComputerAccessoryDAO extends Model implements Dao<ComputerAccessory
 		if (id instanceof Integer) {
 			String query = "SELECT * from " + this.table + " WHERE id = " + (Integer) id + ";";
 			try {
+        this.refreshConnection();
 				Statement statement = this.connection.createStatement();
 				ResultSet rs = statement.executeQuery(query);
 				while (rs.next()) {
@@ -73,6 +76,7 @@ public class ComputerAccessoryDAO extends Model implements Dao<ComputerAccessory
 	public ArrayList<ComputerAccessory> listAll() {
 		ArrayList<ComputerAccessory> result = new ArrayList<ComputerAccessory>();
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT * FROM " + this.table + ";");
 			while (rs.next()) {
@@ -90,6 +94,7 @@ public class ComputerAccessoryDAO extends Model implements Dao<ComputerAccessory
 	public ArrayList<Equipment> listAllIdAndName() {
 		ArrayList<Equipment> result = new ArrayList<Equipment>();
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(
 					"SELECT id, name, canBeLoaned FROM Equipment WHERE id IN (SELECT id FROM " + this.table + ") ;");
@@ -132,6 +137,7 @@ public class ComputerAccessoryDAO extends Model implements Dao<ComputerAccessory
 			String query = "UPDATE " + this.table + " SET " + changes + " WHERE id = " + id + ";";
 			Statement statement;
 			try {
+        this.refreshConnection();
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
 			} catch (SQLException e) {

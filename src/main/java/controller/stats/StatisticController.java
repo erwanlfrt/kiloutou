@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.RequestDispatcher;
+import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -48,15 +48,9 @@ public class StatisticController extends HttpServlet {
 	}
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/stats/statistic.jsp");
+		String pageName = "/view/stats/statistic.jsp";
 
-		try {
-			rd.forward(request, response);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Router.forward(pageName, this, request, response);
 	}
 
 	@Override

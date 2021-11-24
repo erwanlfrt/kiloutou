@@ -6,7 +6,7 @@ import model.object.loan.Loan;
 import java.io.IOException;
 import java.util.HashMap;
 
-import javax.servlet.RequestDispatcher;
+import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,17 +26,7 @@ public class ModifyLoanController extends HttpServlet {
 		this.loanDAO = new LoanDAO();
 	}
 
-	private void doProcess(HttpServletRequest request, HttpServletResponse response, String pageName) {
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 
-		try {
-			rd.forward(request, response);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -48,10 +38,12 @@ public class ModifyLoanController extends HttpServlet {
 		if (loan != null) {
 			req.setAttribute("loan", loan);
 			pageName = "/view/loan/modify-loan.jsp";
+      Router.forward(pageName, this, req, resp);
+
 		} else {
 			pageName = "/error";
+      Router.redirect(pageName, this, req, resp);
 		}
-		this.doProcess(req, resp, pageName);
 	}
 
 	@Override
@@ -59,7 +51,7 @@ public class ModifyLoanController extends HttpServlet {
 		String beginningDateString = req.getParameter("beginningDate");
 		String endDateString = req.getParameter("endDate");
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		HashMap<String, Object> params = new HashMap<String, Object>();
 
 		if (beginningDateString != null) {

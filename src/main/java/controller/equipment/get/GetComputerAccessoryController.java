@@ -35,7 +35,7 @@ public class GetComputerAccessoryController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ComputerAccessory computerAccessory = this.computerAccessoryDAO.get(Integer.parseInt(req.getParameter("id")));
-		this.computerAccessoryDAO.closeConn();
+		// this.computerAccessoryDAO.closeConn();
 
 		// add already loaned periods
 		PreparedStatement dateStatement;

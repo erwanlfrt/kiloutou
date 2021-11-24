@@ -6,18 +6,19 @@ import model.object.loan.Loan;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
+import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import controller.router.Router;
 
 import java.time.LocalDate;
 
 public class SearchLoanController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
 		String pageName = "/view/loan/search-loan.jsp";
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 
 		LoanDAO loanDAO = new LoanDAO();
 		ArrayList<Loan> loans = loanDAO.listAll();
@@ -48,13 +49,9 @@ public class SearchLoanController extends HttpServlet {
 		request.setAttribute("oldLoans", oldLoans);
 		request.setAttribute("loansToCome", loansToCome);
 
-		try {
-			rd.forward(request, response);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+    Router.forward(pageName, this, request, response);
+
 	}
 
 	@Override

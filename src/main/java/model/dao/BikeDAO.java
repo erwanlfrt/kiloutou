@@ -29,6 +29,7 @@ public class BikeDAO extends Model implements Dao<Bike> {
 		String query = "INSERT INTO " + this.table + " (id, numberOfCylinders) VALUES (" + id + ", " + numberOfCylinders
 				+ ");";
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -42,6 +43,7 @@ public class BikeDAO extends Model implements Dao<Bike> {
 		String query = "DELETE FROM " + this.table + " WHERE id = " + id + ";";
 
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -62,6 +64,7 @@ public class BikeDAO extends Model implements Dao<Bike> {
 		if (id instanceof Integer) {
 			String query = "SELECT * from " + this.table + " WHERE id = ?;";
 			try {
+        this.refreshConnection();
 				PreparedStatement statement = this.connection.prepareStatement(query);
 				statement.setInt(1, (Integer) id);
 				ResultSet rs = statement.executeQuery(query);
@@ -86,6 +89,7 @@ public class BikeDAO extends Model implements Dao<Bike> {
 	public ArrayList<Bike> listAll() {
 		ArrayList<Bike> result = new ArrayList<Bike>();
 		try {
+      this.refreshConnection();
 			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM " + this.table + ";");
 			ResultSet rs = statement.executeQuery();
 			VehicleDAO vehicleDAO = new VehicleDAO();
@@ -108,6 +112,7 @@ public class BikeDAO extends Model implements Dao<Bike> {
 	public ArrayList<Equipment> listAllIdAndName() {
 		ArrayList<Equipment> result = new ArrayList<Equipment>();
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(
 					"SELECT id, name, canBeLoaned FROM Equipment WHERE id IN (SELECT id FROM " + this.table + ") ;");
@@ -152,6 +157,7 @@ public class BikeDAO extends Model implements Dao<Bike> {
 			String query = "UPDATE " + this.table + " SET " + changes + " WHERE id = " + id + ";";
 			Statement statement;
 			try {
+        this.refreshConnection();
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
 				statement.close();

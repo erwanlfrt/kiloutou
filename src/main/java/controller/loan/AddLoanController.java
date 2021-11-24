@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
+import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,16 +40,8 @@ public class AddLoanController extends HttpServlet {
 		request.setAttribute("users", users);
 
 		String pageName = "/view/loan/add-loan.jsp";
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
-
-		try {
-			rd.forward(request, response);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.closeConn();
+		Router.forward(pageName, this, request, response);
+		// this.closeConn();
 	}
 
 	@Override
@@ -76,6 +68,10 @@ public class AddLoanController extends HttpServlet {
 
 		this.loanDAO.add(loan);
 		this.closeConn();
+
+    // redirect to welcome page
+    String pageName = "/welcome";
+    Router.redirect(pageName, this, req, resp);
 	}
 
 	private void closeConn() {

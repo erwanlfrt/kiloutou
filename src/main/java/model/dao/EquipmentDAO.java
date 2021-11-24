@@ -32,6 +32,7 @@ public class EquipmentDAO extends Model implements Dao<Equipment> {
 		String query = "INSERT INTO " + this.table + " (id, name, available, imageUrl) VALUES (" + id + ", \'" + name
 				+ "\', " + available + ", \'" + imageUrl + "\');";
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -45,6 +46,7 @@ public class EquipmentDAO extends Model implements Dao<Equipment> {
 		String query = "DELETE FROM " + this.table + " WHERE id = " + id + ";";
 
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -65,6 +67,7 @@ public class EquipmentDAO extends Model implements Dao<Equipment> {
 		if (id instanceof Integer) {
 			String query = "SELECT * from " + this.table + " WHERE id = ? ;";
 			try {
+        this.refreshConnection();
 				PreparedStatement statement = this.connection.prepareStatement(query);
 				statement.setInt(1, (Integer) id);
 				ResultSet rs = statement.executeQuery();
@@ -85,6 +88,7 @@ public class EquipmentDAO extends Model implements Dao<Equipment> {
 		int res = -1;
 		String query = "SELECT MAX(id) AS maxId FROM " + this.table + ";";
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			if (rs.next()) {
@@ -101,6 +105,7 @@ public class EquipmentDAO extends Model implements Dao<Equipment> {
 	public ArrayList<Equipment> listAll() {
 		ArrayList<Equipment> result = new ArrayList<Equipment>();
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT * FROM " + this.table + ";");
 			while (rs.next()) {
@@ -117,6 +122,7 @@ public class EquipmentDAO extends Model implements Dao<Equipment> {
 				}
 
 				result.add(e);
+				dateStatement.close();
 			}
 			rs.close();
 			statement.close();
@@ -129,6 +135,7 @@ public class EquipmentDAO extends Model implements Dao<Equipment> {
 	public ArrayList<Equipment> listAllIdAndName() {
 		ArrayList<Equipment> result = new ArrayList<Equipment>();
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT id, name, canBeLoaned FROM " + this.table + ";");
 			while (rs.next()) {
@@ -172,6 +179,7 @@ public class EquipmentDAO extends Model implements Dao<Equipment> {
 			String query = "UPDATE " + this.table + " SET " + changes + " WHERE id = " + id + ";";
 			Statement statement;
 			try {
+        this.refreshConnection();
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
 				statement.close();

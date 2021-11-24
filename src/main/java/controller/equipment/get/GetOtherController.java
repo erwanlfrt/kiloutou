@@ -35,7 +35,7 @@ public class GetOtherController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Equipment equipment = this.equipmentDAO.get(Integer.parseInt(req.getParameter("id")));
-		this.equipmentDAO.closeConn();
+		// this.equipmentDAO.closeConn();
 		
 		// add already loaned periods
 		PreparedStatement dateStatement;

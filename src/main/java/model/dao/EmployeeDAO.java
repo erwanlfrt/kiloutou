@@ -33,6 +33,7 @@ public class EmployeeDAO extends Model implements Dao<Employee> {
 				+ " (mail, employeeService, employeeFunction, profil, deskNumber) VALUES (\'" + mail + "\', \'"
 				+ service + "\', \'" + function + "\', \'" + profil + "\', " + deskNumber + ");";
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -46,6 +47,7 @@ public class EmployeeDAO extends Model implements Dao<Employee> {
 		String query = "DELETE FROM " + this.table + " WHERE mail = \'" + mail + "\';";
 
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -68,6 +70,7 @@ public class EmployeeDAO extends Model implements Dao<Employee> {
 		if (id instanceof String) {
 			String query = "SELECT * from " + this.table + " WHERE mail = ?;";
 			try {
+        this.refreshConnection();
 				PreparedStatement statement = this.connection.prepareStatement(query);
 				statement.setString(1, (String) id);
 				ResultSet rs = statement.executeQuery();
@@ -92,6 +95,7 @@ public class EmployeeDAO extends Model implements Dao<Employee> {
 	public ArrayList<Employee> listAll() {
 		ArrayList<Employee> result = new ArrayList<Employee>();
 		try {
+      this.refreshConnection();
 			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM " + this.table + ";");
 			ResultSet rs = statement.executeQuery();
 			UserDAO userDAO = new UserDAO();
@@ -139,6 +143,7 @@ public class EmployeeDAO extends Model implements Dao<Employee> {
 			String query = "UPDATE " + this.table + " SET " + changes + " WHERE mail = \'" + mail + "\';";
 			Statement statement;
 			try {
+        this.refreshConnection();
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
 				statement.close();

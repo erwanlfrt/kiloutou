@@ -8,7 +8,7 @@ import model.object.user.Profil;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
+import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,14 +21,7 @@ import controller.router.Router;
 public class AddUserController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
 		String pageName = "/view/user/add-user.jsp";
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
-		try {
-			rd.forward(request, response);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    Router.forward(pageName, this, request, response);
 	}
 
 	@Override

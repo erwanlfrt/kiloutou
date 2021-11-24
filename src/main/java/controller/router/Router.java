@@ -9,20 +9,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class Router {
-	public static void redirect(String route, HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		resp.sendRedirect(req.getContextPath() + route);
-		/*RequestDispatcher rd = servlet.getServletContext().getRequestDispatcher(route);
-		if (rd == null) {
-			// bad redirection
-			rd = servlet.getServletContext().getRequestDispatcher("/error");
-		}
+	public static void redirect(String route, HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) {
 		try {
-			rd.forward(req, resp);
-		} catch (ServletException e) {
-			e.printStackTrace();
+			resp.sendRedirect(req.getContextPath() + route);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
+
+  public static void forward(String route, HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) {
+    RequestDispatcher rd = servlet.getServletContext().getRequestDispatcher(route);
+		try {
+			rd.forward(req, resp);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
+  }
 }

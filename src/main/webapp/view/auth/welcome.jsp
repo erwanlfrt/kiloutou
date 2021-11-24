@@ -1,6 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@page
-	import="model.object.user.* , javax.servlet.* , java.io.IOException"%>
+	import="model.object.user.* , javax.servlet.* , java.io.IOException, controller.router.Router"%>
 <%
 User user = (User) request.getSession().getAttribute("user");
 Employee employee = (Employee) request.getSession().getAttribute("employee");
@@ -8,15 +8,16 @@ String login = "";
 Profil profile = null;
 
 if (user == null || employee == null) {
-	request.setAttribute("message", "Vous n'êtes pas autorisé à accéder à cette page.");
+	request.setAttribute("message", "Vous n'êtes pas authentifié.");
 	RequestDispatcher rd = getServletContext().getRequestDispatcher("/error");
 	try {
-		rd.forward(request, response);
+		rd.forward(request,response);
 	} catch (ServletException e) {
 		e.printStackTrace();
 	} catch (IOException e) {
 		e.printStackTrace();
 	}
+	
 } else {
 	login = user.getLogin();
 	profile = employee.getProfil();

@@ -26,6 +26,7 @@ public class VehicleAccessoryDAO extends Model implements Dao<VehicleAccessory> 
 
 		String query = "INSERT INTO " + this.table + " (id) VALUES (" + id + ");";
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -39,6 +40,7 @@ public class VehicleAccessoryDAO extends Model implements Dao<VehicleAccessory> 
 		String query = "DELETE FROM " + this.table + " WHERE id = " + id + ";";
 
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -59,6 +61,7 @@ public class VehicleAccessoryDAO extends Model implements Dao<VehicleAccessory> 
 		if (id instanceof Integer) {
 			String query = "SELECT * from " + this.table + " WHERE id = ? ;";
 			try {
+        this.refreshConnection();
 				PreparedStatement statement = this.connection.prepareStatement(query);
 				statement.setInt(1, (Integer) id);
 				ResultSet rs = statement.executeQuery();
@@ -80,6 +83,7 @@ public class VehicleAccessoryDAO extends Model implements Dao<VehicleAccessory> 
 	public ArrayList<VehicleAccessory> listAll() {
 		ArrayList<VehicleAccessory> result = new ArrayList<VehicleAccessory>();
 		try {
+      this.refreshConnection();
 			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM " + this.table + ";");
 			ResultSet rs = statement.executeQuery();
 			EquipmentDAO equipmentDAO = new EquipmentDAO();
@@ -99,6 +103,7 @@ public class VehicleAccessoryDAO extends Model implements Dao<VehicleAccessory> 
 	public ArrayList<Equipment> listAllIdAndName() {
 		ArrayList<Equipment> result = new ArrayList<Equipment>();
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(
 					"SELECT id, name, canBeLoaned FROM Equipment WHERE id IN (SELECT id FROM " + this.table + ") ;");
@@ -145,6 +150,7 @@ public class VehicleAccessoryDAO extends Model implements Dao<VehicleAccessory> 
 			String query = "UPDATE " + this.table + " SET " + changes + " WHERE id = " + id + ";";
 			Statement statement;
 			try {
+        this.refreshConnection();
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
 				statement.close();

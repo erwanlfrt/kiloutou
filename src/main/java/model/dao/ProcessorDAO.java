@@ -29,6 +29,7 @@ public class ProcessorDAO extends Model implements Dao<Processor> {
 		String query = "INSERT INTO " + this.table + " (id, name, numberOfCores, frequency, brand) VALUES (" + id
 				+ ", \'" + name + "\', \'" + numberOfCores + "\', " + frequency + ", \'" + brand + "\');";
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -40,8 +41,8 @@ public class ProcessorDAO extends Model implements Dao<Processor> {
 	public void delete(Processor object) {
 		int id = object.getId();
 		String query = "DELETE FROM " + this.table + " WHERE id = " + id + ";";
-
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -62,6 +63,7 @@ public class ProcessorDAO extends Model implements Dao<Processor> {
 		if (id instanceof Integer) {
 			String query = "SELECT * from " + this.table + " WHERE id =  ? ;";
 			try {
+        this.refreshConnection();
 				PreparedStatement statement = this.connection.prepareStatement(query);
 				statement.setInt(1, (Integer) id);
 				ResultSet rs = statement.executeQuery();
@@ -82,6 +84,7 @@ public class ProcessorDAO extends Model implements Dao<Processor> {
 		int res = -1;
 		String query = "SELECT MAX(id) AS maxId FROM " + this.table + ";";
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			if (rs.next()) {
@@ -98,6 +101,7 @@ public class ProcessorDAO extends Model implements Dao<Processor> {
 	public ArrayList<Processor> listAll() {
 		ArrayList<Processor> result = new ArrayList<Processor>();
 		try {
+      this.refreshConnection();
 			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM " + this.table + ";");
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
@@ -138,6 +142,7 @@ public class ProcessorDAO extends Model implements Dao<Processor> {
 			String query = "UPDATE " + this.table + " SET " + changes + " WHERE id = " + id + ";";
 			Statement statement;
 			try {
+        this.refreshConnection();
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
 				statement.close();

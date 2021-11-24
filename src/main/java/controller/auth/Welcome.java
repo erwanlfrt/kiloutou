@@ -2,7 +2,6 @@ package controller.auth;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +15,8 @@ import model.dao.UserDAO;
 import model.object.user.Employee;
 import model.object.user.User;
 
+import controller.router.Router;
+
 public class Welcome extends HttpServlet {
 	private UserDAO userDAO;
 	private EmployeeDAO employeeDAO;
@@ -27,20 +28,16 @@ public class Welcome extends HttpServlet {
 	}
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
-		RequestDispatcher rd;
+    String pageName;
 		if (request.getAttribute("error") == null) {
-			rd = getServletContext().getRequestDispatcher("/view/auth/welcome.jsp");
+			pageName = "/view/auth/welcome.jsp";
+      Router.forward(pageName, this, request, response);
 		} else {
-			rd = getServletContext().getRequestDispatcher("/login");
+			pageName = "/login";
+      Router.redirect(pageName, this, request, response);
 		}
 
-		try {
-			rd.forward(request, response);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    
 
 		this.destroy();
 	}

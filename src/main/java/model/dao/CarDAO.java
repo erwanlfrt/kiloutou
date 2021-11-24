@@ -27,6 +27,7 @@ public class CarDAO extends Model implements Dao<Car> {
 
 		String query = "INSERT INTO " + this.table + " (id, numberOfSeats) VALUES (" + id + ", " + numberOfSeats + ");";
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -40,6 +41,7 @@ public class CarDAO extends Model implements Dao<Car> {
 		String query = "DELETE FROM " + this.table + " WHERE id = " + id + ";";
 
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -60,7 +62,8 @@ public class CarDAO extends Model implements Dao<Car> {
 		if (id instanceof Integer) {
 			String query = "SELECT * from " + this.table + " WHERE id = " + (Integer) id + ";";
 			try {
-				Statement statement = this.connection.createStatement();
+        this.refreshConnection();
+        Statement statement = this.connection.createStatement();
 				ResultSet rs = statement.executeQuery(query);
 				while (rs.next()) {
 					VehicleDAO vehicleDAO = new VehicleDAO();
@@ -83,6 +86,7 @@ public class CarDAO extends Model implements Dao<Car> {
 	public ArrayList<Car> listAll() {
 		ArrayList<Car> result = new ArrayList<Car>();
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT * FROM " + this.table + ";");
 			while (rs.next()) {
@@ -104,6 +108,7 @@ public class CarDAO extends Model implements Dao<Car> {
 	public ArrayList<Equipment> listAllIdAndName() {
 		ArrayList<Equipment> result = new ArrayList<Equipment>();
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(
 					"SELECT id, name, canBeLoaned FROM Equipment WHERE id IN (SELECT id FROM " + this.table + ") ;");
@@ -148,6 +153,7 @@ public class CarDAO extends Model implements Dao<Car> {
 			String query = "UPDATE " + this.table + " SET " + changes + " WHERE id = " + id + ";";
 			Statement statement;
 			try {
+        this.refreshConnection();
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
 				statement.close();

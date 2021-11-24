@@ -2,23 +2,17 @@ package controller.auth;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import controller.router.Router;
+
 public class Logout extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/login");
-		try {
-			rd.forward(request, response);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Router.redirect("/login", this, request, response);
 	}
 
 	@Override

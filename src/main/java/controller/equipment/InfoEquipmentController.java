@@ -17,7 +17,7 @@ import model.object.equipment.VehicleAccessory;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
+import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,14 +27,7 @@ public class InfoEquipmentController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
 		String pageName = "/view/equipment/info-equipment.jsp";
 
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
-		try {
-			rd.forward(request, response);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Router.forward(pageName, this, request, response);
 	}
 
 	@Override
@@ -101,21 +94,11 @@ public class InfoEquipmentController extends HttpServlet {
 					}
 				}
 			}
-
+      this.doProcess(req, resp);
 		} else {
 			String pageName = "/error";
-
-			RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
-			try {
-				rd.forward(req, resp);
-			} catch (ServletException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			Router.redirect(pageName, this, req, resp);
 		}
-
-		this.doProcess(req, resp);
 	}
 
 	@Override

@@ -35,7 +35,7 @@ public class GetComputerController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Computer computer = this.computerDAO.get(Integer.parseInt(req.getParameter("id")));
-		this.computerDAO.closeConn();
+		// this.computerDAO.closeConn();
 
 		// add already loaned periods
 		PreparedStatement dateStatement;

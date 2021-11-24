@@ -28,6 +28,7 @@ public class GraphicCardDAO extends Model implements Dao<GraphicCard> {
 		String query = "INSERT INTO " + this.table + " (id, name, frequency, brand) VALUES (" + id + ", \'" + name
 				+ "\', " + frequency + ", \'" + brand + "\');";
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -41,6 +42,7 @@ public class GraphicCardDAO extends Model implements Dao<GraphicCard> {
 		String query = "DELETE FROM " + this.table + " WHERE id = " + id + ";";
 
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -61,6 +63,7 @@ public class GraphicCardDAO extends Model implements Dao<GraphicCard> {
 		if (id instanceof Integer) {
 			String query = "SELECT * from " + this.table + " WHERE id = ? ;";
 			try {
+        this.refreshConnection();
 				PreparedStatement statement = this.connection.prepareStatement(query);
 				statement.setInt(1, (Integer) id);
 				ResultSet rs = statement.executeQuery();
@@ -81,6 +84,7 @@ public class GraphicCardDAO extends Model implements Dao<GraphicCard> {
 		int res = -1;
 		String query = "SELECT MAX(id) AS maxId FROM " + this.table + ";";
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			if (rs.next()) {
@@ -97,6 +101,7 @@ public class GraphicCardDAO extends Model implements Dao<GraphicCard> {
 	public ArrayList<GraphicCard> listAll() {
 		ArrayList<GraphicCard> result = new ArrayList<GraphicCard>();
 		try {
+      this.refreshConnection();
 			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM " + this.table + ";");
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
@@ -137,6 +142,7 @@ public class GraphicCardDAO extends Model implements Dao<GraphicCard> {
 			String query = "UPDATE " + this.table + " SET " + changes + " WHERE id = " + id + ";";
 			Statement statement;
 			try {
+        this.refreshConnection();
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
 				statement.close();

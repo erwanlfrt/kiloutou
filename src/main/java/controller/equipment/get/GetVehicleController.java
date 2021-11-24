@@ -34,7 +34,7 @@ public class GetVehicleController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Vehicle vehicle = this.vehicleDAO.get(Integer.parseInt(req.getParameter("id")));
-		this.vehicleDAO.closeConn();
+		// this.vehicleDAO.closeConn();
 
 		// add already loaned periods
 		PreparedStatement dateStatement;

@@ -27,6 +27,7 @@ public class SuitableVehicleDAO extends Model implements Dao<SuitableVehicle> {
 		String query = "INSERT INTO " + this.table + " (vehicleId, accessoryId) VALUES (" + vehicleId + ", "
 				+ vehicleAccessoryId + ");";
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -42,6 +43,7 @@ public class SuitableVehicleDAO extends Model implements Dao<SuitableVehicle> {
 				+ accessoryId + ";";
 
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -63,6 +65,7 @@ public class SuitableVehicleDAO extends Model implements Dao<SuitableVehicle> {
 			String query = "SELECT * from " + this.table + " WHERE vehicleId = " + ((Integer[]) id)[0]
 					+ " AND accessoryId = " + ((Integer[]) id)[1] + ";";
 			try {
+        this.refreshConnection();
 				Statement statement = this.connection.createStatement();
 				ResultSet rs = statement.executeQuery(query);
 				while (rs.next()) {
@@ -84,6 +87,7 @@ public class SuitableVehicleDAO extends Model implements Dao<SuitableVehicle> {
 	public ArrayList<SuitableVehicle> listAll() {
 		ArrayList<SuitableVehicle> result = new ArrayList<SuitableVehicle>();
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT * FROM " + this.table + ";");
 			while (rs.next()) {
@@ -130,6 +134,7 @@ public class SuitableVehicleDAO extends Model implements Dao<SuitableVehicle> {
 					+ " AND accessoryId = " + vehicleAccessoryId + ";";
 			Statement statement;
 			try {
+        this.refreshConnection();
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
 				statement.close();

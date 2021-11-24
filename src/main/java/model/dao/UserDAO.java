@@ -37,6 +37,7 @@ public class UserDAO extends Model implements Dao<User> {
 				+ firstname + "\', \'" + address + "\', \'" + phoneNumber + "\', \'" + mail + "\', \'" + login
 				+ "\', SHA1(\'" + password + "\'), " + isReal + " );";
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -50,6 +51,7 @@ public class UserDAO extends Model implements Dao<User> {
 		String query = "DELETE FROM " + this.table + " WHERE mail = \'" + mail + "\';";
 
 		try {
+      this.refreshConnection();
 			Statement statement = this.connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -70,6 +72,7 @@ public class UserDAO extends Model implements Dao<User> {
 		if (id instanceof String) {
 			String query = "SELECT * from " + this.table + " WHERE mail = ? ;";
 			try {
+        this.refreshConnection();
 				PreparedStatement statement = this.connection.prepareStatement(query);
 				statement.setString(1, (String) id);
 				ResultSet rs = statement.executeQuery();
@@ -91,6 +94,7 @@ public class UserDAO extends Model implements Dao<User> {
 	public ArrayList<User> listAll() {
 		ArrayList<User> result = new ArrayList<User>();
 		try {
+      this.refreshConnection();
 			PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM " + this.table + ";");
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
@@ -136,6 +140,7 @@ public class UserDAO extends Model implements Dao<User> {
 		try {
 			// check if login doesn't already exist in database
 			while (alreadyExist) {
+        this.refreshConnection();
 				PreparedStatement statement = this.connection
 						.prepareStatement("SELECT COUNT(*) AS count FROM " + this.table + " WHERE login = ?");
 				statement.setString(1, login);
@@ -166,6 +171,7 @@ public class UserDAO extends Model implements Dao<User> {
 		try {
 			// check if login doesn't already exist in database
 			while (alreadyExist) {
+        this.refreshConnection();
 				PreparedStatement statement = this.connection
 						.prepareStatement("SELECT COUNT(*) AS count FROM " + this.table + " WHERE mail = ?");
 				statement.setString(1, email);
@@ -219,6 +225,7 @@ public class UserDAO extends Model implements Dao<User> {
 			String query = "UPDATE " + this.table + " SET " + changes + " WHERE mail = \'" + mail + "\';";
 			Statement statement;
 			try {
+        this.refreshConnection();
 				statement = this.connection.createStatement();
 				statement.executeUpdate(query);
 				statement.close();
