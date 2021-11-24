@@ -2,6 +2,7 @@ package controller.equipment.list;
 
 import model.dao.*;
 import model.object.equipment.*;
+import model.object.user.Profil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+
+import controller.auth.Role;
 
 public class ListComputerAccessoriesController extends HttpServlet {
 
@@ -27,6 +30,9 @@ public class ListComputerAccessoriesController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.EQUIPMENT_ADMIN, Profil.ADMIN))
+			return;
+
 		ArrayList<Equipment> listComputerAccessories = this.computerAccessoryDAO.listAllIdAndName();
 		this.computerAccessoryDAO.closeConn();
 		resp.setContentType("application/json");
@@ -37,6 +43,7 @@ public class ListComputerAccessoriesController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		if (!Role.can(this, req, resp, Profil.FORBIDDEN))
+			return;
 	}
 }

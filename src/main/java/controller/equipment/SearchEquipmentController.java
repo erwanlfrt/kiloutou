@@ -20,11 +20,13 @@ import model.object.equipment.ComputerAccessory;
 
 import model.dao.VehicleAccessoryDAO;
 import model.object.equipment.VehicleAccessory;
+import model.object.user.Profil;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import controller.auth.Role;
 import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,6 +42,9 @@ public class SearchEquipmentController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.EQUIPMENT_ADMIN, Profil.ADMIN))
+			return;
+		
 		ArrayList<Integer> ids = new ArrayList<Integer>();
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		VehicleDAO vehicleDAO = new VehicleDAO();
@@ -130,6 +135,9 @@ public class SearchEquipmentController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.EQUIPMENT_ADMIN, Profil.ADMIN))
+			return;
+		
 		this.doProcess(req, resp);
 	}
 

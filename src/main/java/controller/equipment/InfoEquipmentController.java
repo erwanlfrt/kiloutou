@@ -14,9 +14,11 @@ import model.object.equipment.ComputerAccessory;
 import model.object.equipment.Equipment;
 import model.object.equipment.Vehicle;
 import model.object.equipment.VehicleAccessory;
+import model.object.user.Profil;
 
 import java.io.IOException;
 
+import controller.auth.Role;
 import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +34,9 @@ public class InfoEquipmentController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.EQUIPMENT_ADMIN, Profil.ADMIN))
+			return;
+		
 		int id = Integer.parseInt(req.getParameter("id"));
 
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
@@ -103,5 +108,7 @@ public class InfoEquipmentController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.FORBIDDEN))
+			return;
 	}
 }

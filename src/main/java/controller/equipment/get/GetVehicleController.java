@@ -2,6 +2,7 @@ package controller.equipment.get;
 
 import model.dao.*;
 import model.object.equipment.*;
+import model.object.user.Profil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+
+import controller.auth.Role;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,6 +36,9 @@ public class GetVehicleController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.EQUIPMENT_ADMIN, Profil.ADMIN))
+			return;
+		
 		Vehicle vehicle = this.vehicleDAO.get(Integer.parseInt(req.getParameter("id")));
 		// this.vehicleDAO.closeConn();
 
@@ -64,7 +70,8 @@ public class GetVehicleController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		if (!Role.can(this, req, resp, Profil.FORBIDDEN))
+			return;
 	}
 
 }
