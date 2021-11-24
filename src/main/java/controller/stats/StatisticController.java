@@ -61,25 +61,19 @@ public class StatisticController extends HttpServlet {
 		HashMap<String, Integer> loanDistribution = this.getLoanDistribution();
 		int[] loanDistributionPerMonth = this.getLoanDistributionPerMonth();
 
-
 		req.setAttribute("equipmentDistribution", equipmentDistribution);
 		req.setAttribute("mostLoanedEquipments", mostLoanedEquipments);
 		req.setAttribute("bestLoaners", bestLoaners);
 		req.setAttribute("loanDistribution", loanDistribution);
 		req.setAttribute("loanDistributionPerMonth", loanDistributionPerMonth);
-		
+
 		this.eDAO.closeConn();
 		this.vehicleDAO.closeConn();
 		this.vehicleAccessoryDAO.closeConn();
 		this.computerDAO.closeConn();
 		this.computerAccessoryDAO.closeConn();
-		
-		try {
-			this.connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		this.closeConn();
 
 		this.doProcess(req, resp);
 	}
@@ -146,6 +140,7 @@ public class StatisticController extends HttpServlet {
 		HashMap<String, Integer> results = new HashMap<String, Integer>();
 		PreparedStatement statement;
 		try {
+			this.refreshConnection();
 			statement = this.connection.prepareStatement(
 					"SELECT Equipment.id,  COUNT(Equipment.id) AS count_id, name FROM Loan,Equipment WHERE Equipment.id=Loan.equipmentId GROUP BY Equipment.id ORDER BY count(Equipment.id) DESC ;");
 			ResultSet rs = statement.executeQuery();
@@ -158,7 +153,7 @@ public class StatisticController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		this.closeConn();
 		return results;
 	}
 
@@ -166,6 +161,7 @@ public class StatisticController extends HttpServlet {
 		HashMap<String, Integer> results = new HashMap<String, Integer>();
 		PreparedStatement statement;
 		try {
+			this.refreshConnection();
 			statement = this.connection.prepareStatement(
 					"SELECT name, firstname, count(User.mail) AS count_loan FROM Loan, User WHERE Loan.userMail = User.mail GROUP BY User.mail ORDER BY count(User.mail) DESC;");
 			ResultSet rs = statement.executeQuery();
@@ -178,7 +174,7 @@ public class StatisticController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		this.closeConn();
 		return results;
 	}
 
@@ -190,6 +186,7 @@ public class StatisticController extends HttpServlet {
 
 		PreparedStatement statement;
 		try {
+			this.refreshConnection();
 			statement = this.connection.prepareStatement(loansToCome);
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
@@ -212,7 +209,7 @@ public class StatisticController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		this.closeConn();
 		return results;
 	}
 
@@ -230,6 +227,7 @@ public class StatisticController extends HttpServlet {
 				end = LocalDate.of(LocalDate.now().getYear(), i, 1);
 			}
 			try {
+				this.refreshConnection();
 				statement = this.connection
 						.prepareStatement("SELECT COUNT(*) AS count_month FROM Loan WHERE beginningDate < DATE(' "
 								+ end.toString() + "') AND beginningDate >= DATE('" + beginning.toString() + "');");
@@ -245,6 +243,7 @@ public class StatisticController extends HttpServlet {
 			}
 
 		}
+		this.closeConn();
 		return results;
 	}
 
@@ -254,6 +253,21 @@ public class StatisticController extends HttpServlet {
 			newlyCastedArrayList.add((N) listObject);
 		}
 		return newlyCastedArrayList;
+	}
+
+	private void refreshConnection() {
+		try {
+			if (this.connection.isClosed()) {
+				this.connection = DBManager.getInstance().getConnection();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void closeConn() {
+		DBManager.getInstance().cleanup(connection, null, null);
 	}
 
 }
