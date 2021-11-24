@@ -11,7 +11,7 @@ Employee employee = (Employee) request.getAttribute("employee");
 String login = "";
 Profil profile = null;
 
-if (user == null || employee == null) {
+if (user == null) {
 	request.setAttribute("message", "Vous n'êtes pas autorisé à accéder à cette page.");
 	RequestDispatcher rd = getServletContext().getRequestDispatcher("/error");
 	try {
@@ -57,7 +57,7 @@ if (user == null || employee == null) {
 					<label for="login">Login</label>
        	 		</div>
        	 		<div class="form-item input-group">
-				<% if(user.getMail().equals(user.getMail())) { %>
+				<% if(logged.getMail().equals(user.getMail())) { %>
             		<input type="password" value="" name="password" required>
             		<label for="password">Mot de passe</label>
             	<% } else { %>
