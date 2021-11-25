@@ -1,7 +1,7 @@
 # kiloutou
 TP UML - JEE
 
-## Team A
+## Team 06
  - DOUADY Tom
  - DUSE Mathieu
  - GUILLOUX Nathan
