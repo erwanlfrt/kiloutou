@@ -113,6 +113,7 @@
 	 </main>
    </body>
 
+  <script src="${pageContext.request.contextPath}/view/equipment/js/header.js"></script>
   <script>
   
 	document.getElementById("button-cancel").addEventListener('click', function() {

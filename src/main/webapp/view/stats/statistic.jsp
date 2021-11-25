@@ -55,6 +55,7 @@
   </body>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="${pageContext.request.contextPath}/view/stats/js/header.js"></script>
   <script>
   
   	var equipmentDistributionKeys = [
