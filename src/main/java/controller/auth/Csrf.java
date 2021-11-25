@@ -2,7 +2,11 @@ package controller.auth;
 
 import java.util.UUID;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import controller.router.Router;
 
 public class Csrf {
 	
@@ -24,19 +28,23 @@ public class Csrf {
 		return this.csrfToken;
 	}
 	
-	public static Boolean validateRequest(HttpServletRequest request, String token) {
+	public static Boolean validateRequest(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) {
+		Boolean pass = false;
 		
-		//String csrfToken = req.getParameter("_token");
+		String inputToken = req.getParameter("_token");
 		
-				//if (Csrf.validateRequest(req, csrfToken)) {
-					
-				//}
+		if (inputToken != null) {
+			Object csrf = req.getSession().getAttribute("csrf");
+			
+			if (csrf != null) {
+				pass = inputToken.equals((String) csrf);
+			}	
+		}
 		
-		Boolean pass = true;
-		Object csrf = request.getSession().getAttribute("csrf");
-		
-		if (csrf == null || !token.equals((String) csrf)) {
-			pass = false;
+		if (pass == false) {
+			String pageName = "/error";
+			req.setAttribute("message", "Session expirée veuillez recharger cette page.");
+			Router.redirect(pageName, servlet, req, resp);
 		}
 		
 		return pass;
@@ -46,6 +54,6 @@ public class Csrf {
 		/*byte[] array = new byte[32 * 8];
 	    new Random().nextBytes(array);
 	    this.csrfToken = new String(array, Charset.forName("UTF-8"));*/
-		this.csrfToken = UUID.randomUUID().toString();
+		this.csrfToken = UUID.randomUUID().toString().replace("-", "");
 	}
 }

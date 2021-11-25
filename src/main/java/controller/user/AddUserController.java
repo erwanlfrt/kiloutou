@@ -36,9 +36,11 @@ public class AddUserController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		if (!Role.can(this, req, resp, Profil.ADMIN))
 			return;
+		
+		//if (!Csrf.validateRequest(this, req, resp))
+		//	return;
 
 		String name = req.getParameter("name");
 		String firstname = req.getParameter("firstname");
