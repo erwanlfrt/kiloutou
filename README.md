@@ -1,6 +1,14 @@
 # kiloutou
 TP UML - JEE
 
+## Team A
+ - DOUADY Tom
+ - DUSE Mathieu
+ - GUILLOUX Nathan
+ - LE FORESTIER Erwan
+ - PONTACQ Hugo
+
+
 ## Get started
 
  - Modifier le fichier src/main/java/config.properties et modifier les lignes ```DB_LOGIN``` et ```DB_PASSWORD```
