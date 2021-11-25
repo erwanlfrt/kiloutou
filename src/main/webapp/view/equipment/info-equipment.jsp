@@ -74,6 +74,9 @@
   							<p><%= equipment.isAvailable() ? "Disponible" : "Indisponible" %></p>
   						</div>
   					</div>
+  					<div>
+  						<img title="Modifier" class="equipment-edit" src="${pageContext.request.contextPath}/images?name=edit.png" alt="Modifier" width="25px" height="25px" onclick="window.location.replace('${pageContext.request.contextPath}/equipment/modify?id=<%= equipment.getId() %>')" />
+  					</div>
   				</div>
   				<div>
   				<% if (vehicle != null) { %>
