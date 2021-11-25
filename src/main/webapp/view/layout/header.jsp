@@ -143,6 +143,8 @@
 				</div>
 			</div>
 
+			<a href="${pageContext.request.contextPath}/stats/statistics">Statistiques</a>
+			
 			<% } %>
 
 			<hr>
