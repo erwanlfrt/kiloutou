@@ -26,6 +26,7 @@ if (user == null || employee == null) {
 <html>
   <head>
     <title>kiloutou</title>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/view/user/css/search-user.css" />
   </head>
   <body>
@@ -46,7 +47,7 @@ if (user == null || employee == null) {
   				<input type="text" id="searchBar" name="searchBar" />
   				<label for="searchBar">Prénom et/ou Nom</label>
   			</div>
-  			<div class="search-slider">
+  			<div class="search-slider" title="Changer affichage prénom nom / email">
   				<label class="switch" >
           			<input type="checkbox" id="searchType">
           			<span id="sliderClick" class="slider round" ></span>

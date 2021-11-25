@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SearchEquipmentController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
 		String pageName = "/view/equipment/search-equipment.jsp";
-
+		response.setCharacterEncoding("UTF-8");
 		Router.forward(pageName, this, request, response);
 	}
 
