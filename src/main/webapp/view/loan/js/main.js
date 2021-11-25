@@ -267,9 +267,10 @@ function setDatePickers(isInit) {
 function prettyPrintEquipment(equipment) {
   let info = document.getElementById('info');
   info.innerHTML = `
-  <h3>Équipement </h3>
-  <p>Nom : ` + equipment.name +` </p>
-  <img src="`+ equipment.imageUrl +`">
+	<div>
+		<img src="`+ equipment.imageUrl +`" alt="Equipement" width="70px" height="70px" />
+		<h2>` + equipment.name +`</h2>
+	</div>
   `
 
   // if is a vehicle

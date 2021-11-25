@@ -1,0 +1,534 @@
+
+/**
+ * Main style
+ **/
+
+
+main {
+	padding: 66px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+main > div {
+	width: 70%;
+	display: flex;
+}
+
+main > div h1 {
+	justify-content: flex-start;
+	font-weight: 900;
+	font-variant: small-caps;
+	font-size: 36px;
+	line-height: 42px;
+	padding: 0 30px 15px 0;
+	border-bottom: 1px solid #C4C4C4;
+}
+
+main form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-top: 40px;
+	width: 100%;
+}
+
+a.disabled {
+	pointer-events: none;
+	filter: grayscale(1);
+}
+
+/**
+ * Style Section étape 1 (step1)
+ **/
+
+#step1 {
+	display: none;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+#step1.active {
+	display: flex;
+}
+
+#step1 > div {
+	margin-bottom: 15px;
+}
+
+#step1 > div:first-child {
+	display: flex;
+	flex-direction: column;
+}
+
+#step1 > div:first-child > * {
+	margin: 15px 0;
+}
+
+.select label {
+	position: absolute;
+	left: 17px;
+	top: 15px;
+	font-weight: normal;
+	pointer-events: none;
+	transition: 0.2s ease all;
+	-moz-transition: 0.2s ease all;
+	-webkit-transition: 0.2s ease all;
+}
+
+.select select ~ label {
+	top: -16px;
+	left: 18px;
+	padding: 6px;
+	background-color: white;
+	font-size: 14px;
+	color: var(--secondary-color);
+}
+
+.select select {
+	/* Reset Select */
+	appearance: none;
+	outline: 0;
+	border: 0;
+	box-shadow: none;
+	/* Personalize */
+	flex: 1;
+	padding: 10px 15px;
+	color: black;
+	background-color: white;
+	background-image: none;
+	cursor: pointer;
+	font-size: 16px;
+	border: 1px solid #ced4da;
+}
+/* Remove IE arrow */
+.select select ::-ms-expand {
+	display: none;
+}
+/* Custom Select wrapper */
+.select  {
+	position: relative;
+	display: flex;
+	width: 20em;
+	height: 3em;
+}
+/* Arrow */
+.select::before {
+	content: '\25BC';
+	position: absolute;
+	color: #232323; 
+	top : 0;
+	right: 0;
+	padding: 1em;
+	transition: .25s all ease;
+	pointer-events: none;
+	top: 0;
+}
+
+/* Arrow */
+.select:hover::after {
+	color: var(--main-color); 
+}
+
+.recap {
+	padding: 50px 100px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.recap div {
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #C4C4C4;
+	padding-bottom: 20px;
+	margin-bottom: 20px; 
+}
+
+.recap div img {
+	margin-right: 15px;
+}
+
+.recap > h2 {
+	text-align: center;
+}
+
+.recap h4 {
+	margin-bottom: 1rem; 
+}
+
+.recap h4.user-title {
+	border-top: 1px solid #C4C4C4;
+	padding-top: 1rem;
+}
+
+/**
+ * Style Section étape 2 (step2)
+ **/
+
+#step2 {
+	display: none;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+#step2.active {
+	display: flex;
+}
+
+#step2 > div {
+	margin-bottom: 15px;
+}
+
+#step2 .search-section {
+	display: flex;
+	align-items: center;
+	
+}
+
+#step2 .search-section {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	margin-bottom: 30px;
+}
+
+#step2 .search-icon {
+	padding: 10px 15px;
+	border: 1px solid #DADADA;
+}
+
+#step2 .search-input {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	margin-right: auto;
+}
+
+#step2 .search-input label {
+	position: absolute;
+	left: 17px;
+	top: 15px;
+	font-weight: normal;
+	pointer-events: none;
+	transition: 0.2s ease all;
+	-moz-transition: 0.2s ease all;
+	-webkit-transition: 0.2s ease all;
+}
+
+#step2 .search-input input {
+	font-size: 18px;
+	padding: 12px;
+	display: block;
+	width: 100%;
+	border: 1px solid #ced4da;
+}
+
+#step2 .search-input input:focus  {
+	outline: none;
+}
+
+#step2 .search-input input.active ~ label,
+#step2 .search-input input:focus ~ label {
+	top: -15px;
+	left: 18px;
+	padding: 6px;
+	background-color: white;
+	font-size: 14px;
+	color: var(--secondary-color);
+}
+
+
+.user-item {
+	display: flex;
+	align-items: center;
+}
+
+.user-item:nth-child(even) {
+	background-color: rgba(255, 180, 180, 0.24);
+}
+
+.user-item * {
+	margin: 15px 40px;
+}
+
+.user-item p {
+	margin-right: auto !important;
+}
+
+.user-item p a {
+	text-decoration: none;
+	color: black;
+}
+
+.user-item p a:hover {
+	color: var(--secondary-color);
+}
+
+.user-select:hover {
+	-moz-filter: invert(49%) sepia(68%) saturate(4424%) hue-rotate(169deg) brightness(97%) contrast(103%);
+	filter: invert(49%) sepia(68%) saturate(4424%) hue-rotate(169deg) brightness(97%) contrast(103%);
+	cursor: pointer;
+}
+
+.userItem.active {
+	display: block;
+}
+
+.userItem {
+	display: none;
+}
+
+.userItem.selected {
+	color: var(--secondary-color);
+}
+
+.userItem.selected + .user-select {
+	-moz-filter: invert(49%) sepia(68%) saturate(4424%) hue-rotate(169deg) brightness(97%) contrast(103%);
+	filter: invert(49%) sepia(68%) saturate(4424%) hue-rotate(169deg) brightness(97%) contrast(103%);
+}
+
+.userItem:hover {
+	cursor: pointer;
+	color: var(--secondary-color);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--secondary-color);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.search-slider {
+	display: flex;
+	align-items: center;
+	margin-left: 10px;
+}
+
+
+@media screen and (max-width: 1100px) {
+	.user-item img:first-child {
+		display: none;
+	}
+	.user-item * {
+		margin: 15px 10px;
+	}
+}
+
+
+/**
+ * Style étape 3 (step 3)
+ **/
+
+#step3.active {
+	display: flex;
+}
+ 
+#step3 {
+	display: none;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+#step3 > div {
+	margin-bottom: 15px;
+}
+
+#beginningDate, #endDate {
+	font-size: 18px;
+	padding: 15px;
+	display: block;
+	border: 1px solid #ced4da;
+	margin: 10px 0px;
+}
+
+@media screen and (max-width: 1100px) {
+	.recap {
+		padding: 50px;
+	}
+}
+
+/**
+ * Style section boutons
+ **/
+
+.section-button {
+	display: flex;
+	justify-content: space-around;
+}
+
+.section-button * {
+	padding: 10px 15px;
+	font-weight: 500;
+	color: white;
+	text-decoration: none;
+}
+
+.section-button a:hover, .section-button #next:hover, .section-button #previous:hover, .section-button #validate:hover {
+	color: white;
+	cursor: pointer;
+}
+
+.section-button #cancel {
+	background-color: var(--red-color);
+}
+
+.section-button #previous {
+	border: 1px solid black;
+	color: black;
+	display: none;
+}
+
+.section-button #previous:hover {
+	background-color: black;
+	color: white;
+	transition: background-color 0.15s ease-in, color 0.15s ease-in;
+}
+
+.section-button #next {
+	background-color: var(--secondary-color);
+	display: none;
+}
+
+.section-button #validate {
+	background-color: var(--green-color);
+	display: none;
+}
+
+.section-button #previous.active, .section-button #next.active, .section-button #validate.active {
+	display: block;
+}
+
+/*Bootstrap Calendar*/
+.datepicker {
+  border-radius: 0;
+  padding: 0;
+}
+.datepicker-days table thead, .datepicker-days table tbody, .datepicker-days table tfoot {
+  padding: 10px;
+  display: list-item;
+}
+.datepicker-days table thead, .datepicker-months table thead, .datepicker-years table thead, .datepicker-decades table thead, .datepicker-centuries table thead {
+  background: #3546b3;
+  color: #ffffff;
+  border-radius: 0;
+}
+.datepicker-days table thead tr:nth-child(2n+0) td, .datepicker-days table thead tr:nth-child(2n+0) th {
+  border-radius: 3px;
+}
+.datepicker-days table thead tr:nth-child(3n+0) {
+  text-transform: uppercase;
+  font-weight: 300 !important;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+.table-condensed > tbody > tr > td, .table-condensed > tbody > tr > th, .table-condensed > tfoot > tr > td, .table-condensed > tfoot > tr > th, .table-condensed > thead > tr > td, .table-condensed > thead > tr > th {
+  padding: 11px 13px;
+}
+.datepicker-months table thead td, .datepicker-months table thead th, .datepicker-years table thead td, .datepicker-years table thead th, .datepicker-decades table thead td, .datepicker-decades table thead th, .datepicker-centuries table thead td, .datepicker-centuries table thead th {
+  border-radius: 0;
+}
+.datepicker td, .datepicker th {
+  border-radius: 50%;
+  padding: 0 12px;
+}
+.datepicker-days table thead, .datepicker-months table thead, .datepicker-years table thead, .datepicker-decades table thead, .datepicker-centuries table thead {
+  background: #3546b3;
+  color: #ffffff;
+  border-radius: 0;
+}
+.datepicker table tr td.active, .datepicker table tr td.active:hover, .datepicker table tr td.active.disabled, .datepicker table tr td.active.disabled:hover {
+  background-image: none;
+}
+.datepicker .prev, .datepicker .next {
+  color: rgba(255, 255, 255, 0.5);
+  transition: 0.3s;
+  width: 37px;
+  height: 37px;
+}
+.datepicker .prev:hover, .datepicker .next:hover {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.99);
+  font-size: 21px;
+}
+.datepicker .datepicker-switch {
+  font-size: 24px;
+  font-weight: 400;
+  transition: 0.3s;
+}
+.datepicker .datepicker-switch:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background: transparent;
+}
+.datepicker table tr td span {
+  border-radius: 2px;
+  margin: 3%;
+  width: 27%;
+}
+.datepicker table tr td span.active, .datepicker table tr td span.active:hover, .datepicker table tr td span.active.disabled, .datepicker table tr td span.active.disabled:hover {
+background-color: #3546b3;
+background-image: none;
+}
+.dropdown-menu {
+  border: 1px solid rgba(0,0,0,.1);
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+.datepicker-dropdown.datepicker-orient-top:before {
+  border-top: 7px solid rgba(0,0,0,.1);
+}
