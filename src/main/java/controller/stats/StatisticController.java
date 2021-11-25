@@ -7,11 +7,13 @@ import model.dao.VehicleAccessoryDAO;
 import model.dao.VehicleDAO;
 
 import model.object.equipment.Equipment;
+import model.object.user.Profil;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import controller.auth.Role;
 import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -55,6 +57,9 @@ public class StatisticController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp))
+			return;
+		
 		HashMap<String, Integer> equipmentDistribution = this.getEquipmentDistribution();
 		HashMap<String, Integer> mostLoanedEquipments = this.getMostLoanedEquipments();
 		HashMap<String, Integer> bestLoaners = this.getBestLoaner();
@@ -80,6 +85,9 @@ public class StatisticController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.FORBIDDEN))
+			return;
+		
 	}
 
 	private HashMap<String, Integer> getEquipmentDistribution() {

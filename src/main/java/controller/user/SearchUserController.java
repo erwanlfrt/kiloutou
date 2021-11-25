@@ -1,11 +1,13 @@
 package controller.user;
 
 import model.dao.UserDAO;
+import model.object.user.Profil;
 import model.object.user.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import controller.auth.Role;
 import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +23,9 @@ public class SearchUserController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.ADMIN))
+			return;
+		
 		UserDAO userDAO = new UserDAO();
 		ArrayList<User> users = userDAO.listAll();
 		req.setAttribute("users", users);
@@ -30,6 +35,8 @@ public class SearchUserController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.FORBIDDEN))
+			return;
 
 	}
 }

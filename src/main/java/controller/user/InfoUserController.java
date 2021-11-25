@@ -6,11 +6,13 @@ import model.dao.LoanDAO;
 import model.object.user.User;
 import model.object.loan.Loan;
 import model.object.user.Employee;
+import model.object.user.Profil;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import controller.auth.Role;
 import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +31,9 @@ public class InfoUserController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.ADMIN))
+			return;
+		
 		String mail = req.getParameter("mail");
 
 		if (mail == null) {
@@ -64,6 +69,9 @@ public class InfoUserController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.ADMIN))
+			return;
+		
 		JsonObject data = new Gson().fromJson(req.getReader(), JsonObject.class);
 		String id = data.get("id").getAsString();
 		LoanDAO loanDAO = new LoanDAO();
