@@ -18,13 +18,13 @@
   </div>
 
   <div class="form-item input-group">  
-    <label for="model">Modèle</label>
     <input id="vehicleModel" type="text" value="" name="model" required>
+    <label for="model">Modèle</label>
   </div>
   
   <div class="form-item input-group">
-    <label for="registrationNumber">Plaque d'immatriculation</label>
     <input id="registrationNumber" type="text" value="" name="registrationNumber" required>
+    <label for="registrationNumber">Plaque d'immatriculation</label>
   </div>
 
   <div class="form-item">

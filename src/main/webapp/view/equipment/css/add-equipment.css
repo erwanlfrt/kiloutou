@@ -469,3 +469,6 @@ input:checked + .slider:before {
 	align-items: center;
 }
 
+#sliderButton {
+	display: none;
+}
