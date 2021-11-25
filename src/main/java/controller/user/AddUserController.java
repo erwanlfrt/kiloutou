@@ -39,9 +39,10 @@ public class AddUserController extends HttpServlet {
 		if (!Role.can(this, req, resp, Profil.ADMIN))
 			return;
 		
-		//if (!Csrf.validateRequest(this, req, resp))
-		//	return;
+		if (!Csrf.validateRequest(this, req, resp))
+			return;
 
+		
 		String name = req.getParameter("name");
 		String firstname = req.getParameter("firstname");
 		String login = req.getParameter("login");
@@ -71,6 +72,7 @@ public class AddUserController extends HttpServlet {
 			employeeDAO.closeConn();
 
 		}
+		
 		Router.redirect("/user/search", this, req, resp);
 	}
 }

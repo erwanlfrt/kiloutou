@@ -32,9 +32,10 @@ public class Csrf {
 		Boolean pass = false;
 		
 		String inputToken = req.getParameter("_token");
+		Object csrf = null;
 		
 		if (inputToken != null) {
-			Object csrf = req.getSession().getAttribute("csrf");
+			csrf = req.getSession().getAttribute("csrf");
 			
 			if (csrf != null) {
 				pass = inputToken.equals((String) csrf);
@@ -45,6 +46,8 @@ public class Csrf {
 			String pageName = "/error";
 			req.setAttribute("message", "Session expirée veuillez recharger cette page.");
 			Router.redirect(pageName, servlet, req, resp);
+			
+			System.out.println("DO NOT PASS \nForm token : " + inputToken + "\nToken : " + csrf);
 		}
 		
 		return pass;
