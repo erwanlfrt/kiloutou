@@ -38,11 +38,13 @@ public class Role {
 				if (!hasRole(employee, role)) {
 					canRedirect = false;
 					String pageName = "/error";
+					req.setAttribute("message", "Vous n'êtes pas autorisé à accéder à cette page.");
 					Router.redirect(pageName, servlet, req, resp);
 				}
 			} else {
 				canRedirect = false;
 				String pageName = "/login";
+				// req.setAttribute("message", "Vous devez vous connecter.");
 				Router.redirect(pageName, servlet, req, resp);
 			}
 		}

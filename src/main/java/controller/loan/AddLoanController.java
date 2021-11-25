@@ -1,21 +1,24 @@
 package controller.loan;
 
-import model.dao.*;
-import model.object.equipment.*;
-import model.object.loan.Loan;
-import model.object.user.User;
-
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
-import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import controller.auth.Role;
+import controller.router.Router;
+import model.dao.EquipmentDAO;
+import model.dao.LoanDAO;
+import model.dao.UserDAO;
+import model.object.equipment.Equipment;
+import model.object.loan.Loan;
+import model.object.user.Profil;
+import model.object.user.User;
 
 // import com.google.gson.Gson;
 
@@ -46,11 +49,17 @@ public class AddLoanController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.LOAN_ADMIN, Profil.ADMIN))
+			return;
+		
 		this.doProcess(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.LOAN_ADMIN, Profil.ADMIN))
+			return;
+		
 		int equipmentId = Integer.parseInt(req.getParameter("equipmentId"));
 		String userMail = req.getParameter("userMail");
 		String beginningDateString = req.getParameter("beginningDate");

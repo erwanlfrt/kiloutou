@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import java.util.HashMap;
 
+import controller.auth.Role;
 import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,6 +28,10 @@ public class ModifyUserController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		if (!Role.can(this, req, resp, Profil.ADMIN))
+			return;
+		
 		String mail = req.getParameter("mail");
 
 		UserDAO userDAO = new UserDAO();
@@ -53,6 +58,9 @@ public class ModifyUserController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.ADMIN))
+			return;
+		
 		String name = req.getParameter("name");
 		String firstname = req.getParameter("firstname");
 		String login = req.getParameter("login");

@@ -18,10 +18,12 @@ import model.object.equipment.GraphicCard;
 import model.object.equipment.Processor;
 import model.object.equipment.Vehicle;
 import model.object.equipment.VehicleAccessory;
+import model.object.user.Profil;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import controller.auth.Role;
 import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -39,6 +41,9 @@ public class AddEquipmentController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.EQUIPMENT_ADMIN, Profil.ADMIN))
+			return;
+		
 		ProcessorDAO processorDAO = new ProcessorDAO();
 		GraphicCardDAO gcDAO = new GraphicCardDAO();
 
@@ -55,6 +60,9 @@ public class AddEquipmentController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.EQUIPMENT_ADMIN, Profil.ADMIN))
+			return;
+		
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 
 		String category = req.getParameter("categories");

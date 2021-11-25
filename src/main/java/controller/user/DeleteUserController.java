@@ -3,10 +3,12 @@ package controller.user;
 import model.dao.UserDAO;
 import model.dao.EmployeeDAO;
 import model.dao.LoanDAO;
+import model.object.user.Profil;
 import model.object.user.User;
 
 import java.io.IOException;
 
+import controller.auth.Role;
 import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,10 +27,15 @@ public class DeleteUserController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.FORBIDDEN))
+			return;
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.ADMIN))
+			return;
+		
 		JsonObject data = new Gson().fromJson(req.getReader(), JsonObject.class);
 		String mail = data.get("mail").getAsString();
 

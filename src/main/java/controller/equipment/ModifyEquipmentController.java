@@ -1,5 +1,16 @@
 package controller.equipment;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import controller.auth.Role;
+import controller.router.Router;
 import model.dao.BikeDAO;
 import model.dao.CarDAO;
 import model.dao.ComputerAccessoryDAO;
@@ -18,16 +29,7 @@ import model.object.equipment.GraphicCard;
 import model.object.equipment.Processor;
 import model.object.equipment.Vehicle;
 import model.object.equipment.VehicleAccessory;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import controller.router.Router;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import model.object.user.Profil;
 
 public class ModifyEquipmentController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
@@ -38,6 +40,9 @@ public class ModifyEquipmentController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.EQUIPMENT_ADMIN, Profil.ADMIN))
+			return;
+		
 		int id = Integer.parseInt(req.getParameter("id"));
 
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
@@ -122,6 +127,9 @@ public class ModifyEquipmentController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.EQUIPMENT_ADMIN, Profil.ADMIN))
+			return;
+		
 		EquipmentDAO equipmentDAO = new EquipmentDAO();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 

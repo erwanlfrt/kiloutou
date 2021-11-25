@@ -2,10 +2,12 @@ package controller.loan;
 
 import model.dao.LoanDAO;
 import model.object.loan.Loan;
+import model.object.user.Profil;
 
 import java.io.IOException;
 import java.util.HashMap;
 
+import controller.auth.Role;
 import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +25,9 @@ public class InfoLoanController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.LOAN_ADMIN, Profil.ADMIN))
+			return;
+		
 		String pageName;
 		int id = Integer.valueOf(req.getParameter("id"));
 		this.loan = this.loanDAO.get(id);
@@ -39,6 +44,9 @@ public class InfoLoanController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.LOAN_ADMIN, Profil.ADMIN))
+			return;
+		
 		if (this.loan != null && req.getParameter("updateLoan") != null) {
 			HashMap<String, Object> params = new HashMap<String, Object>();
 			params.put("isOver", req.getParameter("updateLoan").equals("signaler comme rendu"));

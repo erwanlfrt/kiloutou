@@ -2,6 +2,8 @@ package controller.loan;
 
 import model.dao.*;
 import model.object.equipment.*;
+import model.object.user.Profil;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+
+import controller.auth.Role;
 
 public class ListAllLoan extends HttpServlet {
 
@@ -36,6 +40,9 @@ public class ListAllLoan extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.LOAN_ADMIN, Profil.ADMIN))
+			return;
+		
 		HashMap<String, ArrayList<Equipment>> listEquipments = new HashMap<String, ArrayList<Equipment>>();
 
 		ArrayList<Equipment> allEquipments = this.eDAO.listAll();
@@ -118,7 +125,8 @@ public class ListAllLoan extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		if (!Role.can(this, req, resp, Profil.FORBIDDEN))
+			return;
 	}
 
 	private <N, O> ArrayList<N> castArrayList(ArrayList<O> list) {

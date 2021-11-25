@@ -2,10 +2,12 @@ package controller.loan;
 
 import model.dao.LoanDAO;
 import model.object.loan.Loan;
+import model.object.user.Profil;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import controller.auth.Role;
 import controller.router.Router;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -56,11 +58,17 @@ public class SearchLoanController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.LOAN_ADMIN, Profil.ADMIN))
+			return;
+		
 		this.doProcess(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (!Role.can(this, req, resp, Profil.LOAN_ADMIN, Profil.ADMIN))
+			return;
+		
 		this.doProcess(req, resp);
 
 	}
