@@ -34,9 +34,7 @@ if (user == null) {
   </head>
   <body>
   
-  	<jsp:include page="header-user.jsp">
-  		<jsp:param name="profile" value="<%= profile %>" />
-  	</jsp:include>
+  	<%@include file="../layout/header.jsp" %>
   	
   	<main>
   		<section>

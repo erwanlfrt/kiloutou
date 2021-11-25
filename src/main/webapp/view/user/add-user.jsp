@@ -32,14 +32,13 @@ if (user == null || employee == null) {
   </head>
   <body>
   
-  	<jsp:include page="header-user.jsp">
-  		<jsp:param name="profile" value="<%= profile %>" />
-  	</jsp:include>
+  	<%@include file="../layout/header.jsp" %>
   	
   	<main>
   		<section>
   			<h1>NOUVEL UTILISATEUR</h1>
   			<form id="addForm" method="POST" name="addForm">
+  				<input type="hidden" name="_token" value="<%= request.getSession().getAttribute("csrf") %>">
   				<p><i>Les champs marqués par * sont obligatoires.</i></p>
 				<div class="form-item input-group">
 					<input type="text" name="name" required>

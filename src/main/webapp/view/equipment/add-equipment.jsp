@@ -1,14 +1,17 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@page import=" java.io.IOException, java.util.ArrayList, model.object.equipment.* "%>
+<%@page import=" java.io.IOException, java.util.ArrayList, model.object.equipment.*, model.object.user.* , javax.servlet.*  "%>
 <%
   Equipment equipment = (Equipment) request.getAttribute("equipment");
+  
   boolean isAModification = (equipment != null);
+  
   Vehicle vehicle = (Vehicle) request.getAttribute("vehicle");
   Car car = (Car) request.getAttribute("car");
   Bike bike = (Bike) request.getAttribute("bike");
   ComputerAccessory computerAccessory = (ComputerAccessory) request.getAttribute("computerAccessory");
   VehicleAccessory vehicleAccessory = (VehicleAccessory) request.getAttribute("vehicleAccessory");
   Computer computer = (Computer) request.getAttribute("computer");
+  
   boolean isAvailable = (equipment == null) || equipment.isAvailable();
   boolean canBeLoaned = (equipment == null) || equipment.canBeLoaned();
 
@@ -19,58 +22,103 @@
     processors = (ArrayList<Processor>) request.getAttribute("processors");
     graphicCards = (ArrayList<GraphicCard>) request.getAttribute("graphicCards");
   }
+  
+  User user = (User) request.getSession().getAttribute("user");
+  Employee employee = (Employee) request.getSession().getAttribute("employee");
 
+  String login = "";
+  Profil profile = null;
+
+  if (user == null || employee == null) {
+  	request.setAttribute("message", "Vous n'êtes pas autorisé à accéder à cette page.");
+  	RequestDispatcher rd = getServletContext().getRequestDispatcher("/error");
+  	try {
+  		rd.forward(request, response);
+  	} catch (ServletException e) {
+  		e.printStackTrace();
+  	} catch (IOException e) {
+  		e.printStackTrace();
+  	}
+  } else {
+  	login = user.getLogin();
+  	profile = employee.getProfil();
+  }
 %>
+
 <html>
   <head>
     <title>Add equipment</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/view/equipment/css/add-equipment.css" />
   </head>
   <body>
-    <h1>Add equipment</h1>
-    <form style="display : flex ; flex-direction: column; align-items: flex-start" method="POST">
-      <label for="name">Nom</label>
-    	<input type="text" value="${equipment == null ? '' : equipment.getName() }" name="name" required>
+  
+  	<%@include file="../layout/header.jsp" %>
+  	
+	<main>
+	  	<section>
+		  	<h1>AJOUT DE MATERIEL</h1>
+		    <form id="addForm" method="POST" name="addForm">
+		      <p><i>Les champs marqués par * sont obligatoires.</i></p>
+		      <div class="form-item input-group">
+		    	<input type="text" value="${equipment == null ? '' : equipment.getName() }" name="name" required>
+		      	<label for="name">Nom</label>
+			  </div>
+			  
+			  <div class="form-item dispo-item" >
+			      <p>Disponible</p>
+			      <div>
+			        <label for="available">Oui</label>
+			        <input type="radio" value="available" name="available" required <%= isAvailable ? "checked" : "" %>>
+			        
+			        <label for="available">Non</label>
+			    	<input type="radio" value="notAvailable" name="available" required <%= !isAvailable ? "checked" : "" %>>
+			      </div>
+			  </div>
+			  
+			  <div class="form-item input-group">
+    		      <input type="text" value="${equipment == null ? '' : equipment.getImageUrl()}" name="imageURL" required>
+			      <label for="imageURL">URL de l'image</label>
+			  </div>
+			  <div class="search-type">
+			      <select name="categories" id="categories" onchange="loadForm()" <%= equipment != null ? "disabled" : ""%>>
+			        <option value="other" selected="selected" <%= (computer == null && vehicle == null && computerAccessory == null && vehicleAccessory == null) ? "selected" : "" %> >Catégorie</option>
+			        <option value="computer"<%= computer != null ? "selected" : "" %>>Ordinateur</option>
+			        <option value="vehicle" <%= vehicle != null ? "selected" : "" %>>Véhicule</option>
+			        <option value="computerAccessory" <%= computerAccessory != null ? "selected" : "" %>>Accessoire informatique</option>
+			        <option value="vehicleAccessory" <%= vehicleAccessory != null ? "selected" : "" %>>Accessoire automobile</option>
+			      </select>
+			  </div>
+			  
+		      <div class="form" id="specificForm"></div>
+		      <% if(isAModification) {
+		        %>
+		        <input type="text"  name="canBeLoaned" value="<%= canBeLoaned%>" id="sliderButton">
+		        <label for="canBeLoaned" >Actif : </label>
+		        <label class="switch" >
+		          <input type="checkbox" <%= canBeLoaned && isAModification ? "checked" : "" %>>
+		          <span onclick="sliderClick()" class="slider round" ></span>
+		        </label>
+		        <%
+		      }
+		      %>
+		     
+		      
+		      <div class="form-buttons">
+				<button type="button" id="button-cancel" class="cancel">Annuler</button>
+			  	<button type="submit" value="submit" class="validate">Confirmer</button>
+			  </div>
+		    </form>
+		  	
+	  	</section>
+	 </main>
+   </body>
 
-      <label for="available">Disponible</label>
-      <div>
-        <label for="available">Oui</label>
-        <input type="radio" value="available" name="available" required <%= isAvailable ? "checked" : "" %>>
-        
-        <label for="available">Non</label>
-    	  <input type="radio" value="notAvailable" name="available" required <%= !isAvailable ? "checked" : "" %>>
-      </div>
-      <label for="imageURL">URL de l'image</label>
-    	<input type="text" value="${equipment == null ? '' : equipment.getImageUrl()}" name="imageURL" required>
-
-      <label>Catégorie</label>
-      <select name="categories" id="categories" onchange="loadForm()" <%= equipment != null ? "disabled" : ""%>>
-        <option value="other" <%= (computer == null && vehicle == null && computerAccessory == null && vehicleAccessory == null) ? "selected" : "" %> >Autre</option>
-        <option value="computer"<%= computer != null ? "selected" : "" %>>Ordinateur</option>
-        <option value="vehicle" <%= vehicle != null ? "selected" : "" %>>Véhicule</option>
-        <option value="computerAccessory" <%= computerAccessory != null ? "selected" : "" %>>Accessoire informatique</option>
-        <option value="vehicleAccessory" <%= vehicleAccessory != null ? "selected" : "" %>>Accessoire automobile</option>
-      </select>
-
-      <div id="specificForm"></div>
-      <% if(isAModification) {
-        %>
-        <input type="text"  name="canBeLoaned" value="<%= canBeLoaned%>" id="sliderButton">
-        <label for="canBeLoaned" >Actif : </label>
-        <label class="switch" >
-          <input type="checkbox" <%= canBeLoaned && isAModification ? "checked" : "" %>>
-          <span onclick="sliderClick()" class="slider round" ></span>
-        </label>
-        <%
-      }
-      %>
-     
-      
-      <input type="submit" value="submit">
-    </form>
-  </body>
-
+  <script src="${pageContext.request.contextPath}/view/equipment/js/header.js"></script>
   <script>
+  
+	document.getElementById("button-cancel").addEventListener('click', function() {
+  		location.href = "/kiloutou/welcome";
+  	});
 
     // load processorsS
     var processors = [];
@@ -154,8 +202,8 @@
         if(isCar) {
           placeInput.value = '<%= car != null ? car.getNumberOfSeats() : "" %>';
         }
-        document.getElementById("spec").appendChild(label);
         document.getElementById("spec").appendChild(placeInput);
+        document.getElementById("spec").appendChild(label);
         inputAdded = true;
       }
       else if(select === "bike") {
@@ -167,8 +215,8 @@
         if(isBike) {
           numberOfCylindersInput.value = '<%= bike != null ? bike.getNumberOfCylinders() : "" %>';
         }
-        document.getElementById("spec").appendChild(label);
         document.getElementById("spec").appendChild(numberOfCylindersInput);
+        document.getElementById("spec").appendChild(label);
         inputAdded = true;
       }
     }
@@ -279,7 +327,7 @@
     function processorClick() {
       let processorChoice = document.getElementById("processorChoice");
       let processorForm = document.getElementById("processorForm");
-      let processorSelect = document.getElementById("processorSelect");
+      let processorSelect = document.getElementById("processorDivSelect");
       let processorLabel = document.getElementById("processorLabel");
       if(!processorChoice.checked) {
         processorLabel.innerText = "Nouveau processeur";
@@ -290,14 +338,14 @@
       else {
         processorLabel.innerText = "Choisir un processeur déjà existant";
         processorForm.style.display = "none";
-        processorSelect.style.display = "block";
+        processorSelect.style.display = "flex";
       }
     }
 
     function graphicCardClick() {
       let graphicCardChoice = document.getElementById("graphicCardChoice");
       let graphicCardForm = document.getElementById("graphicCardForm");
-      let graphicCardSelect = document.getElementById("graphicCardSelect");
+      let graphicCardSelect = document.getElementById("graphicCardDivSelect");
       let graphicCardLabel = document.getElementById("graphicCardLabel");
       if(!graphicCardChoice.checked) {
         graphicCardLabel.innerText = "Nouvelle carte graphique";
@@ -308,7 +356,7 @@
       else {
         graphicCardLabel.innerText = "Choisir une carte graphique déjà existante";
         graphicCardForm.style.display = "none";
-        graphicCardSelect.style.display = "block";
+        graphicCardSelect.style.display = "flex";
       }
     }
 

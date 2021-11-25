@@ -231,6 +231,11 @@ main section {
 
 .equipment-name > div {
 	margin-left: 30px;
+	margin-right: auto;
+}
+
+.equipment-name > div + div {
+	margin-right: 0;
 }
 
 .equipment-name + div {
@@ -243,6 +248,21 @@ main section {
 	padding: 30px 30px 0 0;
 	margin: 30px 0 15px 0;
 	border-top: 1px solid #C4C4C4;
+}
+.equipment-bin {
+	margin-left: 30px;
+}
+
+.equipment-bin:hover {
+	-moz-filter: invert(24%) sepia(35%) saturate(7335%) hue-rotate(348deg) brightness(101%) contrast(106%);
+	filter: invert(24%) sepia(35%) saturate(7335%) hue-rotate(348deg) brightness(101%) contrast(106%);
+	cursor: pointer;
+}
+
+.equipment-edit:hover {
+	-moz-filter: invert(49%) sepia(68%) saturate(4424%) hue-rotate(169deg) brightness(97%) contrast(103%);
+	filter: invert(49%) sepia(68%) saturate(4424%) hue-rotate(169deg) brightness(97%) contrast(103%);
+	cursor: pointer;
 }
 
 .accessory {

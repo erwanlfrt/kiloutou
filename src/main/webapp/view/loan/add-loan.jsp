@@ -19,6 +19,8 @@
 
 </head>
 <body onload="main()">
+<%@include file="../layout/header.jsp" %>
+
 	<main>
 		<h1>Emprunt</h1>
 		<form method="POST">

@@ -68,7 +68,7 @@
 	</nav>
 	<div class="disconnect nav-desktop">
 		<img src="${pageContext.request.contextPath}/images?name=power-off.png" alt="Déconnexion" width="auto"
-			height="20px"> <a href="${pageContext.request.contextPath}/logout">Se déconnecter</a>
+			height="20px"> <a href="#">Se déconnecter</a>
 	</div>
 	<div class="nav-mobile">
 		<img id="burger" src="${pageContext.request.contextPath}/images?name=menu.png" alt="Menu" width="30px"

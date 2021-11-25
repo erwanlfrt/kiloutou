@@ -1,24 +1,33 @@
 
 <%@ page language="java" pageEncoding="UTF-8"%>
 
-<div id="additionalForm" style="display : flex ; flex-direction: column; align-items: flex-start" >
+<div class="form" id="additionalForm" >
+  <div class="form-item input-group">
+    <input id="kilometers" type="number" value="" name="kilometers" required>
+    <label for="kilometers">Kilométrage : </label>
+  </div>
+  
+  <div class="form-item input-group">
+    <input id="renewalKilometers" type="number" value="" name="renewalKilometers" required>
+    <label for="renewalKilometers">Révision kilométrage</label>
+  </div>
+  
+  <div class="form-item input-group">
+    <input id="vehicleBrand" type="text" value="" name="brand" required>
+    <label for="brand">Marque</label>
+  </div>
 
-  <label for="kilometers">Kilométrage : </label>
-  <input id="kilometers" type="number" value="" name="kilometers" required>
+  <div class="form-item input-group">  
+    <input id="vehicleModel" type="text" value="" name="model" required>
+    <label for="model">Modèle</label>
+  </div>
+  
+  <div class="form-item input-group">
+    <input id="registrationNumber" type="text" value="" name="registrationNumber" required>
+    <label for="registrationNumber">Plaque d'immatriculation</label>
+  </div>
 
-  <label for="renewalKilometers">Révision kilométrage</label>
-  <input id="renewalKilometers" type="number" value="" name="renewalKilometers" required>
-
-  <label for="brand">Marque</label>
-  <input id="vehicleBrand" type="text" value="" name="brand" required>
-
-  <label for="model">Modèle</label>
-  <input id="vehicleModel" type="text" value="" name="model" required>
-
-  <label for="registrationNumber">Plaque d'immatriculation</label>
-  <input id="registrationNumber" type="text" value="" name="registrationNumber" required>
-
-  <div>
+  <div class="form-item">
     <label for="state">Bon état</label>
     <input id="GOOD" type="radio" value="GOOD" name="state" required>
 
@@ -29,16 +38,22 @@
     <input id="BAD" type="radio" value="BAD" name="state" required>
   </div>
 
-  <label for="maxSpeed">Vitesse maximale</label>
-  <input id="maxSpeed" type="number" value="" name="maxSpeed" required>
-
-  <label for="numberOfSpeeds">Nombre de vitesse</label>
-  <input id="numberOfSpeeds" type="number" value="" name="numberOfSpeeds" required>
-
-  <label for="power">Puissance (CH)</label>
-  <input id="power" type="number" value="" name="power" required>
-
-  <div>
+  <div class="form-item input-group">
+    <input id="maxSpeed" type="number" value="" name="maxSpeed" required>
+    <label for="maxSpeed">Vitesse maximale</label>
+  </div>
+  
+  <div class="form-item input-group">
+    <input id="numberOfSpeeds" type="number" value="" name="numberOfSpeeds" required>
+    <label for="numberOfSpeeds">Nombre de vitesse</label>
+  </div>
+  
+  <div class="form-item input-group">
+    <input id="power" type="number" value="" name="power" required>
+    <label for="power">Puissance (CH)</label>
+  </div>
+  
+  <div class="search-type">
     <select id="selectTypeVehicle" onchange="addInput()">
       <option value="other">Autre</option>
       <option value="bike">Moto</option>
@@ -46,5 +61,5 @@
     </select>
   </div>
 
-  <div id="spec"></div>
+  <div id="spec" class="form-item input-group"></div>
 </div>
