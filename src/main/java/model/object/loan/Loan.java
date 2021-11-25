@@ -92,7 +92,7 @@ public class Loan {
 	}
 
 	public boolean isCurrentlyLoaned() {
-		return LocalDate.now().isAfter(this.beginningDate) && LocalDate.now().isBefore(this.endDate) && !this.isOver;
+		return (LocalDate.now().isAfter(this.beginningDate) || LocalDate.now().equals(this.beginningDate) ) && (LocalDate.now().isBefore(this.endDate) || LocalDate.now().equals(this.endDate)) && !this.isOver;
 	}
 
 }
