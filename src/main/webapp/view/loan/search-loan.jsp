@@ -36,9 +36,7 @@
   </head>
   <body>
   
-  	<jsp:include page="header-loan.jsp">
-  		<jsp:param name="profile" value="<%= profile %>" />
-  	</jsp:include>
+  	<%@include file="../layout/header.jsp" %>
   	
   	<main>
   		<div>

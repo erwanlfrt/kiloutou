@@ -13,6 +13,8 @@
     <title>Statistiques</title>
   </head>
   <body>
+  <%@include file="../layout/header.jsp" %>
+  
     <h1>Statistiques</h1>
 
     <div id="equipmentDistribution">
