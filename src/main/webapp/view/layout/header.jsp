@@ -142,8 +142,10 @@
 					</div>
 				</div>
 			</div>
-
-			<a href="${pageContext.request.contextPath}/stats/statistics">Statistiques</a>
+			
+			<div class="accueil-item">		
+				<a href="${pageContext.request.contextPath}/stats/statistics">Statistiques</a>
+			</div>
 			
 			<% } %>
 
