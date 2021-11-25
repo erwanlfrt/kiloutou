@@ -1,0 +1,134 @@
+@charset "ISO-8859-1";
+
+/**
+ * Main style
+ **/
+
+
+main {
+	padding: 66px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+main > div {
+	width: 70%;
+	display: flex;
+}
+
+main > div h1 {
+	justify-content: flex-start;
+	font-weight: 900;
+	font-variant: small-caps;
+	font-size: 36px;
+	line-height: 42px;
+	padding: 0 30px 15px 0;
+	border-bottom: 1px solid #C4C4C4;
+}
+
+main section {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 70%;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	margin-top: 15px;
+}
+
+.info {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 10px;
+	background-color: #2D2D2D;
+	color: white;
+	flex-wrap: wrap;
+}
+
+.user {
+	padding: 30px 30px 0 30px;
+}
+
+.user-name {
+	display: flex;
+	align-items: center;
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+	border-bottom: 1px solid #C4C4C4;
+}
+
+.user-name img {
+	margin-right: 30px;
+}
+
+.user > p {
+	margin: 1.5em;
+	font-weight: 300;
+}
+
+.equipment {
+	width: calc(100% - 60px);
+	border-top: 1px solid #C4C4C4;
+	border-bottom: 1px solid #C4C4C4;
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.equipment img {
+	margin-left: 1.5em;
+	margin-right: 30px;
+}
+
+.button-section {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 30px;
+}
+
+.button-section form {
+	margin: 0;
+}
+
+.button-section a, .button-section button {
+	padding: 10px 15px;
+	background-color: var(--secondary-color);
+	color: white;
+	font-weight: 400 !important;
+	text-decoration: none;
+}
+
+.button-section button {
+	border: none;
+	font-size: 16px
+}
+
+.button-section button:hover {
+	cursor: pointer;
+}
+
+.button-section button.over {
+	background-color: var(--red-color);
+}
+
+.button-section button.notover {
+	background-color: var(--green-color);
+}
+
+@media screen and (max-width: 1100px) {
+	main {
+		padding: 0;
+	}
+	
+	.info {
+		justify-content: center;
+	}
+	
+	.info p:nth-child(2) {
+		display: none;
+	}
+}

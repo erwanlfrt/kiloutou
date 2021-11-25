@@ -9,6 +9,8 @@
 <html>
   <head>
     <title>Modifier un emprunt</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/view/loan/css/header.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/view/loan/css/modify-loan.css" />
     <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
   </head>
@@ -16,73 +18,80 @@
   
   <%@include file="../layout/header.jsp" %>
   
-    <h1>Modifier un emprunt</h1>
-
-    <div id="info">
-      <%
-        if(LocalDate.now().isAfter(loan.getBeginningDate())) {
-          %>
-            <p><b>Date d'emprunt : </b><%= loan.getStringBeginningDate()%></p>
-          <%
-        }
-
-        if(LocalDate.now().isAfter(loan.getEndDate())) {
-          %>
-            <p><b>Date de rendu : </b><%= loan.getStringEndDate()%></p>
-          <%
-        }
-      %>
-     
-      
-    </div>
-
-
-    <div id="user">
-      <h2>Emprunteur</h2>
-
-      <p><b>Nom : </b> <%= user.getName()%></p>
-      <p><b>Prénom : </b><%= user.getFirstname()%></p>
-      <p><b>Adresse mail : </b><%= user.getMail()%></p>
-      <p><b>N° de téléphone : </b><%= user.getPhoneNumber()%></p>
-      <p><b>Adresse : </b><%= user.getAddress()%></p>
-    </div>
-
-    <div id="equipment">
-      <h2>Équipement : </h2>
-      <p><b>Nom : </b><%= equipment.getName()%></p>
-      <p><b>Illustration : </b></p>
-      <img src="<%= equipment.getImageUrl()%>" style="width : 300px ; height : 300px">
-    </div>
-
-
-    <%
-      if (LocalDate.now().isBefore(loan.getBeginningDate()) || LocalDate.now().isBefore(loan.getEndDate()) ) {
-    %>
-      <form method="POST">
-        <%
-          if(LocalDate.now().isBefore(loan.getBeginningDate())) {
-            %>
-            <input class="datepicker" data-provide="datepicker" name="beginningDate" id="beginningDate" required>
-            <%
-          }
-
-          if(LocalDate.now().isBefore(loan.getEndDate())) {
-            %>
-              <input class="datepicker" data-provide="datepicker" name="endDate" id="endDate" required>
-            <%
-          }
-        %>
-      <input type="submit"> 
-      </form>
-    <%
-    }
-    %>
-
-  
+	<main>
+	  <div>
+	    <h1>Modifier un emprunt</h1>
+	  </div>
+	  <section>
+	    <%
+	      if (LocalDate.now().isBefore(loan.getBeginningDate()) || LocalDate.now().isBefore(loan.getEndDate()) ) {
+	    %>
+	    <form method="POST">
+		<% 
+	      }
+		%>
+	      <div class="info">
+	          <%
+	            if(LocalDate.now().isBefore(loan.getBeginningDate())) {
+	              %>
+	                <input class="datepicker" data-provide="datepicker" name="beginningDate" id="beginningDate" required>
+	              <%
+	            }else {
+		          %>
+		            <p><b>Date d'emprunt : </b><%= loan.getStringBeginningDate()%></p>
+		          <%
+		        } 
+	
+	          %>
+	           <p>-</p>
+	          <%
+	            if(LocalDate.now().isBefore(loan.getEndDate())) {
+	              %>
+	                <input class="datepicker" data-provide="datepicker" name="endDate" id="endDate" required>
+	              <%
+	            }else {
+		          %>
+		            <p><b>Date de rendu : </b><%= loan.getStringEndDate()%></p>
+		          <%
+		        } 
+	      %>
+	      
+	      </div>
+	
+	
+	    <div class="user">
+  		    <div class="user-name">
+  				<img src="${pageContext.request.contextPath}/images?name=profil.png" alt="User" width="70px" height="70px">
+  				<h2><%= user.getFirstname() %> <%= user.getName() %></h2>
+  			</div>
+      		<p>Mail : <%= user.getMail()%></p>
+      		<p>Téléphone : <%= user.getPhoneNumber()%></p>
+      		<p>Adresse : <%= user.getAddress()%></p>
+  		</div>
+	
+	    <div class="equipment">
+  			<img src="<%= equipment.getImageUrl() %>" alt="Equipement" width="70px" height="auto">
+  			<h2><%= equipment.getName()%></h2>
+  		</div>
+		
+		
+	    <%
+	      if (LocalDate.now().isBefore(loan.getBeginningDate()) || LocalDate.now().isBefore(loan.getEndDate()) ) {
+	    %>
+	         <div class="button-section">
+	           <button type="submit">Envoyer</button> 
+	      	 </div>
+	      </form>
+	    <%
+	    }
+	    %>
+      </section>
+	</main>  
   </body>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>  
+  <script src="${pageContext.request.contextPath}/view/loan/js/header.js"></script>
   <script>
     var equipment;
 
