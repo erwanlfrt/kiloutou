@@ -115,6 +115,10 @@
    </body>
 
   <script>
+  
+	document.getElementById("button-cancel").addEventListener('click', function() {
+  		location.href = "/kiloutou/welcome";
+  	});
 
     // load processorsS
     var processors = [];
