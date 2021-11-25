@@ -11,37 +11,47 @@
 <html>
   <head>
     <title>Statistiques</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/view/stats/css/statistic.css" />
   </head>
   <body>
   <%@include file="../layout/header.jsp" %>
-  
-    <h1>Statistiques</h1>
-
-    <div id="equipmentDistribution">
-      <h2>Répartition des équipements par type</h2>
-      <canvas id="equipmentDistributionCanvas" width="400" height="400"></canvas>
-    </div>
-
-    <div id="mostLoanedEquipments">
-      <h2>Équipements les plus empruntés</h2>
-      <canvas id="mostLoanedEquipmentsCanvas" width="400" height="400"></canvas>
-    </div>
-
-    <div id="bestLoaners">
-      <h2>Les utilisateurs les plus emprunteurs</h2>
-      <canvas id="bestLoanersCanvas" width="400" height="400"></canvas>
-    </div>
-
-    <div id="loanDistribution">
-      <h2>Répartition des emprunts</h2>
-      <canvas id="loanDistributionCanvas" width="400" height="400"></canvas>
-    </div>
-
-    <div id="loanDistributionPerMonth">
-      <h2>Répartition des emprunts par mois</h2>
-      <canvas id="loanDistributionPerMonthCanvas" width="400" height="400"></canvas>
-    </div>
-
+  <main>
+	  <section>
+	  	<div id="title">
+	      <h1>Statistiques</h1>
+		  <div id="line"></div>
+		</div>
+		
+		<div id="graphs">
+		
+			
+		    <div id="equipmentDistribution">
+		      <h2>Répartition des équipements par type</h2>
+		      <canvas id="equipmentDistributionCanvas" width="400" height="400"></canvas>
+		    </div>
+		
+		    <div id="mostLoanedEquipments">
+		      <h2>Équipements les plus empruntés</h2>
+		      <canvas id="mostLoanedEquipmentsCanvas" width="400" height="400"></canvas>
+		    </div>
+		
+		    <div id="bestLoaners">
+		      <h2>Les utilisateurs les plus emprunteurs</h2>
+		      <canvas id="bestLoanersCanvas" width="400" height="400"></canvas>
+		    </div>
+		
+		    <div id="loanDistribution">
+		      <h2>Répartition des emprunts</h2>
+		      <canvas id="loanDistributionCanvas" width="400" height="400"></canvas>
+		    </div>
+		
+		    <div id="loanDistributionPerMonth">
+		      <h2>Répartition des emprunts par mois</h2>
+		      <canvas id="loanDistributionPerMonthCanvas" width="400" height="400"></canvas>
+		    </div>
+		</div>	  
+	  </section>
+  </main>
   </body>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
