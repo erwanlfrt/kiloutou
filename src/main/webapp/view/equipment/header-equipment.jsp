@@ -31,7 +31,7 @@
 		<% if(profile.equals(Profil.EQUIPMENT_ADMIN.toString()) || profile.equals(Profil.ADMIN.toString())) { %>
 
 		<div class="dropdown">
-			<a href="#" class="active">Matériels</a>
+			<a href="#">Matériels</a>
 			<div class="dropdown-list">
 				<div class="dropdown-item">
 					<img src="${pageContext.request.contextPath}/images?name=add.png" alt="add" width="auto" height="18px">
@@ -49,7 +49,7 @@
 		<% if(profile.equals(Profil.ADMIN.toString())) { %>
 
 		<div class="dropdown">
-			<a href="#">Utilisateurs</a>
+			<a href="#" class="active">Utilisateurs</a>
 			<div class="dropdown-list">
 				<div class="dropdown-item">
 					<img src="${pageContext.request.contextPath}/images?name=add.png" alt="add" width="auto" height="18px">
@@ -68,7 +68,7 @@
 	</nav>
 	<div class="disconnect nav-desktop">
 		<img src="${pageContext.request.contextPath}/images?name=power-off.png" alt="Déconnexion" width="auto"
-			height="20px"> <a href="${pageContext.request.contextPath}/logout">Se déconnecter</a>
+			height="20px"> <a href="#">Se déconnecter</a>
 	</div>
 	<div class="nav-mobile">
 		<img id="burger" src="${pageContext.request.contextPath}/images?name=menu.png" alt="Menu" width="30px"
@@ -101,7 +101,7 @@
 			<% if(profile.equals(Profil.EQUIPMENT_ADMIN.toString()) || profile.equals(Profil.ADMIN.toString())) { %>
 
 			<div class="dropdown">
-				<a href="#" class="active">Matériels</a>
+				<a href="#">Matériels</a>
 				<div class="dropdown-list">
 					<div class="dropdown-item">
 						<img src="${pageContext.request.contextPath}/images?name=add.png" alt="add" width="auto"
@@ -119,7 +119,7 @@
 			<% if(profile.equals(Profil.ADMIN.toString())) { %>
 
 			<div class="dropdown">
-				<a href="#">Utilisateurs</a>
+				<a href="#"  class="active">Utilisateurs</a>
 				<div class="dropdown-list">
 					<div class="dropdown-item">
 						<img src="${pageContext.request.contextPath}/images?name=add.png" alt="add" width="auto"
