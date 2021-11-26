@@ -29,7 +29,7 @@ Depuis la racine :  ```git update-index --assume-unchanged src/main/java/config.
   - ~~Page de connexion~~
   - ~~Page d'erreur~~
   - ~~Page de statistiques~~
-  - Emprunt (ajouter, lister, info)
+  - ~~Emprunt (ajouter, lister, info)~~
   - ~~Utilisateur (ajouter, lister, info)~~
   - Matériels (ajouter, ~~lister~~, info)
  ### Fonctionnalité
@@ -43,7 +43,7 @@ Depuis la racine :  ```git update-index --assume-unchanged src/main/java/config.
   - ~~Ajout d'un matériel : si on ajoute un ordinateur, il faut pouvoir choisir un processeur et une carte graphique parmi les processeurs et carte graphique déjà existants ou alors créer une nouvelle carte graphique et un nouveau processeur~~
 
 ### Problème
-  - ~~# OBLIGATION de garder les emprunts une fois rendu, 1 emprunt = 1 matériel + 1 utilisateur (as primary key) alors impossible de supprimer les utilisateurs et les matériels ???~~ -> solution : on ne supprime pas un utilisateur ou un équipement dans la BDD, en revanche on modifie un flag  ```canBeLoaned``` pour les équipements. SI on souhaite supprimer un utilisateur, celui-ci est remplacé par un autre utilisateur non identifiable dans les emprunts existants.
+  - ~~# OBLIGATION de garder les emprunts une fois rendu, 1 emprunt = 1 matériel + 1 utilisateur (as primary key) alors impossible de supprimer les utilisateurs et les matériels ???~~ -> solution : on ne supprime un équipement dans la BDD, en revanche on modifie un flag  ```canBeLoaned``` pour les équipements. SI on souhaite supprimer un utilisateur, celui-ci est remplacé par un autre utilisateur non identifiable dans les emprunts existants (adresse mail aléatoire terminant par '@unknown.com'), un flag isReal est vrai si l'utilisateur correspond vraiment à un utilisateur, est faux s'il s'agit d'un utilisateur de substitution.
 
 ## License
 ![CC png](https://user-images.githubusercontent.com/50581556/143511708-a5133dcf-41f6-4a34-98c5-57488f75197a.png)
