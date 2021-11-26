@@ -50,11 +50,6 @@ public class AddUserController extends HttpServlet {
 		String email = req.getParameter("email");
 		String address = req.getParameter("address");
 		String phoneNumber = req.getParameter("phoneNumber");
-		String csrfToken = req.getParameter("_token");
-	
-		if (Csrf.validateRequest(req, csrfToken)) {
-			
-		}
 
 		User user = new User(name, firstname, address, phoneNumber, email, login, password);
 
